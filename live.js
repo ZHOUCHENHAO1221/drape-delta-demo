@@ -7,6 +7,10 @@
 (function () {
   var API = '/.netlify/functions';
 
+  // Deployed as a live website in a real browser — drop the desktop "window mock"
+  // chrome and let the workspace fill the viewport.
+  try { document.body.classList.add('live'); } catch (e) {}
+
   function fmtSize(n) {
     if (n == null) return '';
     return n < 1024 ? n + ' B' : n < 1048576 ? (n / 1024).toFixed(0) + ' KB' : (n / 1048576).toFixed(1) + ' MB';
