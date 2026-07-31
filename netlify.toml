@@ -1,0 +1,13 @@
+# DRAPE DELTA — live demo (static site + serverless functions + Netlify Blobs)
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# index.html is the CLO side-panel (primary). mobile.html is the phone companion.
+[[redirects]]
+  from = "/mobile"
+  to = "/mobile.html"
+  status = 200

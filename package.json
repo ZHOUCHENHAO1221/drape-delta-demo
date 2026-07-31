@@ -1,0 +1,10 @@
+{
+  "name": "drape-delta-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "DRAPE DELTA — live upload/download demo (Netlify Functions + Blobs)",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

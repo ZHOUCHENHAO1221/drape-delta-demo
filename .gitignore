@@ -1,0 +1,14 @@
+# dependencies (Netlify installs these on build)
+node_modules/
+
+# netlify local state
+.netlify/
+
+# env / secrets
+.env
+.env.*
+
+# os / editor
+.DS_Store
+Thumbs.db
+*.log
