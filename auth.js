@@ -12,7 +12,13 @@ window.DRAPE_AUTH = (function () {
   }
   function emit() { listeners.forEach(function (f) { try { f(state); } catch (e) {} }); }
   function setSession(session) {
-    state.user = (session && session.user) ? { id: session.user.id, email: session.user.email } : null;
+    var u = (session && session.user) || null;
+    if (u) {
+      var md = u.user_metadata || {};
+      var named = !!(md.display_name || md.full_name || md.name);
+      var name = md.display_name || md.full_name || md.name || (u.email ? u.email.split('@')[0] : 'you');
+      state.user = { id: u.id, email: u.email, name: name, named: named };
+    } else { state.user = null; }
     state.token = session ? session.access_token : null;
     emit();
   }
@@ -42,6 +48,12 @@ window.DRAPE_AUTH = (function () {
     signInGoogle: async function () {
       var c = await getClient(); if (!c) throw new Error('auth not configured');
       return c.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + location.pathname } });
+    },
+    setName: async function (name) {
+      var c = await getClient(); if (!c) throw new Error('auth not configured');
+      var r = await c.auth.updateUser({ data: { display_name: name } });
+      try { var s = await c.auth.getSession(); setSession(s.data.session); } catch (e) {}
+      return r;
     },
     signOut: async function () { var c = await getClient(); if (c) await c.auth.signOut(); }
   };
