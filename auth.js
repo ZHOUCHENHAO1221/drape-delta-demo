@@ -27,7 +27,11 @@ window.DRAPE_AUTH = (function () {
     if (!configured()) return null;
     if (!ready) {
       ready = import('https://esm.sh/@supabase/supabase-js@2').then(function (m) {
-        client = m.createClient(cfg.url, cfg.anonKey);
+        // implicit flow: magic links return #access_token and don't need the PKCE code
+        // verifier, so they work when the email opens the link in a different browser/tab.
+        client = m.createClient(cfg.url, cfg.anonKey, {
+          auth: { flowType: 'implicit', detectSessionInUrl: true, persistSession: true, autoRefreshToken: true },
+        });
         client.auth.onAuthStateChange(function (_e, session) { setSession(session); });
         return client.auth.getSession().then(function (r) { setSession(r.data.session); return client; });
       }).catch(function (e) { console.warn('Supabase SDK load failed', e); return null; });
@@ -44,6 +48,14 @@ window.DRAPE_AUTH = (function () {
     signInEmail: async function (email) {
       var c = await getClient(); if (!c) throw new Error('auth not configured');
       return c.auth.signInWithOtp({ email: email, options: { emailRedirectTo: location.origin + location.pathname } });
+    },
+    // Cross-device sign-in: the emailed 6-digit code is typed back into THIS page, so the
+    // session is created here (the computer) even when the email is read on a phone.
+    verifyEmailCode: async function (email, code) {
+      var c = await getClient(); if (!c) throw new Error('auth not configured');
+      var r = await c.auth.verifyOtp({ email: email, token: code, type: 'email' });
+      if (r && r.error) throw r.error;
+      return r;
     },
     signInGoogle: async function () {
       var c = await getClient(); if (!c) throw new Error('auth not configured');
