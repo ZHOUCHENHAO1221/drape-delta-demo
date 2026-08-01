@@ -134,6 +134,17 @@ body.live .tl{display:none}
 .uz-t{font-size:13px;font-weight:600;color:var(--ink)}
 .uz-s{font-size:11px;color:var(--ink2);line-height:1.45;margin-top:5px}
 .uz-c{display:inline-block;margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--green);border:1px solid var(--green);border-radius:7px;padding:5px 12px}
+.chan{display:flex;flex-direction:column;gap:8px}
+.chard{display:flex;gap:11px;padding:11px 12px;border-radius:11px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line)}
+.chard.live{box-shadow:inset 0 0 0 1.5px var(--green)}
+.chard .cn{flex:0 0 24px;height:24px;border-radius:7px;background:var(--panel);color:var(--ink2);font-family:var(--mono);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.chard.live .cn{background:var(--greenSoft);color:var(--green)}
+.cbody{min-width:0}
+.ct{font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap;line-height:1.3}
+.cbadge{font-family:var(--mono);font-size:8.5px;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:20px;white-space:nowrap}
+.cbadge.ok{color:var(--green);background:var(--greenSoft)}.cbadge.con{color:var(--ink2);background:var(--track)}
+.cd{font-size:11px;color:var(--ink2);line-height:1.45;margin-top:3px}
+.csrc{font-family:var(--mono);font-size:9px;color:var(--ink2);margin-top:5px;opacity:.85}
 .hint{font-family:var(--mono);font-size:9.5px;color:var(--ink2);line-height:1.5;text-align:center;margin-top:7px}
 .credit{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-family:var(--mono);font-size:10px;color:#565c64}
 </style></head><body class="live"><div class="win"><div class="titlebar"><div class="tl"><i></i><i></i><i></i></div><div class="tt">CLO3D 2026 · FV2_Gathered_A_Line_Maxi.zprj</div><div class="tr">panel concept&nbsp; <b>DRAPE &#9651;</b></div></div><div class="body"><div class="viewport" id="vp"></div><div class="panel"><div class="phead"><b>DRAPE <span class="g">&#9651;</span></b><span class="ph2">Measured materials</span></div><div class="ptabs"><button data-t="materials" class="on" onclick="tab('materials')">Materials</button><button data-t="methods" onclick="tab('methods')">Methods</button><button data-t="about" onclick="tab('about')">About</button></div><div class="pbody" id="pb"></div><div class="disc">Exploratory prototype. Deltas are generic-vs-measured differences within CLO3D, not errors against physical reality.</div></div></div><div class="launch" id="launch"><div class="lbg"></div><div class="lgrid"></div><div class="lcard"><div class="lkick">Measured, not assumed</div><div class="lwm"><span class="w">DRAPE</span><svg class="ltri" viewBox="0 0 100 90"><path d="M50 5 L95 85 L5 85 Z"/></svg></div><div class="ltag">A measured digital-material workspace for CLO3D &mdash; see exactly how far a generic fabric preset sits from the measured fabric.</div><button class="lbtn" onclick="enterWS()">Enter workspace &rarr;</button><div class="lfoot">Panel concept &middot; single-engine pilot &middot; Chenhao Zhou &middot; LCF &middot; UAL 2026</div></div></div></div><script>
@@ -211,25 +222,25 @@ function matHTML(){const metric=(SORT==='g2')?'g2':'g1';
   ${detail()}`;}
 function reqPanel(){glStop();document.getElementById('vp').innerHTML=`<div class="vpnull"><div class="t">NO MEASURED ASSET SELECTED</div><div class="s">An unmeasured fabric has no comparison data.<br>Current garment view paused.</div></div>`;
  const el=document.getElementById('pb');
- el.innerHTML=`<div style="display:flex;align-items:center;gap:9px;margin-bottom:11px"><div onclick="vp();pbody()" style="width:28px;height:28px;border-radius:8px;background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px -8px rgba(0,0,0,.4)">&#8592;</div><b style="font-size:15px">Request measurement</b></div>
-  <div class="futbadge">Designed future workflow · not available in v1</div>
-  <div class="lead">An unmeasured fabric has no delta yet — a delta only exists once the fabric is measured and compared against a named generic baseline. This is how one would enter the workspace, sketched, not live.</div>
-  <div class="pipe">
-   <div class="pstep"><div class="n">1</div><div><div class="tt">Send a specimen</div><div class="dd">A physical swatch goes to the measurement partner.</div></div></div>
-   <div class="pstep"><div class="n">2</div><div><div class="tt">Measure &amp; digitise</div><div class="dd">Mass, thickness, bending and low-load stretch, calibrated into a .zfab.</div></div></div>
-   <div class="pstep"><div class="n">3</div><div><div class="tt">Record a named generic baseline</div><div class="dd">The CLO preset, version and values the measured input is compared against.</div></div></div>
-   <div class="pstep"><div class="n">4</div><div><div class="tt">Run the defined garment comparison</div><div class="dd">Same garment scenario &amp; solver settings, generic vs measured.</div></div></div>
-   <div class="pstep"><div class="n">5</div><div><div class="tt">Add the asset &amp; its evidence</div><div class="dd">It appears in the list with its generic-vs-measured delta and provenance.</div></div></div></div>
-  <div class="sect" style="margin-top:16px">Already measured elsewhere?</div>
-  <div class="futbadge">Future import concept · not available in v1</div>
-  <div class="uploadz" id="uploadz" onclick="uploadDemo(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();uploadDemo(this)}" tabindex="0" role="button" aria-label="Upload a calibrated file or measurement package for provenance review — concept">
+ const CH=[
+  {t:'Upload a calibrated .zfab',d:'You already have a CLO fabric file — bring it straight into the library.',src:'uploader-declared',live:true},
+  {t:'Upload a measurement package',d:'Structured ISO values — mass (3801) · thickness (5084) · tensile (13934-1) · bending — as a CSV or form.',src:"contributor's test report",live:false},
+  {t:'Request lab measurement',d:'Send a physical swatch; a partner lab measures it to ISO and digitises it into a .zfab.',src:'measurement partner / lab',live:false},
+  {t:'Supplier spec-sheet feed',d:'Mills and suppliers contribute their catalogue data — weight, composition, finish, construction.',src:'supplier-declared',live:false},
+  {t:'Import from a fabric platform',d:'Bring in from CLO-SET Connect, a Vizoo xTex scan or Browzwear, keeping source attribution.',src:'source platform',live:false},
+  {t:'Measurement-device integration',d:'Connect an instrument — Cusick drape · KES / FAST · fabric scanner — that outputs values directly.',src:'instrument read-out',live:false}
+ ];
+ const UZ=`<div class="uploadz" id="uploadz" onclick="uploadDemo(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();uploadDemo(this)}" tabindex="0" role="button" aria-label="Drop a calibrated .zfab into the library">
    <div class="uz-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></div>
-   <div class="uz-t">Upload a calibrated <b>.zfab</b> or structured measurement package for provenance review</div>
-   <div class="uz-s">A future build could register a measured-asset <b>candidate</b> after its measurement method, units and calibration provenance are reviewed. A named baseline and a defined garment comparison would still be required before a delta record is created.</div>
-   <div class="uz-c">choose a file</div></div>
-  <div class="mod" style="margin-top:9px"><div class="t">What this does not do</div><div class="li">It does not derive properties from a photo, and a file extension alone does not prove a fabric was physically measured. Uploaded data would be a candidate pending provenance review — a named baseline and garment comparison are still required before any delta.</div></div>
-  <div class="mod"><div class="t">Out of scope for v1</div><div class="li">No live progress, delivery date, pricing or automated result — this state only describes the intended flow.</div></div>`;}
-function uploadDemo(el){if(el.classList.contains('done'))return;el.classList.add('done');el.querySelector('.uz-t').innerHTML='&#10003; concept — no file is read or stored';el.querySelector('.uz-s').textContent='A future build would accept a measured-asset candidate for provenance review. A named baseline and garment comparison would still be required before any delta record.';el.querySelector('.uz-c').textContent='concept only';}
+   <div class="uz-t">Drop a calibrated <b>.zfab</b> into the library</div>
+   <div class="uz-s">Stored with its declared provenance as a candidate. The library organises it and hands it back to CLO3D — it does not measure, validate or certify the values; correctness stays with the contributor.</div>
+   <div class="uz-c">choose a file</div></div>`;
+ const cards=CH.map((c,i)=>`<div class="chard${c.live?' live':''}"><div class="cn">${i+1}</div><div class="cbody"><div class="ct">${c.t}<span class="cbadge ${c.live?'ok':'con'}">${c.live?'Available':'Concept'}</span></div><div class="cd">${c.d}</div><div class="csrc">provenance &middot; ${c.src}</div></div></div>${c.live?UZ:''}`).join('');
+ el.innerHTML=`<div style="display:flex;align-items:center;gap:9px;margin-bottom:11px"><div onclick="vp();pbody()" style="width:28px;height:28px;border-radius:8px;background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px -8px rgba(0,0,0,.4)">&#8592;</div><b style="font-size:15px">Contribution channels</b></div>
+  <div class="lead">The library grows through these channels. The platform <b>organises, versions and hands off</b> measured fabric and shows each entry's provenance — it does <b>not</b> measure, validate or certify. v1 demonstrates channel 1 end-to-end; the rest are the designed intake model.</div>
+  <div class="chan">${cards}</div>
+  <div class="mod" style="margin-top:11px"><div class="t">What the platform does not do</div><div class="li">It does not measure fabric, derive properties from a photo, or certify a contributor's data — a file extension alone does not prove a fabric was physically measured. Provenance is shown, not verified; a delta only exists after a named baseline and a defined garment comparison, run in CLO3D offline.</div></div>`;}
+function uploadDemo(el){if(el.classList.contains('done'))return;el.classList.add('done');el.querySelector('.uz-t').innerHTML='&#10003; prototype — the live deployment stores this for real';el.querySelector('.uz-s').textContent='On the live site this really uploads the .zfab into the library as a candidate with its provenance. In this static prototype nothing is written.';el.querySelector('.uz-c').textContent='open the live site to upload';}
 function setSort(k){SORT=k;pbody();}
 function detail(){const f=F.find(x=>x.id===SEL);const abl=f.abl;
  const relPct=r=>Math.round(Math.abs(r[1]-r[2])/Math.max(Math.abs(r[2]),0.001)*100);
