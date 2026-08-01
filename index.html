@@ -187,7 +187,7 @@ window.addEventListener('pointermove',e=>{if(!drag3)return;yaw+=(e.clientX-px)*0
 window.addEventListener('pointerup',()=>drag3=false);
 function vp(){const f=F.find(x=>x.id===SEL);
  const stage = MODE==='heat'
-   ? `<canvas class="vpcanvas" id="vpcanvas"></canvas><div class="vphint">drag to rotate · scroll to zoom · per-vertex |&#916;| · 13k-point display sample · source mesh 59,374 vertices</div><div class="vpleg"><span>135</span><i></i><span>0 mm</span></div>`
+   ? `<canvas class="vpcanvas" id="vpcanvas"></canvas><div class="vphint">drag to rotate · scroll to zoom · per-vertex |&#916;| · 13k-point display sample · source mesh 59,374 vertices</div><div class="vpleg"><span>scale max<br>135 mm</span><i></i><span>0 mm</span></div>`
    : `<div class="vpba" id="vpba"><img src="${f.after}"><img class="ti" src="${f.before}"><span class="lab l">generic</span><span class="lab r">measured</span><div class="dv"></div><div class="kn">&#8596;</div></div>`;
  document.getElementById('vp').innerHTML=`<div class="floor"></div>
   <div class="vptop"><div class="vpctrl"><button type="button" title="Reset view" aria-label="Reset 3D view" onclick="v3dReset()">&#9723;</button><button type="button" id="v3spin" class="${spin?'on':''}" title="Auto-rotate" aria-label="Toggle auto-rotate" onclick="v3dSpin()">&#8635;</button><button type="button" title="Front view" aria-label="Front 3D view" onclick="v3dFront()">&#10021;</button></div>
@@ -237,10 +237,10 @@ function reqPanel(){glStop();document.getElementById('vp').innerHTML=`<div class
    <div class="uz-c">choose a file</div></div>`;
  const cards=CH.map((c,i)=>`<div class="chard${c.live?' live':''}"><div class="cn">${i+1}</div><div class="cbody"><div class="ct">${c.t}<span class="cbadge ${c.live?'ok':'con'}">${c.live?'Available':'Concept'}</span></div><div class="cd">${c.d}</div><div class="csrc">provenance &middot; ${c.src}</div></div></div>${c.live?UZ:''}`).join('');
  el.innerHTML=`<div style="display:flex;align-items:center;gap:9px;margin-bottom:11px"><div onclick="vp();pbody()" style="width:28px;height:28px;border-radius:8px;background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px -8px rgba(0,0,0,.4)">&#8592;</div><b style="font-size:15px">Contribution channels</b></div>
-  <div class="lead">The library grows through these channels. The platform <b>organises, versions and hands off</b> measured fabric and shows each entry's provenance — it does <b>not</b> measure, validate or certify. v1 demonstrates channel 1 end-to-end; the rest are the designed intake model.</div>
+  <div class="lead">Measured-material assets enter the library through these intake routes. The platform <b>organises, versions and hands off</b> measured fabric and shows each entry's provenance — it does <b>not</b> measure, validate or certify. v1 demonstrates channel 1 end-to-end; the rest are the designed intake model.</div>
   <div class="chan">${cards}</div>
   <div class="mod" style="margin-top:11px"><div class="t">What the platform does not do</div><div class="li">It does not measure fabric, derive properties from a photo, or certify a contributor's data — a file extension alone does not prove a fabric was physically measured. Provenance is shown, not verified; a delta only exists after a named baseline and a defined garment comparison, run in CLO3D offline.</div></div>`;}
-function uploadDemo(el){if(el.classList.contains('done'))return;el.classList.add('done');el.querySelector('.uz-t').innerHTML='&#10003; prototype — the live deployment stores this for real';el.querySelector('.uz-s').textContent='On the live site this really uploads the .zfab into the library as a candidate with its provenance. In this static prototype nothing is written.';el.querySelector('.uz-c').textContent='open the live site to upload';}
+function uploadDemo(el){if(el.classList.contains('done'))return;el.classList.add('done');el.querySelector('.uz-t').innerHTML='&#10003; prototype — the live deployment stores this for real';el.querySelector('.uz-s').textContent='On the live site (drape-delta.netlify.app) this really uploads the file and stores it as a candidate with its declared provenance — no properties are derived and no delta is produced. In this static prototype nothing is written.';el.querySelector('.uz-c').textContent='open the live site to upload';}
 function setSort(k){SORT=k;pbody();}
 function detail(){const f=F.find(x=>x.id===SEL);const abl=f.abl;
  const relPct=r=>Math.round(Math.abs(r[1]-r[2])/Math.max(Math.abs(r[2]),0.001)*100);
@@ -255,13 +255,13 @@ function detail(){const f=F.find(x=>x.id===SEL);const abl=f.abl;
   <div class="sect">Property difference · generic → measured · warp/weft</div><div class="pg">${bars}</div>
   <div class="note">Mass / thickness relative difference = |generic − measured| ÷ measured × 100 · bending / stretch = CLO 0–99 index (no natural zero), shown as Δ index points · bars scaled within each kind</div>
   <div class="note" style="margin-top:5px">Generic thickness is a constant 0.50 mm CLO placeholder across all presets — part of the thickness delta reflects this default, not a class-specific value.</div>
-  <div class="note" style="margin-top:5px">${abl?'Properties highlighted from the isolation result — examined in the available runs, not independent causal contributions.':'Largest measured differences shown · property isolation was not run on this fabric.'}</div>
+  <div class="note" style="margin-top:5px">${abl?'Properties highlighted from the isolation result — examined in the available runs, not independent causal contributions.':'Property differences shown · property isolation was not run on this fabric.'}</div>
   <div class="sect">Evidence available</div><div class="cap">
    <div class="crow"><span>Garment delta records · G1 / G2</span><b class="y">✓</b></div>
    <div class="crow"><span>Visual before/after · G1</span><b class="y">✓</b></div>
    <div class="crow"><span>3D displacement map · G1</span><b class="y">✓</b></div>
    <div class="crow"><span>Property difference</span><b class="y">✓</b></div>
-   <div class="crow ${abl?'lk':''}" ${abl?`onclick="isoAlert('${f.id}')"`:''}><span>Property isolation (ablation)</span><b class="${abl?'y':'n'}">${abl?'available':'not run'}</b></div></div>
+   <div class="crow ${abl?'lk':''}" ${abl?`onclick="isoAlert('${f.id}')"`:''}><span>Property isolation (ablation)</span><b class="${abl?'y':'n'}">${abl?'available &rarr;':'not run'}</b></div></div>
   <div class="sect">Provenance</div><div class="prov">
    <div class="prow"><span>Generic baseline</span><b>${f.preset}</b></div>
    <div class="prow"><span>Baseline source</span><b>CLO 2026.0.374 built-in library · V2 · as shipped</b></div>
@@ -289,6 +289,7 @@ function methodsHTML(){const s=[["1","Physical fabric","7 specimens · 6 specs (
   <div class="pipe">${s.map(x=>`<div class="pstep"><div class="n">${x[0]}</div><div><div class="tt">${x[1]}</div><div class="dd">${x[2]}</div></div></div>`).join('')}</div>
   <div class="sect">Why measuring matters</div><div class="fig"><img src="${CHART}"></div>
   <div class="hint">ISO 13934-1 low-load response · 5% secant stiffness → CLO stretch index (proxy, not a standard stretch test)</div>
+  <div class="mod"><div class="t">How &Delta; is computed</div><div class="li"><b style="white-space:nowrap">Garment &Delta;</b> = mean per-vertex absolute displacement between the generic-preset run and the measured-input run, within the same CLO3D garment scenario.</div><div class="li">Specimen level: each fabric's G1 / G2 &Delta; is that mean over the garment mesh (e.g. P15 G1 = 95 mm). Dataset level: 24.5 / 10.1 mm are the means of the seven specimen-level values (G1 median 12.0 mm).</div></div>
   <div class="mod"><div class="t">ISO → CLO coverage</div><div class="li">3 of 5 engine inputs come from an ISO source</div><div class="li">Bending non-standard cantilever · shear at engine default</div></div>
   <div class="mod"><div class="t">Disclosures</div><div class="li">ISO 139 conditioning not done — disclosed departure</div><div class="li">Spearman 0.98 / 1.00 = internal consistency only, not physical-truth validation</div><div class="li">Single engine (CLO3D) · n=5 per reported test, warp/weft where directional · 7 specimens / 6 specs (P31/P32 same spec, dyed apart)</div></div>
   <div class="mod"><div class="t">Coverage note</div><div class="li">v1 covers already-measured fabric; an unmeasured fabric has no delta yet. Full framing in About.</div></div>`;}
