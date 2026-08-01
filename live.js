@@ -226,13 +226,11 @@
       '<button class="abtn g" data-ggoogle>' + GICON + 'Continue with Google</button>' +
       '<button class="abtn guest" data-gguest>Explore as guest &rarr;</button>' +
       '<a href="#" data-gemailtoggle class="aor" style="cursor:pointer;text-decoration:none">or sign in with email</a>' +
-      '<div class="arow" data-gemailrow style="display:none"><input class="an" data-gemail type="email" placeholder="you@email.com"><button class="abtn mail" data-gmail>Email a code</button></div>' +
-      '<div class="arow" data-gcoderow style="display:none"><input class="an" data-gcode type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="6-digit code"><button class="abtn mail" data-gverify>Verify</button></div>' +
-      '<div class="ahint">Google is the fastest sign-in. Guests can browse the whole library; contributing a fabric needs an account.</div>';
+      '<div class="arow" data-gemailrow style="display:none"><input class="an" data-gemail type="email" placeholder="you@email.com"><button class="abtn mail" data-gmail>Email me a link</button></div>' +
+      '<div class="ahint">Just exploring? Continue as guest — no account needed. Uploading a fabric needs sign-in (Google, or an email link opened on this device).</div>';
     var foot = card.querySelector('.lfoot');
     if (foot) card.insertBefore(g, foot); else card.appendChild(g);
     var nm = g.querySelector('[data-gname]');
-    var sentEmail = '';
     var etgl = g.querySelector('[data-gemailtoggle]'), erow = g.querySelector('[data-gemailrow]');
     if (etgl) etgl.onclick = function (e) { e.preventDefault(); var show = erow.style.display === 'none'; erow.style.display = show ? 'flex' : 'none'; if (show) { var ei = erow.querySelector('[data-gemail]'); if (ei) ei.focus(); } };
     g.querySelector('[data-ggoogle]').onclick = function () {
@@ -242,21 +240,9 @@
     g.querySelector('[data-gmail]').onclick = function () {
       var em = g.querySelector('[data-gemail]'), v = (em.value || '').trim(); if (!v) { em.focus(); return; }
       var n = (nm.value || '').trim(); if (n) try { localStorage.setItem('drape_pending_name', n); } catch (e) {}
-      sentEmail = v;
       var b = this; b.textContent = 'sending…';
-      DRAPE_AUTH.signInEmail(v).then(function () {
-        b.textContent = 'code sent ✓';
-        var cr = g.querySelector('[data-gcoderow]'); if (cr) { cr.style.display = 'flex'; var ci = cr.querySelector('[data-gcode]'); if (ci) ci.focus(); }
-        var h = g.querySelector('.ahint'); if (h) h.textContent = 'We emailed a 6-digit code to ' + v + '. Type it here — works even if you read the email on your phone.';
-      }).catch(function () { b.textContent = 'retry'; });
-    };
-    g.querySelector('[data-gverify]').onclick = function () {
-      var ci = g.querySelector('[data-gcode]'), code = (ci.value || '').replace(/\s+/g, ''); if (!code) { ci.focus(); return; }
-      var b = this; b.textContent = 'verifying…';
-      DRAPE_AUTH.verifyEmailCode(sentEmail, code).then(function () {
-        b.textContent = 'signed in ✓';
-        if (window.enterWS) window.enterWS();
-      }).catch(function () { b.textContent = 'wrong code — retry'; });
+      DRAPE_AUTH.signInEmail(v).then(function () { b.textContent = 'link sent ✓'; var h = g.querySelector('.ahint'); if (h) h.textContent = 'We sent a sign-in link to ' + v + '. Open it on THIS device to finish. Reading email on your phone? Use Continue with Google above instead.'; })
+        .catch(function () { b.textContent = 'retry'; });
     };
     g.querySelector('[data-gguest]').onclick = function () {
       var n = (nm.value || '').trim(); setGuest(true); if (n) setGuestName(n); renderIdentity();

@@ -49,14 +49,6 @@ window.DRAPE_AUTH = (function () {
       var c = await getClient(); if (!c) throw new Error('auth not configured');
       return c.auth.signInWithOtp({ email: email, options: { emailRedirectTo: location.origin + location.pathname } });
     },
-    // Cross-device sign-in: the emailed 6-digit code is typed back into THIS page, so the
-    // session is created here (the computer) even when the email is read on a phone.
-    verifyEmailCode: async function (email, code) {
-      var c = await getClient(); if (!c) throw new Error('auth not configured');
-      var r = await c.auth.verifyOtp({ email: email, token: code, type: 'email' });
-      if (r && r.error) throw r.error;
-      return r;
-    },
     signInGoogle: async function () {
       var c = await getClient(); if (!c) throw new Error('auth not configured');
       return c.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + location.pathname } });
