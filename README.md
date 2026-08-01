@@ -55,5 +55,5 @@ This is an **exploratory, single-engine pilot**, not a product or a validated me
 
 ## Author
 
-**Chenhao Zhou** · MA Innovative Fashion Production · London College of Fashion, UAL · 2026
+**Chenhao Zhou (周琛昊)** · MA Innovative Fashion Production · London College of Fashion, UAL · 2026
 Licensed under the [MIT License](./LICENSE).
