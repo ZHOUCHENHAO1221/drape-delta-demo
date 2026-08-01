@@ -41,7 +41,7 @@
     }
     var rows = assets.map(function (a) {
       var owner = a.ownerEmail ? '<span style="opacity:.55"> · ' + esc(a.ownerEmail) + '</span>' : '';
-      var del = a.mine ? '<a href="#" data-del="' + esc(a.key) + '" data-name="' + esc(a.name) + '" style="color:#c0473a;text-decoration:none;margin-left:12px">delete &times;</a>' : '';
+      var del = a.canDelete ? '<a href="#" data-del="' + esc(a.key) + '" data-name="' + esc(a.name) + '" style="color:#c0473a;text-decoration:none;margin-left:12px">delete &times;</a>' : '';
       return '<div class="prow"><span>' + esc(a.name) + ' <span style="opacity:.6">· ' + fmtSize(a.size) + '</span>' + owner + '</span>' +
         '<b><a href="' + API + '/download?key=' + encodeURIComponent(a.key) + '" style="color:var(--green);text-decoration:none">download &darr;</a>' + del + '</b></div>';
     }).join('');
@@ -224,13 +224,15 @@
     g.innerHTML =
       '<input class="an" data-gname type="text" placeholder="Your name (optional)">' +
       '<button class="abtn g" data-ggoogle>' + GICON + 'Continue with Google</button>' +
-      '<div class="aor">OR</div>' +
-      '<div class="arow"><input class="an" data-gemail type="email" placeholder="you@email.com"><button class="abtn mail" data-gmail>Email link</button></div>' +
       '<button class="abtn guest" data-gguest>Explore as guest &rarr;</button>' +
-      '<div class="ahint">Guests can browse the whole library. Contributing a fabric needs an account.</div>';
+      '<a href="#" data-gemailtoggle class="aor" style="cursor:pointer;text-decoration:none">or sign in with email</a>' +
+      '<div class="arow" data-gemailrow style="display:none"><input class="an" data-gemail type="email" placeholder="you@email.com"><button class="abtn mail" data-gmail>Email link</button></div>' +
+      '<div class="ahint">Google is the fastest sign-in. Guests can browse the whole library; contributing a fabric needs an account.</div>';
     var foot = card.querySelector('.lfoot');
     if (foot) card.insertBefore(g, foot); else card.appendChild(g);
     var nm = g.querySelector('[data-gname]');
+    var etgl = g.querySelector('[data-gemailtoggle]'), erow = g.querySelector('[data-gemailrow]');
+    if (etgl) etgl.onclick = function (e) { e.preventDefault(); var show = erow.style.display === 'none'; erow.style.display = show ? 'flex' : 'none'; if (show) { var ei = erow.querySelector('[data-gemail]'); if (ei) ei.focus(); } };
     g.querySelector('[data-ggoogle]').onclick = function () {
       var n = (nm.value || '').trim(); if (n) try { localStorage.setItem('drape_pending_name', n); } catch (e) {}
       DRAPE_AUTH.signInGoogle().catch(function () { alert('Google sign-in is not configured in Supabase yet.'); });

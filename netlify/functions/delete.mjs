@@ -1,5 +1,5 @@
 import { getStore } from '@netlify/blobs';
-import { authEnabled, getUser } from './_auth.mjs';
+import { authEnabled, getUser, isAdmin } from './_auth.mjs';
 
 // POST /.netlify/functions/delete  { key }  — removes an uploaded candidate.
 // Only affects uploaded candidates in Blobs; the 7 seed fabrics are baked into the
@@ -24,8 +24,10 @@ export default async (req) => {
   try { const cur = await index.get('index', { type: 'json' }); if (Array.isArray(cur)) idx = cur; } catch {}
   const asset = idx.find((a) => a.key === key);
 
-  // Ownership check (only when auth is enabled): own uploads, or legacy uploads with no owner.
-  if (authEnabled() && asset && asset.ownerId && (!user || asset.ownerId !== user.id)) {
+  // Authorization (only when auth is enabled): the owner, an admin (moderation — can
+  // remove anyone's upload), or a legacy upload with no recorded owner.
+  const owned = !!(asset && asset.ownerId && user && asset.ownerId === user.id);
+  if (authEnabled() && asset && asset.ownerId && !(owned || isAdmin(user))) {
     return json({ error: 'you can only delete your own uploads' }, 403);
   }
 
