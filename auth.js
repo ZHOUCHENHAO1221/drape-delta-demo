@@ -1,0 +1,48 @@
+/* DRAPE — Supabase auth layer (client).
+   Loads the Supabase JS SDK on demand and exposes window.DRAPE_AUTH.
+   No-op (configured()===false) until supabase-config.js holds real values,
+   so the site keeps working in open mode until you wire Supabase. */
+window.DRAPE_AUTH = (function () {
+  var cfg = window.DRAPE_SUPABASE || {};
+  var client = null, ready = null, listeners = [];
+  var state = { user: null, token: null };
+
+  function configured() {
+    return !!(cfg.url && cfg.anonKey && cfg.url.indexOf('YOUR-') === -1 && cfg.anonKey.indexOf('YOUR-') === -1);
+  }
+  function emit() { listeners.forEach(function (f) { try { f(state); } catch (e) {} }); }
+  function setSession(session) {
+    state.user = (session && session.user) ? { id: session.user.id, email: session.user.email } : null;
+    state.token = session ? session.access_token : null;
+    emit();
+  }
+  async function getClient() {
+    if (client) return client;
+    if (!configured()) return null;
+    if (!ready) {
+      ready = import('https://esm.sh/@supabase/supabase-js@2').then(function (m) {
+        client = m.createClient(cfg.url, cfg.anonKey);
+        client.auth.onAuthStateChange(function (_e, session) { setSession(session); });
+        return client.auth.getSession().then(function (r) { setSession(r.data.session); return client; });
+      }).catch(function (e) { console.warn('Supabase SDK load failed', e); return null; });
+    }
+    return ready;
+  }
+
+  return {
+    configured: configured,
+    init: getClient,
+    user: function () { return state.user; },
+    token: function () { return state.token; },
+    onChange: function (f) { listeners.push(f); f(state); },
+    signInEmail: async function (email) {
+      var c = await getClient(); if (!c) throw new Error('auth not configured');
+      return c.auth.signInWithOtp({ email: email, options: { emailRedirectTo: location.origin + location.pathname } });
+    },
+    signInGoogle: async function () {
+      var c = await getClient(); if (!c) throw new Error('auth not configured');
+      return c.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + location.pathname } });
+    },
+    signOut: async function () { var c = await getClient(); if (c) await c.auth.signOut(); }
+  };
+})();
