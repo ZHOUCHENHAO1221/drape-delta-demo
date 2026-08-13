@@ -205,7 +205,7 @@
     "P28 felted wool (21.8 mm)": "P28 毡呢羊毛(21.8 mm)",
     "largest mean delta (P15)": "最大均值差值(P15)",
     "largest single-vertex delta": "最大单顶点差值",
-    "fabrics measured to ISO": "按 ISO 实测的面料",
+    "calibrated fabrics, ISO-sourced measurements": "标定面料 · 测量源自 ISO",
     "7 calibrated files, loadable in CLO3D": "7 个已标定文件,可在 CLO3D 加载",
 
     // ---- methods ----

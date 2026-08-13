@@ -1,0 +1,20 @@
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://esm.sh; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://esm.sh https://*.supabase.co wss://*.supabase.co; frame-ancestors 'self'; base-uri 'self'; form-action 'self'
+
+# Lazy-loaded static assets (rarely change) — cache for a week
+/img/*
+  Cache-Control: public, max-age=604800
+/imgm/*
+  Cache-Control: public, max-age=604800
+/heat_pc.js
+  Cache-Control: public, max-age=604800
+/heat_pc_m.js
+  Cache-Control: public, max-age=604800
+/zfab_data.js
+  Cache-Control: public, max-age=604800
+/drape_forms.js
+  Cache-Control: public, max-age=604800

@@ -293,6 +293,61 @@
       window[fn] = function () { var out = orig.apply(this, arguments); setTimeout(wireLive, 0); return out; };
     }
   });
+  // ---------------- mobile sign-in gate (mobile.html #intro flow; mirrors wireLaunchGate) ----------------
+  function buildMobileGate(signin) {
+    if (!signin || signin._mg) return;
+    signin._mg = true;
+    injectAuthCss();
+    var terms = signin.querySelector('.sterms');
+    [].forEach.call(signin.querySelectorAll('.sbtn,.sdiv'), function (x) { x.remove(); });
+    var g = document.createElement('div'); g.className = 'agate';
+    g.style.cssText = 'margin-top:18px;opacity:1;animation:none;width:auto';
+    g.innerHTML =
+      '<input class="an" data-mgname type="text" placeholder="Your name (optional)">' +
+      '<button class="abtn g" data-mgoogle>' + GICON + 'Continue with Google</button>' +
+      '<button class="abtn guest" data-mguest>Explore as guest &rarr;</button>' +
+      '<a href="#" data-mgetgl class="aor" style="cursor:pointer;text-decoration:none">or sign in with email</a>' +
+      '<div class="arow" data-mgerow style="display:none"><input class="an" data-mgemail type="email" placeholder="you@email.com"><button class="abtn mail" data-mgmail>Link</button></div>';
+    if (terms) { signin.insertBefore(g, terms); terms.textContent = 'Real accounts — Google, or an email link opened on this device. Guests can browse; uploading a fabric needs sign-in.'; }
+    else signin.appendChild(g);
+    var nm = g.querySelector('[data-mgname]');
+    g.querySelector('[data-mgoogle]').onclick = function () {
+      var n = (nm.value || '').trim(); if (n) try { localStorage.setItem('drape_pending_name', n); } catch (e) {}
+      DRAPE_AUTH.signInGoogle().catch(function () { alert('Google sign-in is not configured in Supabase yet.'); });
+    };
+    g.querySelector('[data-mguest]').onclick = function () {
+      var n = (nm.value || '').trim(); setGuest(true); if (n) setGuestName(n); if (window.introEnter) window.introEnter();
+    };
+    var etgl = g.querySelector('[data-mgetgl]'), erow = g.querySelector('[data-mgerow]');
+    etgl.onclick = function (e) { e.preventDefault(); var show = erow.style.display === 'none'; erow.style.display = show ? 'flex' : 'none'; if (show) { var ei = erow.querySelector('[data-mgemail]'); if (ei) ei.focus(); } };
+    g.querySelector('[data-mgmail]').onclick = function () {
+      var em = g.querySelector('[data-mgemail]'), v = (em.value || '').trim(); if (!v) { em.focus(); return; }
+      var n = (nm.value || '').trim(); if (n) try { localStorage.setItem('drape_pending_name', n); } catch (e) {}
+      var b = this; b.textContent = 'sending…';
+      DRAPE_AUTH.signInEmail(v).then(function () { b.textContent = 'link sent ✓'; var h = signin.querySelector('.sterms'); if (h) h.textContent = 'Sign-in link sent to ' + v + '. Open it on THIS device to finish.'; })
+        .catch(function () { b.textContent = 'retry'; });
+    };
+  }
+
+  function wireMobileGate() {
+    if (window.__mgate) return;
+    var intro = document.getElementById('intro');
+    if (!intro || document.getElementById('launch')) return; // mobile.html only
+    window.__mgate = true;
+    if (!authOn()) return; // no accounts configured -> mobile.html's own demo buttons handle it
+    ['introShow', 'swapTo'].forEach(function (fn) {
+      if (typeof window[fn] === 'function') {
+        var o = window[fn];
+        window[fn] = function () { var r = o.apply(this, arguments); setTimeout(function () { var s = intro.querySelector('.signin'); if (s) buildMobileGate(s); }, 0); return r; };
+      }
+    });
+    var s0 = intro.querySelector('.signin'); if (s0) buildMobileGate(s0);
+    function enter() { if (window.introEnter && !document.body.classList.contains('entered')) window.introEnter(); }
+    DRAPE_AUTH.init().then(function () { var u = authUser(); if (u) { setGuest(false); applyPendingName(u); enter(); } }).catch(function () {});
+    DRAPE_AUTH.onChange(function () { var u = authUser(); if (u) { setGuest(false); applyPendingName(u); enter(); } });
+  }
+
   setTimeout(wireLive, 300);
   wireLaunchGate();
+  wireMobileGate();
 })();

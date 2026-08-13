@@ -12,7 +12,7 @@
 
 ## What it is
 
-Digital fabric in 3D garment software usually starts from a *generic preset* — an assumption about how the cloth behaves. DRAPE △ takes seven fabrics that were **physically measured to ISO standards**, calibrated into CLO3D, and shows the gap between the generic preset and the measured fabric on the same garment — as a draggable before/after, a per-vertex displacement map, and property-by-property deltas.
+Digital fabric in 3D garment software usually starts from a *generic preset* — an assumption about how the cloth behaves. DRAPE △ takes seven fabrics that were **physically measured** (mass, thickness and tensile to ISO; bending by a non-standard cantilever and stretch by a low-load proxy, both disclosed), calibrated into CLO3D, and shows the gap between the generic preset and the measured fabric on the same garment — as a draggable before/after, a per-vertex displacement map, and property-by-property deltas.
 
 It is built as a **contributor-populated library**: the seven measured fabrics are the seed, and anyone can browse them or contribute their own already-measured fabric. The platform *organises, versions and hands fabric back to CLO3D, and shows each entry's provenance* — it does **not** measure, validate or certify the data.
 
