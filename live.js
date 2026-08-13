@@ -298,22 +298,27 @@
     if (!signin || signin._mg) return;
     signin._mg = true;
     injectAuthCss();
+    var zh = false;
+    try { zh = ((new URLSearchParams(location.search).get('lang')) || (window.localStorage && localStorage.getItem('drape_lang'))) === 'zh'; } catch (e) {}
+    var T = zh
+      ? { name: '你的名字(可选)', google: '用 Google 继续', guest: '以访客浏览 →', email: '或用邮箱登录', em: '你的邮箱', link: '发送', terms: '真实账号 —— Google,或在本设备打开邮箱链接。访客可浏览;上传面料需登录。', sending: '发送中…', sent: '已发送 ✓', retry: '重试', sentMsg: function (v) { return '登录链接已发送至 ' + v + ',请在本设备打开完成登录。'; }, gerr: 'Google 登录暂不可用。' }
+      : { name: 'Your name (optional)', google: 'Continue with Google', guest: 'Explore as guest &rarr;', email: 'or sign in with email', em: 'you@email.com', link: 'Link', terms: 'Real accounts — Google, or an email link opened on this device. Guests can browse; uploading a fabric needs sign-in.', sending: 'sending…', sent: 'link sent ✓', retry: 'retry', sentMsg: function (v) { return 'Sign-in link sent to ' + v + '. Open it on THIS device to finish.'; }, gerr: 'Google sign-in is unavailable.' };
     var terms = signin.querySelector('.sterms');
     [].forEach.call(signin.querySelectorAll('.sbtn,.sdiv'), function (x) { x.remove(); });
     var g = document.createElement('div'); g.className = 'agate';
     g.style.cssText = 'margin-top:18px;opacity:1;animation:none;width:auto';
     g.innerHTML =
-      '<input class="an" data-mgname type="text" placeholder="Your name (optional)">' +
-      '<button class="abtn g" data-mgoogle>' + GICON + 'Continue with Google</button>' +
-      '<button class="abtn guest" data-mguest>Explore as guest &rarr;</button>' +
-      '<a href="#" data-mgetgl class="aor" style="cursor:pointer;text-decoration:none">or sign in with email</a>' +
-      '<div class="arow" data-mgerow style="display:none"><input class="an" data-mgemail type="email" placeholder="you@email.com"><button class="abtn mail" data-mgmail>Link</button></div>';
-    if (terms) { signin.insertBefore(g, terms); terms.textContent = 'Real accounts — Google, or an email link opened on this device. Guests can browse; uploading a fabric needs sign-in.'; }
+      '<input class="an" data-mgname type="text" placeholder="' + T.name + '">' +
+      '<button class="abtn g" data-mgoogle>' + GICON + T.google + '</button>' +
+      '<button class="abtn guest" data-mguest>' + T.guest + '</button>' +
+      '<a href="#" data-mgetgl class="aor" style="cursor:pointer;text-decoration:none">' + T.email + '</a>' +
+      '<div class="arow" data-mgerow style="display:none"><input class="an" data-mgemail type="email" placeholder="' + T.em + '"><button class="abtn mail" data-mgmail>' + T.link + '</button></div>';
+    if (terms) { signin.insertBefore(g, terms); terms.textContent = T.terms; }
     else signin.appendChild(g);
     var nm = g.querySelector('[data-mgname]');
     g.querySelector('[data-mgoogle]').onclick = function () {
       var n = (nm.value || '').trim(); if (n) try { localStorage.setItem('drape_pending_name', n); } catch (e) {}
-      DRAPE_AUTH.signInGoogle().catch(function () { alert('Google sign-in is not configured in Supabase yet.'); });
+      DRAPE_AUTH.signInGoogle().catch(function () { alert(T.gerr); });
     };
     g.querySelector('[data-mguest]').onclick = function () {
       var n = (nm.value || '').trim(); setGuest(true); if (n) setGuestName(n); if (window.introEnter) window.introEnter();
@@ -323,9 +328,9 @@
     g.querySelector('[data-mgmail]').onclick = function () {
       var em = g.querySelector('[data-mgemail]'), v = (em.value || '').trim(); if (!v) { em.focus(); return; }
       var n = (nm.value || '').trim(); if (n) try { localStorage.setItem('drape_pending_name', n); } catch (e) {}
-      var b = this; b.textContent = 'sending…';
-      DRAPE_AUTH.signInEmail(v).then(function () { b.textContent = 'link sent ✓'; var h = signin.querySelector('.sterms'); if (h) h.textContent = 'Sign-in link sent to ' + v + '. Open it on THIS device to finish.'; })
-        .catch(function () { b.textContent = 'retry'; });
+      var b = this; b.textContent = T.sending;
+      DRAPE_AUTH.signInEmail(v).then(function () { b.textContent = T.sent; var h = signin.querySelector('.sterms'); if (h) h.textContent = T.sentMsg(v); })
+        .catch(function () { b.textContent = T.retry; });
     };
   }
 
