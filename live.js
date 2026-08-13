@@ -335,12 +335,10 @@
     if (!intro || document.getElementById('launch')) return; // mobile.html only
     window.__mgate = true;
     if (!authOn()) return; // no accounts configured -> mobile.html's own demo buttons handle it
-    ['introShow', 'swapTo'].forEach(function (fn) {
-      if (typeof window[fn] === 'function') {
-        var o = window[fn];
-        window[fn] = function () { var r = o.apply(this, arguments); setTimeout(function () { var s = intro.querySelector('.signin'); if (s) buildMobileGate(s); }, 0); return r; };
-      }
-    });
+    // .signin appears asynchronously (swapTo injects innerHTML after a 240ms fade),
+    // so observe #intro instead of wrapping introShow/swapTo (which missed the delayed inject).
+    var mo = new MutationObserver(function () { var s = intro.querySelector('.signin'); if (s) buildMobileGate(s); });
+    mo.observe(intro, { childList: true, subtree: true });
     var s0 = intro.querySelector('.signin'); if (s0) buildMobileGate(s0);
     function enter() { if (window.introEnter && !document.body.classList.contains('entered')) window.introEnter(); }
     DRAPE_AUTH.init().then(function () { var u = authUser(); if (u) { setGuest(false); applyPendingName(u); enter(); } }).catch(function () {});
