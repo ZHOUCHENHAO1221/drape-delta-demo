@@ -10,13 +10,25 @@
 
 ---
 
+
+## Environment variables
+
+Set these on the deployment (Netlify → Site configuration → Environment variables).
+
+| Variable | Effect if unset |
+|---|---|
+| `SUPABASE_URL`, `SUPABASE_ANON_KEY` | The functions cannot verify anyone, so the backend falls into open mode: **private uploads are refused** (by design — the server will not accept data under a promise it cannot keep) and the hourly heartbeat logs `NOT CHECKED` instead of green. The browser reads its own credentials from the committed `supabase-config.js`, so sign-in still *appears* to work — these two must be set for it to mean anything. |
+| `DRAPE_ADMINS` | Comma-separated emails. An admin can read and delete **any** contributor's upload, including private ones, and is the only identity that sees contributor emails. If unset, nobody is an admin. This is an allowlist, not a secret. |
+| `DRAPE_PASS` | Only used when Supabase is not configured. Turns the deployment into shared-passphrase mode, where "private" means *not publicly listed* rather than *only you*. |
+| `URL` | Set by Netlify. Used by the heartbeat and by `clientlog`'s same-origin check. |
+
 ## What it is
 
 Digital fabric in 3D garment software usually starts from a *generic preset* — an assumption about how the cloth behaves. DRAPE △ takes seven fabrics that were **physically measured** (mass, thickness and tensile to ISO; bending by a non-standard cantilever and stretch by a low-load proxy, both disclosed), calibrated into CLO3D, and shows the gap between the generic preset and the measured fabric on the same garment — as a draggable before/after, a per-vertex displacement map, and property-by-property deltas.
 
 It is built as a **contributor-populated library**: the seven measured fabrics are the seed, and anyone can browse them or contribute their own already-measured fabric. The platform *organises, versions and hands fabric back to CLO3D, and shows each entry's provenance* — it does **not** measure, validate or certify the data.
 
-Two self-contained builds ship here: **`index.html`** (the CLO3D side-panel concept, desktop) and **`mobile.html`** (a phone companion at `/mobile`). Each is a single file with fonts, data, renders and a WebGL displacement point-cloud embedded — it runs offline.
+Two self-contained builds ship here: **`index.html`** (the CLO3D side-panel concept, desktop) and **`mobile.html`** (a phone companion at `/mobile`). Each embeds its fonts and a WebGL displacement point-cloud, and lazy-loads its renders, point-cloud data and `.zfab` payloads as separate files. Both also load `supabase-config.js`, `monitor.js`, `auth.js`, `live.js` and `i18n.js`, so a deployed build is **not** a single offline file — the pre-2026-08-13 builds were, and this line described those.
 
 ## Screenshots
 
@@ -48,7 +60,7 @@ This is an **exploratory, single-engine pilot**, not a product or a validated me
 
 ## How it's built
 
-- **Front end** — one self-contained HTML file per build; inline WebGL (no Three.js) for the displacement point-cloud; base64-embedded Geist fonts, renders and data.
+- **Front end** — one HTML shell per build plus five shared scripts and lazy-loaded assets; inline WebGL (no Three.js) for the displacement point-cloud; base64-embedded Geist fonts.
 - **Storage** — Netlify Functions + Netlify Blobs for real upload / list / download / delete.
 - **Accounts** — Supabase auth (Google + email), validated server-side; gracefully degrades to open mode when unconfigured. Setup guide: **[README_AUTH.md](./README_AUTH.md)**.
 - **Hosting** — static site + serverless on Netlify. Deploy guide: **[README_DEPLOY.md](./README_DEPLOY.md)** (connect the repo; `netlify.toml` + `npm install` handle the rest).

@@ -26,7 +26,10 @@ window.DRAPE_AUTH = (function () {
     if (client) return client;
     if (!configured()) return null;
     if (!ready) {
-      ready = import('https://esm.sh/@supabase/supabase-js@2').then(function (m) {
+      // Pinned 2026-08-16. `@2` is a range: every deploy and every cold cache could resolve a
+      // different 2.x with nothing recording which one ran. Bump this deliberately — check
+      // https://esm.sh/@supabase/supabase-js@2 and read the version from its first line.
+      ready = import('https://esm.sh/@supabase/supabase-js@2.112.3').then(function (m) {
         // implicit flow: magic links return #access_token and don't need the PKCE code
         // verifier, so they work when the email opens the link in a different browser/tab.
         client = m.createClient(cfg.url, cfg.anonKey, {
@@ -45,17 +48,26 @@ window.DRAPE_AUTH = (function () {
     user: function () { return state.user; },
     token: function () { return state.token; },
     onChange: function (f) { listeners.push(f); f(state); },
+    // NOTE on error handling: supabase-js v2 RESOLVES with a { data, error } envelope —
+    // it does NOT reject on API errors. Returning the promise unchecked therefore made
+    // every failure look like a success ("link sent" for an address Supabase refused).
+    // Every call below unwraps the envelope and throws, so callers' .catch() is real.
     signInEmail: async function (email) {
       var c = await getClient(); if (!c) throw new Error('auth not configured');
-      return c.auth.signInWithOtp({ email: email, options: { emailRedirectTo: location.origin + location.pathname } });
+      var r = await c.auth.signInWithOtp({ email: email, options: { emailRedirectTo: location.origin + location.pathname } });
+      if (r && r.error) throw r.error;
+      return r;
     },
     signInGoogle: async function () {
       var c = await getClient(); if (!c) throw new Error('auth not configured');
-      return c.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + location.pathname } });
+      var r = await c.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + location.pathname } });
+      if (r && r.error) throw r.error;
+      return r;
     },
     setName: async function (name) {
       var c = await getClient(); if (!c) throw new Error('auth not configured');
       var r = await c.auth.updateUser({ data: { display_name: name } });
+      if (r && r.error) throw r.error;
       try { var s = await c.auth.getSession(); setSession(s.data.session); } catch (e) {}
       return r;
     },

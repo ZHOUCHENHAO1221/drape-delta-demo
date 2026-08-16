@@ -6,6 +6,11 @@
 [functions]
   node_bundler = "esbuild"
 
+# Hourly liveness check: proves the read path still answers and keeps the free-tier
+# Supabase project from being paused for inactivity. Writes to the function log.
+[functions."heartbeat"]
+  schedule = "@hourly"
+
 # index.html is the CLO side-panel (primary). mobile.html is the phone companion.
 [[redirects]]
   from = "/mobile"

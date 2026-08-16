@@ -9,6 +9,106 @@
    ⚠️ 中文待用户校对后再上线。 */
 (function () {
   var ZH = {
+  // ---- contribution surface / qualification record (2026-08-15) ----
+  "Upload a calibrated .zfab — or the report behind it": "上传已标定的 .zfab — 或它背后的报告",
+  "Drop a calibrated .zfab — or the report behind it": "拖入已标定的 .zfab — 或它背后的报告",
+  "Drop a calibrated .zfab, or the report behind it": "拖入已标定的 .zfab，或它背后的报告",
+  "You already have a CLO fabric file — bring it straight into the library, with the test report or spec sheet that backs it.": "你已经有 CLO 面料文件 —— 直接带进库，连同支撑它的检测报告或规格表。",
+  "Accepted: .zfab · .csv · .pdf · .txt · .json · .xlsx. The .zfab is the fabric; the rest are stored alongside it as declared evidence — they are filed, not parsed into properties.": "可接收：.zfab · .csv · .pdf · .txt · .json · .xlsx。.zfab 是面料本体，其余作为声明证据一并存放 — 只归档，不解析成属性。",
+  "Your email address": "你的邮箱地址",
+  "drag to reveal · a wipe, not a blend": "拖动揭示 · 是抹开，不是混合",
+  "3 of 5 engine inputs come from an ISO source · bending is a non-standard cantilever, shear is the engine default": "5 项引擎输入中有 3 项来自 ISO 标准 · 弯曲为非标悬臂，剪切为引擎默认值",
+  "drag the handle to reveal · wipes between two renders, it does not blend": "拖动手柄揭示 · 在两张渲染图之间抹开，并非混合",
+  "Deltas are generic-vs-measured differences computed inside CLO3D — not errors against physical reality.": "差值是在 CLO3D 内部计算的「通用 vs 实测」差异 — 并非相对物理真实的误差。",
+  "median drape delta · robust": "垂坠差值中位数 · 稳健",
+  "largest single-fabric mean (P15)": "单块面料最大均值（P15）",
+  "Mass / thickness relative difference = |generic − measured| ÷ measured × 100 · bending / stretch = CLO 0–99 index (no natural zero) · bars scaled within each kind": "单位面积质量 / 厚度的相对差 = |通用 − 实测| ÷ 实测 × 100 · 弯曲 / 拉伸 = CLO 0–99 指数（无自然零点）· 条形在各类内部各自缩放",
+  "Sort order only · the hero image and the 3D view show the drape (G1) scenario.": "仅排序 · 主图与 3D 视图始终展示垂坠（G1）情景。",
+
+  // ---- per-fabric delta strings, regenerated 2026-08-16 at one decimal ----
+  // Whole-sentence keys, so the printed FORMAT is part of the key. Regenerate these
+  // whenever the number format changes, or Chinese mode silently falls back to English.
+  "generic ↔ measured · drape G1 Δ 9.9 mm": "通用 ↔ 实测 · 悬垂 G1 Δ 9.9 mm",
+  "drag to compare · drape G1 Δ 9.9 mm": "拖拽对比 · 悬垂 G1 Δ 9.9 mm",
+  "G2 2.4 · thk 1.9×": "G2 2.4 · 厚 1.9×",
+  "generic ↔ measured · drape G1 Δ 95.0 mm": "通用 ↔ 实测 · 悬垂 G1 Δ 95.0 mm",
+  "drag to compare · drape G1 Δ 95.0 mm": "拖拽对比 · 悬垂 G1 Δ 95.0 mm",
+  "G2 48.8 · thk 1.0×": "G2 48.8 · 厚 1.0×",
+  "generic ↔ measured · drape G1 Δ 10.9 mm": "通用 ↔ 实测 · 悬垂 G1 Δ 10.9 mm",
+  "drag to compare · drape G1 Δ 10.9 mm": "拖拽对比 · 悬垂 G1 Δ 10.9 mm",
+  "G2 6.0 · thk 1.4×": "G2 6.0 · 厚 1.4×",
+  "generic ↔ measured · drape G1 Δ 12.1 mm": "通用 ↔ 实测 · 悬垂 G1 Δ 12.1 mm",
+  "drag to compare · drape G1 Δ 12.1 mm": "拖拽对比 · 悬垂 G1 Δ 12.1 mm",
+  "G2 4.3 · thk 1.3×": "G2 4.3 · 厚 1.3×",
+  "generic ↔ measured · drape G1 Δ 21.8 mm": "通用 ↔ 实测 · 悬垂 G1 Δ 21.8 mm",
+  "drag to compare · drape G1 Δ 21.8 mm": "拖拽对比 · 悬垂 G1 Δ 21.8 mm",
+  "G2 3.5 · thk 4.4×": "G2 3.5 · 厚 4.4×",
+  "generic ↔ measured · drape G1 Δ 12.0 mm": "通用 ↔ 实测 · 悬垂 G1 Δ 12.0 mm",
+  "drag to compare · drape G1 Δ 12.0 mm": "拖拽对比 · 悬垂 G1 Δ 12.0 mm",
+  "G2 2.2 · thk 1.9×": "G2 2.2 · 厚 1.9×",
+  "generic ↔ measured · drape G1 Δ 10.0 mm": "通用 ↔ 实测 · 悬垂 G1 Δ 10.0 mm",
+  "drag to compare · drape G1 Δ 10.0 mm": "拖拽对比 · 悬垂 G1 Δ 10.0 mm",
+  "G2 3.5 · thk 2.0×": "G2 3.5 · 厚 2.0×",
+  "Set display name": "设置显示名",
+  "Sign out": "退出登录",
+  "Replaces an earlier upload of yours (optional)": "替换你之前的某次上传（选填）",
+  "— nothing; this is a new fabric": "— 不替换；这是一块新面料",
+  "Export all 7 delta records · CSV →": "导出全部 7 条差值记录 · CSV →",
+  "CSV carries the engine, particle distance, baseline preset and measurement caveats alongside every number.": "CSV 会把引擎、粒子间距、基线预设与测量限定跟每个数字一起带走。",
+  "Live file-intake demo · candidates pending review": "实时文件进料演示 · 候选待审核",
+  "This deployment is passphrase-protected: a private file is hidden from the public listing, but anyone holding the passphrase can open it.": "本部署由口令保护：私有文件不会出现在公开列表里，但持有口令的任何人都能打开它。",
+  "low-load response · 5% secant stiffness → CLO stretch index": "低载响应 · 5% 割线刚度 → CLO 拉伸指数",
+  "Private uploads are unavailable on this deployment: sign-in is not configured on the server, so it cannot keep anything private. Public channel only.": "本部署无法提供私有上传:服务端未配置登录,因此它无法为任何文件保密。仅可使用公开通道。",
+  "Copy a link to this view": "复制当前视图链接",
+  "Layers this reaches": "本方法触及的层级",
+  "Material layer — the cloth's own mass, thickness, bending and low-load stretch. This is the layer measured here.": "材料层 — 布自身的克重、厚度、弯曲与低载拉伸。这是本项目实测的层。",
+  "Structural layer — how a pattern redistributes those properties. Partly reached: two garments, one drape-dominant and one fitted.": "结构层 — 版型如何重新分配这些属性。部分触及：两件服装，一件垂坠主导、一件合体。",
+  "Process layer — seams, fusing, interlining and finishing all change how a panel behaves. Not reached: every panel in these runs carries the same fabric definition, with no fusing or seam-stiffness modelling.": "工艺层 — 接缝、粘合衬、里衬与后整理都会改变一块裁片的表现。未触及：这些运行中每块裁片都用同一份面料定义，未建模粘合或接缝刚度。",
+  "Time layer — viscoelastic relaxation and creep. Not reached: each condition is a single solve captured at drape equilibrium, not a garment left hanging.": "时间层 — 粘弹松弛与蜿变。未触及：每个条件都是单次求解、在垂坠平衡处截取，而非一件长时间悬挂的成衣。",
+  "A measured value is a known reference point, not a target — designers lower stiffness on purpose to exaggerate drape. Closer to measured is not automatically the better-looking garment.": "实测值是一个已知参照点，不是目标 — 设计师会故意调低刚度以夸张垂坠。更接近实测，并不自动等于更好看的成衣。",
+  "Your measured-material workspace — how far each generic preset sits from the measured fabric, inside CLO3D.": "你的实测材料工作区 — 在 CLO3D 内，每个通用预设距离实测面料有多远。",
+  "e.g. 100% cotton": "如 100% 棉",
+  "woven / knit": "梭织 / 针织",
+  "Public channel": "公开通道",
+  "— listed in the shared library; anyone can browse it, download it and read its record.": "— 列入共享库；任何人都可浏览、下载并查看其记录。",
+  "Private channel": "私有通道",
+  "— not listed publicly; visible to you and to the library moderator.": "— 不公开列出；仅你本人与库管理员可见。",
+  "Qualification record": "资格档案",
+  "add record ▾": "填写档案 ▾",
+  "hide ▴": "收起 ▴",
+  "Supplier / mill": "供应商 / 厂",
+  "Batch / roll": "批次 / 卷号",
+  "Composition": "成分",
+  "Construction": "组织结构",
+  "Weight (g/m²)": "克重 (g/m²)",
+  "Test method(s)": "测试方法",
+  "Test date": "测试日期",
+  "Lab / operator": "实验室 / 操作人",
+  "CLO version": "CLO 版本",
+  "Baseline preset": "基线预设",
+  "Engine inputs physically measured — leave unticked whatever stayed at the engine default": "实测的引擎输入项 — 保持引擎默认值的项请不要勾选",
+  "Optional. A file without a record is still accepted and is listed as an unqualified candidate. A record states what was measured and by whom — it is not a claim that the fabric is accurate.": "选填。没有档案的文件照样接收，但会标为未资格候选。档案只陈述测了什么、谁测的 — 它不声称该面料准确。",
+  "Engine inputs measured": "已实测的引擎输入项",
+  "Declared by the contributor, shown as filed — not verified by this deployment.": "由贡献者自行声明，按提交原样展示 — 本部署未作核验。",
+  "loading record...": "正在读取档案…",
+  "No record was filed with this upload.": "此次上传未附档案。",
+  "record error": "档案读取出错",
+  "no record filed": "未附档案",
+  "sign in to download": "登录后下载",
+  "private to its contributor": "仅其贡献者可见",
+  "download error": "下载出错",
+  "weight": "克重",
+  "thickness": "厚度",
+  "bending": "弯曲",
+  "stretch": "拉伸",
+  "shear": "剪切",
+
+  // ---- design rule (M-C, 2026-08-15) ----
+  "Design rule": "设计规则",
+  "Measure bending for drape-dominant garments; measure stretch for any knit or elastic fabric, whatever the silhouette.": "垂坠主导的服装测弯曲；任何针织或弹力面料，无论版型都要测拉伸。",
+  "Stretch differences survive fitting: the knit still differs by 48.8 mm on the fitted H-line, 51% of its drape figure.": "拉伸差值在合体版型上存活：针织在合体 H 型裙上仍差 48.8 mm，是其垂坠数值的 51%。",
+  "Bending differences largely do not — five bending-driven fabrics fall to 16–36%. Their fitted Δ is 2.2–4.3 mm, inside the ~10 mm per-vertex solver repeatability band, so those ratios are indicative only; and the chiffon does not follow the pattern at all — it retains 55%, the highest in the set, above the knit's 51%.": "弯曲差值基本不存活——五块弯曲主导的面料落到 16–36%。但它们的合体态 Δ 仅 2.2–4.3 mm，处于约 10 mm 的逐顶点求解器重复性带内，该比值只作指示；而雪纺完全不服从这一模式——它保留 55%，是七块里最高的，高于针织的 51%。",
+
     // ---- brand / cover / entry ----
     "Measured, not assumed": "实测,而非假定",
     "MEASURED, NOT ASSUMED": "实测,而非假定",
@@ -86,6 +186,49 @@
     "Fitted · G2": "合体 · G2",
     "G1 mean · 7 specimens": "G1 均值 · 7 试样",
     "G2 mean · 7 specimens": "G2 均值 · 7 试样",
+    "G2 fitted mean · 7 specimens": "G2 合体均值 · 7 个试样",
+    "current": "当前",
+    "— · first version": "— · 首个版本",
+    "Measured materials · drape G1 Δ": "实测材料 · 垂坠 G1 Δ",
+    "Measured materials · fitted G2 Δ": "实测材料 · 合体 G2 Δ",
+    "loading drape meshes": "正在加载垂坠网格",
+    "loading displacement map": "正在加载位移图",
+    "1.2 MB · first load only": "1.2 MB · 仅首次加载",
+    "1.9 MB · first load only": "1.9 MB · 仅首次加载",
+    "still loading · large mesh over a slow connection": "仍在加载 · 网络较慢且网格较大",
+    "mesh unavailable": "网格不可用",
+    "showing the still image instead": "改为显示静态图",
+    "These deltas are a snapshot, not a live reading: they were computed once, on CLO3D 2026.0.374. CLO ships two to three major versions a year, and a new engine or an updated preset library moves the generic side without touching this record — so a delta ages, and nothing here refreshes it for you.": "这些差值是一次快照，不是实时读数：它们只在 CLO3D 2026.0.374 上算过一次。CLO 每年发 2–3 个大版本，新引擎或更新后的预设库会改变 generic 一侧，而本记录不会跟着变 —— 所以差值会过期，这里不会自动刷新它。",
+    "loading drape mesh": "正在加载垂坠网格",
+    "Every row carries its own material record (version, calibration route and date) and measurement record (method, sample size, test house, declared departures) — a row lifted into another system still says what it is and how it was produced.": "每一行都自带它自己的材料档案（版本、标定路线与日期）与测量档案（方法、样本量、检测方、已声明的偏离）—— 单拿一行放进别的系统，它仍能说清楚自己是什么、怎么来的。",
+    "Taking the data away": "把数据带走",
+    "Export writes one row per specimen, and every row carries its own material record (version, calibration route, date) and measurement record (method, sample size, test house, declared departures).": "导出每个试样一行，而每一行都自带它自己的材料档案（版本、标定路线、日期）与测量档案（方法、样本量、检测方、已声明的偏离）。",
+    "The engine build and particle distance travel with each row, so a number can be re-checked against the CLO version it was computed on.": "引擎 build 与粒子间距随每一行一起走，所以任一数字都能对回它当时所在的 CLO 版本重核。",
+    "Provenance is exported exactly as it was declared — this deployment does not verify it.": "溯源信息按声明原样导出 —— 本部署不作核验。",
+    "The CSV export runs on the desktop panel. The two shells hold different fields, so a phone export would produce different columns — one export, one schema.": "CSV 导出在桌面面板上。两端字段不同，手机导出会产出不同的列 —— 一个导出，一套 schema。",
+    "Solver repeatability": "求解器重复性",
+    "repeat runs were not performed on this fabric.": "本块面料未做重复跑。",
+    "Repeatability was checked on P15 and P28 only, and only within a session — a fresh session moved P15 from 95.0 to 99–102 mm and P28 from 21.8 to 32.0 mm, further than the within-session spread. Read one delta as a single-session reading; the ranking and the 12.0 mm median are the sturdier parts.": "重复性只在 P15 与 P28 上测过，且只是同一会话内 —— 换一个会话重跑，P15 从 95.0 变到 99–102 mm，P28 从 21.8 变到 32.0 mm，比会话内的波动还大。单个差值请当作一次会话的读数；更经得起看的是排名与 12.0 mm 中位数。",
+    "Export the 7 seed delta records · CSV →": "导出 7 条种子差值记录 · CSV →",
+    "Every row carries its own material record (version, calibration route and date) and measurement record (method, sample size, test house, declared departures) — a row lifted into another system still says what it is and how it was produced. Contributed uploads are not in this file: they have no baseline comparison yet, so they have no delta to export.": "每一行都自带它自己的材料档案（版本、标定路线与日期）与测量档案（方法、样本量、检测方、已声明的偏离）—— 单拿一行放进别的系统，它仍能说清楚自己是什么、怎么来的。贡献上传的文件不在这份里：它们还没有基线对比，也就没有差值可导。",
+    "per-vertex SD": "逐顶点 SD",
+    "repeat runs, one session": "次重复跑 · 同一会话",
+    "Re-running this comparison": "重跑这个对比",
+    "Everything needed is on this page: the measured .zfab (download it from the fabric card), the named generic preset, both garment scenarios, the engine build, the particle distance and the fitting mode.": "需要的东西本页都有：实测 .zfab（在面料卡上下载）、具名的通用预设、两个服装场景、引擎 build、粒子间距与 fitting 模式。",
+    "Method: build your own garment, apply the generic preset and simulate, export the mesh; apply the measured .zfab to the same garment and simulate again, export; compare the two meshes vertex by vertex.": "方法：搭你自己的服装，先用通用预设仿真并导出网格；再把实测 .zfab 应用到同一件服装上重跑并导出；两个网格逐顶点对比。",
+    "You cannot reproduce these exact numbers.": "你无法复现这些确切的数字。",
+    "A different CLO version is a different engine.": "换一个 CLO 版本就是换一个引擎。",
+    "What the engine actually receives.": "引擎实际收到的是什么。",
+    "Sign in first — a contributed fabric is stored against your account (account menu, top of the panel).": "请先登录 —— 贡献的面料会记在你的账户名下（面板顶部的账户菜单）。",
+    "Mass and thickness go into CLO3D in their measured units — the fabric panel has a real g/m² field and a millimetre thickness field, filled 1:1. Bending, stretch and shear have no physical-unit entry at all: they exist only as a 0–99 index, so the measured values above had to be translated into index positions. That translation step is where a measured fabric stops being measured.": "克重与厚度是按实测单位直接填进 CLO3D 的 —— 面料面板里有真的 g/m² 输入框和毫米厚度框，1:1 填入。而弯曲、拉伸、剪切**根本没有物理单位入口**：它们只以 0–99 指数存在，所以上面那些实测值必须被换算成指数位置。这一步换算，就是一块实测面料停止“实测”的地方。",
+    "The garment engineering files are not distributed, and a delta belongs to the garment it was measured on — what transfers is the method, not the millimetres.": "服装工程文件不对外分发，而一个差值属于它被测量时的那件服装 —— 能迁移的是方法，不是毫米数。",
+    "Results from another build must be reported separately, not merged into this record.": "另一个 build 的结果必须单独报告，不能并进本记录。",
+    "or sign in with email": "或用邮箱登录",
+    "Email me a link": "发送登录链接到邮箱",
+    "A measured digital-material workspace for CLO3D — see how far a generic fabric preset sits from the measured fabric.": "面向 CLO3D 的实测数字面料工作台——直观看到通用面料预设与实测面料之间差多少。",
+    "3 of 5 engine inputs are ISO-sourced": "5 项引擎输入中 3 项源自 ISO",
+    "Deltas are generic-vs-measured differences computed inside CLO3D — not errors against physical reality. Bending is a non-standard cantilever; shear is left at the engine default.": "差值是在 CLO3D 内部计算的「通用 vs 实测」差异 — 并非相对物理真实的误差。弯曲为非标悬臂，剪切保留引擎默认值。",
+    "Guests can browse everything. Uploading a fabric needs sign-in.": "访客可浏览全部内容；上传面料才需登录。",
     "G1 median · robust": "G1 中位数 · 稳健",
     "specimens / specs": "试样 / 规格",
     "7 specimens · 6 specs (P31/P32 same spec, dyed apart)": "7 试样 · 6 规格(P31/P32 同规格分染)",
@@ -121,14 +264,6 @@
     "woven · 184.7 g/m² · 0.37 mm": "梭织 · 184.7 g/m² · 0.37 mm",
 
     // ---- foot labels (per fabric, fixed numbers) ----
-    "generic ↔ measured · drape G1 Δ 9.9 mm": "通用 ↔ 实测 · 悬垂 G1 Δ 9.9 mm",
-    "generic ↔ measured · drape G1 Δ 10 mm": "通用 ↔ 实测 · 悬垂 G1 Δ 10 mm",
-    "generic ↔ measured · drape G1 Δ 10.9 mm": "通用 ↔ 实测 · 悬垂 G1 Δ 10.9 mm",
-    "generic ↔ measured · drape G1 Δ 12 mm": "通用 ↔ 实测 · 悬垂 G1 Δ 12 mm",
-    "generic ↔ measured · drape G1 Δ 12.1 mm": "通用 ↔ 实测 · 悬垂 G1 Δ 12.1 mm",
-    "generic ↔ measured · drape G1 Δ 21.8 mm": "通用 ↔ 实测 · 悬垂 G1 Δ 21.8 mm",
-    "generic ↔ measured · drape G1 Δ 95 mm": "通用 ↔ 实测 · 悬垂 G1 Δ 95 mm",
-    "drag to compare · drape G1 Δ 10 mm": "拖拽对比 · 悬垂 G1 Δ 10 mm",
 
     // ---- property rows ----
     "Property difference": "属性差异",
@@ -157,6 +292,27 @@
     "Generic baseline": "通用基线",
     "Baseline source": "基线来源",
     "Baseline role": "基线角色",
+    "G1 mean · skewed by P15": "G1 均值 · 被 P15 拉偏",
+    "Material record": "材料档案",
+    "Measured input": "实测输入",
+    "Supersedes": "取代",
+    "Measurement record · 3 of 5 engine inputs ISO-sourced": "测量档案 · 5 项引擎输入中 3 项源自 ISO",
+    "Low-load tensile": "低载拉伸",
+    "Shear": "剪切",
+    "Conditioning": "调湿",
+    "Fibre identification": "纤维鉴别",
+    "Test house": "检测方",
+    "Calibration": "标定",
+    "ISO 3801 · n=5": "ISO 3801 · n=5",
+    "ISO 5084 (1 kPa) · n=5": "ISO 5084（1 kPa）· n=5",
+    "ISO 13934-1 · n=5 per direction · read as a stretch proxy, not an extensibility test": "ISO 13934-1 · 每向 n=5 · 借作拉伸代理，并非延展性测试",
+    "Cantilever at 41.5° · non-standard · n=3 strips per direction · 2026-07-14": "悬臂法 41.5° · 非标准 · 每向 n=3 条 · 2026-07-14",
+    "Not measured · engine default retained": "未测 · 保留引擎默认值",
+    "ISO 139 not performed — declared departure": "未做 ISO 139 调湿 —— 已声明偏离",
+    "SEM scale pattern + burn test · 100% wool confirmed": "SEM 鳞片形态 + 燃烧测试 · 确认 100% 羊毛",
+    "Frankie, Jinan · commissioned 2026-06-24 · report date not recorded": "Frankie（济南）· 2026-06-24 委测 · 报告日期未记录",
+    "Route A · CLO3D 2026.0.374": "Route A · CLO3D 2026.0.374",
+    "Declared by the contributor and shown as declared — this deployment does not verify it. A blank field is a blank field, not a pass.": "由贡献者声明并照实展示 —— 本部署不作核验。空白就是空白，不等于合格。",
     "Measured side": "实测一侧",
     "Engine": "引擎",
     "Garment scenarios": "服装场景",
@@ -188,8 +344,6 @@
     "Highlighted from the isolation result — see Property isolation below; examined in the available runs, not an independent causal contribution.": "来自隔离结果的高亮——见下方属性隔离;仅在可用运行中考察,非独立因果贡献。",
     "Largest measured differences shown · property isolation was not run on this fabric.": "显示最大实测差异 · 该面料未做属性隔离。",
     "Property differences shown · property isolation was not run on this fabric.": "显示属性差异 · 该面料未做属性隔离。",
-    "G2 2.4 · thk 1.9×": "G2 2.4 · 厚 1.9×",
-    "G2 48.8 · thk 1.0×": "G2 48.8 · 厚 1.0×",
 
     // ---- isolation view ----
     "P28 · isolation": "P28 · 隔离",
@@ -335,7 +489,6 @@
     "= mean per-vertex absolute displacement between the generic-preset run and the measured-input run, within the same CLO3D garment scenario.": "= 在同一 CLO3D 服装场景内,通用预设运行与实测输入运行之间的逐顶点绝对位移均值。",
     "loading drape meshes…": "正在加载悬垂网格…",
     "59,374 vertices": "59,374 顶点",
-    "drag to compare · drape G1 Δ 21.8 mm": "拖拽对比 · 悬垂 G1 Δ 21.8 mm",
     "provenance · uploader-declared": "溯源 · 上传者声明",
     "provenance · contributor's test report": "溯源 · 贡献者测试报告",
     "provenance · measurement partner / lab": "溯源 · 测量合作方 / 实验室",
@@ -540,25 +693,63 @@
       'body.entered #langpill.mobpill{box-shadow:0 6px 20px -10px rgba(0,0,0,.3)}' +
       // Tap-to-enlarge for the methods chart (any image inside a .fig).
       '.fig img{cursor:zoom-in}' +
-      '#drape-lightbox{position:fixed;inset:0;z-index:100000;background:rgba(10,12,14,.93);' +
-      'display:flex;align-items:center;justify-content:center;padding:18px;cursor:zoom-out;' +
+      '#drape-lightbox{position:fixed;inset:0;z-index:100000;background:rgba(10,12,14,.94);' +
+      'overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;' +
       '-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}' +
-      '#drape-lightbox img{max-width:100%;max-height:100%;width:auto;height:auto;border-radius:6px;' +
-      'background:#fff;box-shadow:0 24px 70px -24px rgba(0,0,0,.7)}';
+      '#drape-lightbox .lbpad{min-width:100%;min-height:100%;display:flex;align-items:center;' +
+      'justify-content:center;padding:16px;box-sizing:border-box}' +
+      '#drape-lightbox img{display:block;border-radius:6px;background:#fff;' +
+      'box-shadow:0 24px 70px -24px rgba(0,0,0,.7);touch-action:pinch-zoom}' +
+      /* Wide screens fit the figure; narrow screens must NOT — fitting a 1064px chart
+         into a 375px phone was a 1.07x enlargement, i.e. no enlargement at all. There
+         the figure is drawn at its own size and the overlay pans. */
+      '@media(min-width:760px){#drape-lightbox img{max-width:calc(100vw - 64px);max-height:calc(100vh - 64px)}}' +
+      '@media(max-width:759px){#drape-lightbox img{width:auto;max-width:none}}' +
+      '#drape-lbclose{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:1;' +
+      'width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.92);color:#111;' +
+      'font-size:20px;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.4)}' +
+      '#drape-lbhint{position:fixed;left:0;right:0;bottom:calc(12px + env(safe-area-inset-bottom,0px));' +
+      'text-align:center;font-family:var(--mono,monospace);font-size:11px;color:rgba(255,255,255,.72);pointer-events:none}';
     (document.head || document.documentElement).appendChild(s);
   }
+  function zh() {
+    try { return ((new URLSearchParams(location.search).get('lang')) ||
+      (window.localStorage && localStorage.getItem('drape_lang'))) === 'zh'; } catch (e) { return false; }
+  }
+
   function initLightbox() {
     if (window.__drapeLightbox) return; window.__drapeLightbox = true;
     document.addEventListener('click', function (e) {
       var t = e.target;
       if (!(t && t.tagName === 'IMG' && t.closest && t.closest('.fig'))) return;
+      var narrow = window.innerWidth < 760;
       var ov = document.createElement('div'); ov.id = 'drape-lightbox';
+      var pad = document.createElement('div'); pad.className = 'lbpad';
       var big = document.createElement('img'); big.src = t.currentSrc || t.src; big.alt = t.alt || '';
-      ov.appendChild(big); document.body.appendChild(ov);
-      function close() { if (ov.parentNode) ov.parentNode.removeChild(ov); document.removeEventListener('keydown', onKey); }
+      // On a phone the figure is shown at its own pixel size so the axis labels are
+      // actually readable; the overlay then scrolls in both directions.
+      if (narrow) big.onload = function () { big.style.width = (big.naturalWidth || 1000) + 'px'; };
+      var x = document.createElement('button'); x.id = 'drape-lbclose'; x.type = 'button';
+      x.setAttribute('aria-label', zh() ? '\u5173\u95ed' : 'Close'); x.innerHTML = '\u2715';
+      pad.appendChild(big); ov.appendChild(pad); ov.appendChild(x);
+      if (narrow) {
+        var hint = document.createElement('div'); hint.id = 'drape-lbhint';
+        hint.textContent = zh() ? '\u62d6\u52a8\u5e73\u79fb \u00b7 \u53cc\u6307\u7f29\u653e' : 'drag to pan \u00b7 pinch to zoom';
+        ov.appendChild(hint);
+      }
+      document.body.appendChild(ov);
+      var prevOverflow = document.body.style.overflow; document.body.style.overflow = 'hidden';
+      function close() {
+        if (ov.parentNode) ov.parentNode.removeChild(ov);
+        document.body.style.overflow = prevOverflow;
+        document.removeEventListener('keydown', onKey);
+      }
       function onKey(ev) { if (ev.key === 'Escape') close(); }
-      ov.addEventListener('click', close);
+      // Only the backdrop closes: tapping the figure must pan it, not dismiss it.
+      ov.addEventListener('click', function (ev) { if (ev.target === ov || ev.target === pad) close(); });
+      x.addEventListener('click', close);
       document.addEventListener('keydown', onKey);
+      setTimeout(function () { try { x.focus(); } catch (e) {} }, 30);
     });
   }
   function boot() {
