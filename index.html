@@ -183,30 +183,31 @@ function exportCSV(btn){
    rows.push(r.map(csvCell).join(','));
   });
   var d=new Date().toISOString().slice(0,10);
-  var hdr=[
-   '# DRAPE \u25b3 \u2014 generic-vs-measured delta records',
-    '# CSV schema: v2 (42 columns) \u2014 v1 was 22. Column ORDER is not stable across schema',
-    '#             versions; read by header name, not by position.',
-    '# Material record version: 1.0 (current) \u00b7 no superseded versions in this export',
-    '# Every row carries its own material + measurement provenance, so a single row can be',
-    '# lifted into another system without losing what it is or how it was produced.',
-   '# Exported: '+d+'  |  Source: https://drape-delta.netlify.app/',
-   '# Engine: CLO3D 2026.0.374 \u00b7 Fitting (Accurate Fabric) \u00b7 Particle Distance 10',
-   '# G1 = FV2 Gathered A-Line Maxi Dress (drape-dominant)  |  G2 = FV2 Spaghetti-Strap H-Line Dress (fitted)',
-   '# Delta = mean per-vertex absolute displacement between the generic-preset run and the',
-   '#         measured-input run, within the SAME CLO3D garment scenario.',
-   '# This is a difference between two simulations. It is NOT an error against physical',
-   '# reality: there is no physical ground-truth validation behind these numbers.',
-   '# Dataset: 7 specimens / 6 specifications (P31 and P32 are the same spec, dyed apart).',
-   '# Measurement: mass ISO 3801, thickness ISO 5084, tensile ISO 13934-1 (n=5). Bending is a',
-   '#         non-standard cantilever; stretch is a low-load proxy; shear is left at the engine',
-   '#         baseline. Generic thickness is a constant 0.50 mm placeholder across all presets.',
-   '# Property isolation (ablation) was run on P15 and P28 only; other dominant-property',
-   '#         labels are inferred from input difference, not isolated.',
-   '# Bending and stretch are CLO 0-99 index values with no natural zero \u2014 they are not',
-   '#         physical units and generic/measured pairs are comparable only within a column.',
-   ''
-  ].join('\n');
+  var meta=[
+    ['# DRAPE \u25b3','generic-vs-measured delta records'],
+    ['# Exported',d],
+    ['# Source','https://drape-delta.netlify.app/'],
+    ['# CSV schema','v2 \u00b7 42 columns \u00b7 read by header NAME; column order is not stable across schema versions'],
+    ['# Material record','version 1.0 (current) \u00b7 no superseded versions in this export'],
+    ['# Engine','CLO3D 2026.0.374 \u00b7 Fitting (Accurate Fabric) \u00b7 Particle Distance 10'],
+    ['# Garment G1','FV2 Gathered A-Line Maxi Dress (drape-dominant)'],
+    ['# Garment G2','FV2 Spaghetti-Strap H-Line Dress (fitted)'],
+    ['# Delta','mean per-vertex absolute displacement between the generic-preset run and the measured-input run, within the same CLO3D garment scenario'],
+    ['# Not an error','a difference between two simulations \u2014 there is no physical ground-truth validation behind these numbers'],
+    ['# Dataset','7 specimens / 6 specifications (P31 and P32 are the same spec, dyed apart)'],
+    ['# Measurement','mass ISO 3801 \u00b7 thickness ISO 5084 \u00b7 tensile ISO 13934-1 \u00b7 n=5'],
+    ['# Bending','non-standard cantilever'],
+    ['# Stretch','low-load proxy, not an extensibility measurement'],
+    ['# Shear','not measured \u2014 left at the engine baseline'],
+    ['# Generic thickness','a constant 0.50 mm placeholder across all presets'],
+    ['# Property isolation','run on P15 and P28 only; other dominant-property labels are inferred from input difference, not isolated'],
+    ['# Index units','bending and stretch are CLO 0-99 index values with no natural zero \u2014 generic/measured pairs are comparable only within a column'],
+    ['# Contributed uploads','not in this file \u2014 without a baseline comparison they have no delta to export'],
+    ['','']
+  ];
+  // Label/value, not prose: opened in a spreadsheet each line stays in two cells instead of
+  // splitting on the commas inside it. csvCell quotes any value that carries a comma.
+  var hdr=meta.map(function(m){return (m[0]||m[1])?(csvCell(m[0])+','+csvCell(m[1])):'';}).join('\n')+'\n';
   var blob=new Blob([new Uint8Array([0xEF,0xBB,0xBF]),hdr+rows.join('\n')+'\n'],{type:'text/csv;charset=utf-8'});
   var url=URL.createObjectURL(blob);
   var a=document.createElement('a');a.href=url;a.download='drape_delta_records_'+d+'.csv';
