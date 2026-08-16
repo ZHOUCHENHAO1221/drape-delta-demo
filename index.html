@@ -167,53 +167,97 @@ let SEL='P28', MODE='ba', PT='materials', SORT='id';
    distance and baseline preset is unreadable, and would invite being taken for an
    error against physical reality, which it is not. */
 function csvCell(v){v=(v===null||v===undefined)?'':String(v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
+/* One table, two serialisations. Keeping the column list, the row values and the metadata
+   in a single builder is the only way the CSV and the spreadsheet cannot disagree — and the
+   note under the button promises a specific column count. */
+function deltaTable(){
+ var COLS=['Mass / area','Thickness','Bending \u00b7 warp','Bending \u00b7 weft','Stretch \u00b7 warp','Stretch \u00b7 weft'];
+ var SLUG={'Mass / area':'mass_g_m2','Thickness':'thickness_mm','Bending \u00b7 warp':'bending_warp_idx','Bending \u00b7 weft':'bending_weft_idx','Stretch \u00b7 warp':'stretch_warp_idx','Stretch \u00b7 weft':'stretch_weft_idx'};
+ var head=['fabric_id','name','category','baseline_preset','baseline_role','G1_drape_delta_mm','G2_fitted_delta_mm','G2_over_G1','property_isolation_run','dominant_property','material_version','material_status','supersedes','engine','particle_distance','calibrated_at','calibration_route','delta_computed_at','baseline_currency','mass_method','thickness_method','tensile_method','bending_method','shear_method','fibre_identification','conditioning','test_house','test_commissioned','test_report_date','provenance_status'];
+ COLS.forEach(function(c){head.push(SLUG[c]+'_generic',SLUG[c]+'_measured');});
+ var rows=F.map(function(f){
+  var r=[f.id,f.name,f.cat,f.preset,f.brole,d1(f.g1),d1(f.g2),(f.g2/f.g1).toFixed(2),f.abl?'yes':'no',f.abl?(f.driver||''):'',
+   '1.0','current','','CLO3D 2026.0.374','10','2026-07-23/24','A','2026-07-27',
+   'snapshot on CLO3D 2026.0.374 \u2014 does not auto-refresh when CLO updates',
+   'ISO 3801 \u00b7 n=5','ISO 5084 (1 kPa) \u00b7 n=5',
+   'ISO 13934-1 \u00b7 n=5 per direction \u00b7 read as a stretch proxy, not an extensibility test',
+   'cantilever 41.5 deg \u00b7 non-standard \u00b7 n=3 strips per direction \u00b7 2026-07-14',
+   'not measured \u00b7 engine default retained',
+   (f.id==='P27'?'SEM scale pattern + burn test \u00b7 100% wool confirmed':''),
+   'ISO 139 not performed \u2014 declared departure',
+   'Frankie, Jinan','2026-06-24','not recorded',
+   'declared by contributor \u2014 not verified by this deployment'];
+  COLS.forEach(function(c){var m=null;f.rows.forEach(function(x){if(x[0]===c)m=x;});r.push(m?m[1]:'',m?m[2]:'');});
+  return r;
+ });
+ var d=new Date().toISOString().slice(0,10);
+ var meta=[
+  ['# DRAPE \u25b3','generic-vs-measured delta records'],
+  ['# Exported',d],
+  ['# Source','https://drape-delta.netlify.app/'],
+  ['# Table schema','v2 \u00b7 '+head.length+' columns \u00b7 read by header NAME; column order is not stable across schema versions'],
+  ['# Material record','version 1.0 (current) \u00b7 no superseded versions in this export'],
+  ['# Engine','CLO3D 2026.0.374 \u00b7 Fitting (Accurate Fabric) \u00b7 Particle Distance 10'],
+  ['# Garment G1','FV2 Gathered A-Line Maxi Dress (drape-dominant)'],
+  ['# Garment G2','FV2 Spaghetti-Strap H-Line Dress (fitted)'],
+  ['# Delta','mean per-vertex absolute displacement between the generic-preset run and the measured-input run, within the same CLO3D garment scenario'],
+  ['# Not an error','a difference between two simulations \u2014 there is no physical ground-truth validation behind these numbers'],
+  ['# Dataset','7 specimens / 6 specifications (P31 and P32 are the same spec, dyed apart)'],
+  ['# Measurement','mass ISO 3801 \u00b7 thickness ISO 5084 \u00b7 tensile ISO 13934-1 \u00b7 n=5'],
+  ['# Bending','non-standard cantilever'],
+  ['# Stretch','low-load proxy, not an extensibility measurement'],
+  ['# Shear','not measured \u2014 left at the engine baseline'],
+  ['# Generic thickness','a constant 0.50 mm placeholder across all presets'],
+  ['# Property isolation','run on P15 and P28 only; other dominant-property labels are inferred from input difference, not isolated'],
+  ['# Index units','bending and stretch are CLO 0-99 index values with no natural zero \u2014 generic/measured pairs are comparable only within a column'],
+  ['# Contributed uploads','not in this file \u2014 without a baseline comparison they have no delta to export']
+ ];
+ return {head:head,rows:rows,meta:meta,date:d};
+}
+function csvCell2(v){v=(v===null||v===undefined)?'':String(v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
+function saveBlob(blob,name){var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1500);}
 function exportCSV(btn){
  try{
-  var COLS=['Mass / area','Thickness','Bending \u00b7 warp','Bending \u00b7 weft','Stretch \u00b7 warp','Stretch \u00b7 weft'];
-  var SLUG={'Mass / area':'mass_g_m2','Thickness':'thickness_mm','Bending \u00b7 warp':'bending_warp_idx','Bending \u00b7 weft':'bending_weft_idx','Stretch \u00b7 warp':'stretch_warp_idx','Stretch \u00b7 weft':'stretch_weft_idx'};
-  var head=['fabric_id','name','category','baseline_preset','baseline_role','G1_drape_delta_mm','G2_fitted_delta_mm','G2_over_G1','property_isolation_run','dominant_property','material_version','material_status','supersedes','engine','particle_distance','calibrated_at','calibration_route','delta_computed_at','baseline_currency','mass_method','thickness_method','tensile_method','bending_method','shear_method','fibre_identification','conditioning','test_house','test_commissioned','test_report_date','provenance_status'];
-  COLS.forEach(function(c){head.push(SLUG[c]+'_generic',SLUG[c]+'_measured');});
-  var rows=[head.join(',')];
-  F.forEach(function(f){
-   var r=[f.id,f.name,f.cat,f.preset,f.brole,d1(f.g1),d1(f.g2),(f.g2/f.g1).toFixed(2),f.abl?'yes':'no',f.abl?(f.driver||''):'','1.0','current','','CLO3D 2026.0.374','10','2026-07-23/24','A','2026-07-27','snapshot on CLO3D 2026.0.374 \u2014 does not auto-refresh when CLO updates','ISO 3801 \u00b7 n=5','ISO 5084 (1 kPa) \u00b7 n=5','ISO 13934-1 \u00b7 n=5 per direction \u00b7 read as a stretch proxy, not an extensibility test','cantilever 41.5 deg \u00b7 non-standard \u00b7 n=3 strips per direction \u00b7 2026-07-14','not measured \u00b7 engine default retained',(f.id==='P27'?'SEM scale pattern + burn test \u00b7 100% wool confirmed':''),'ISO 139 not performed \u2014 declared departure','Frankie, Jinan','2026-06-24','not recorded','declared by contributor \u2014 not verified by this deployment'];
-   COLS.forEach(function(c){
-    var m=null;f.rows.forEach(function(x){if(x[0]===c)m=x;});
-    r.push(m?m[1]:'',m?m[2]:'');
-   });
-   rows.push(r.map(csvCell).join(','));
-  });
-  var d=new Date().toISOString().slice(0,10);
-  var meta=[
-    ['# DRAPE \u25b3','generic-vs-measured delta records'],
-    ['# Exported',d],
-    ['# Source','https://drape-delta.netlify.app/'],
-    ['# CSV schema','v2 \u00b7 42 columns \u00b7 read by header NAME; column order is not stable across schema versions'],
-    ['# Material record','version 1.0 (current) \u00b7 no superseded versions in this export'],
-    ['# Engine','CLO3D 2026.0.374 \u00b7 Fitting (Accurate Fabric) \u00b7 Particle Distance 10'],
-    ['# Garment G1','FV2 Gathered A-Line Maxi Dress (drape-dominant)'],
-    ['# Garment G2','FV2 Spaghetti-Strap H-Line Dress (fitted)'],
-    ['# Delta','mean per-vertex absolute displacement between the generic-preset run and the measured-input run, within the same CLO3D garment scenario'],
-    ['# Not an error','a difference between two simulations \u2014 there is no physical ground-truth validation behind these numbers'],
-    ['# Dataset','7 specimens / 6 specifications (P31 and P32 are the same spec, dyed apart)'],
-    ['# Measurement','mass ISO 3801 \u00b7 thickness ISO 5084 \u00b7 tensile ISO 13934-1 \u00b7 n=5'],
-    ['# Bending','non-standard cantilever'],
-    ['# Stretch','low-load proxy, not an extensibility measurement'],
-    ['# Shear','not measured \u2014 left at the engine baseline'],
-    ['# Generic thickness','a constant 0.50 mm placeholder across all presets'],
-    ['# Property isolation','run on P15 and P28 only; other dominant-property labels are inferred from input difference, not isolated'],
-    ['# Index units','bending and stretch are CLO 0-99 index values with no natural zero \u2014 generic/measured pairs are comparable only within a column'],
-    ['# Contributed uploads','not in this file \u2014 without a baseline comparison they have no delta to export'],
-    ['','']
-  ];
-  // Label/value, not prose: opened in a spreadsheet each line stays in two cells instead of
-  // splitting on the commas inside it. csvCell quotes any value that carries a comma.
-  var hdr=meta.map(function(m){return (m[0]||m[1])?(csvCell(m[0])+','+csvCell(m[1])):'';}).join('\n')+'\n';
-  var blob=new Blob([new Uint8Array([0xEF,0xBB,0xBF]),hdr+rows.join('\n')+'\n'],{type:'text/csv;charset=utf-8'});
-  var url=URL.createObjectURL(blob);
-  var a=document.createElement('a');a.href=url;a.download='drape_delta_records_'+d+'.csv';
-  document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1500);
+  var t=deltaTable();
+  var hdr=t.meta.map(function(m){return (m[0]||m[1])?(csvCell2(m[0])+','+csvCell2(m[1])):'';}).join('\n')+'\n\n';
+  var body=[t.head.join(',')].concat(t.rows.map(function(r){return r.map(csvCell2).join(',');})).join('\n');
+  saveBlob(new Blob([new Uint8Array([0xEF,0xBB,0xBF]),hdr+body+'\n'],{type:'text/csv;charset=utf-8'}),'drape_delta_records_'+t.date+'.csv');
   if(btn){btn.classList.add('done');btn.textContent='\u2713 '+F.length+' records exported';}
  }catch(e){if(btn)btn.textContent='export failed';}
+}
+function loadXLSXlib(cb){if(window.DRAPE_XLSX)return cb(true);var s=document.createElement('script');s.src='xlsx.js';s.onload=function(){cb(!!window.DRAPE_XLSX);};s.onerror=function(){cb(false);};document.head.appendChild(s);}
+function exportXLSX(btn){
+ if(btn){btn.textContent='\u2026';}
+ loadXLSXlib(function(ok){
+  if(!ok){if(btn)btn.textContent='export failed';return;}
+  try{
+   var t=deltaTable();
+   /* style ids from xlsx.js: 1 title \u00b7 2 meta label \u00b7 3 meta value \u00b7 4 header \u00b7 5 id \u00b7 6 body */
+   var NUM={5:1,6:1,7:1,14:1};
+   var data=[{cells:[{v:'DRAPE \u25b3  generic-vs-measured delta records',s:1}],h:26},{cells:[]}];
+   data.push({cells:t.head.map(function(h){return {v:h,s:4};}),h:32});
+   t.rows.forEach(function(r){
+    data.push({cells:r.map(function(v,ci){
+     if(ci===0)return {v:v,s:5};
+     if(NUM[ci]&&v!=='')return {v:v,s:6,num:1};
+     return {v:v,s:6};
+    })});
+   });
+   var W={0:11,1:20,2:11,3:28,4:34,8:20,9:20,13:22,17:17,18:46,19:24,20:26,21:44,22:46,23:30,24:34,25:34,26:22,29:38};
+   var dataWidths=t.head.map(function(_,ci){return W[ci]||16;});
+
+   /* Sheet 2 gets a narrow label column and a wide value column, so nothing truncates and
+      nothing wraps into a tower. Row heights are left to the reader to auto-fit. */
+   var about=[{cells:[{v:'About this export',s:1}],h:26},{cells:[]}];
+   t.meta.slice(1).forEach(function(m){about.push({cells:[{v:m[0].replace(/^# /,''),s:2},{v:m[1],s:3}]});});
+
+   saveBlob(window.DRAPE_XLSX([
+    {name:'Delta records',rows:data,widths:dataWidths,freeze:3},
+    {name:'About this export',rows:about,widths:[26,104]}
+   ]),'drape_delta_records_'+t.date+'.xlsx');
+   if(btn){btn.classList.add('done');btn.textContent='\u2713 '+F.length+' records exported';}
+  }catch(e){if(btn)btn.textContent='export failed';}
+ });
 }
 function loadZFAB(cb){if(window.ZFAB)return cb(true);var s3=document.createElement('script');s3.src='zfab_data.js';s3.onload=function(){cb(!!window.ZFAB);};s3.onerror=function(){cb(false);};document.head.appendChild(s3);}
 function dlZfab(id,btn){if(btn){btn.textContent='preparing…';}loadZFAB(function(ok){if(!ok||!window.ZFAB||!window.ZFAB[id]){if(btn)btn.textContent='download unavailable';return;}try{const bin=atob(window.ZFAB[id]);const arr=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);const blob=new Blob([arr],{type:'application/octet-stream'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=id+'_measured.zfab';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);if(btn){btn.classList.add('done');btn.textContent='✓ '+id+'_measured.zfab downloaded';}}catch(e){if(btn)btn.textContent='download failed';}});}
@@ -371,7 +415,7 @@ function detail(){const f=F.find(x=>x.id===SEL);const abl=f.abl;
   <details class="mrec" style="margin-top:8px;border:1px solid var(--line);border-radius:8px;padding:0 9px"><summary style="cursor:pointer;padding:8px 0;font-size:11px;font-weight:600;color:var(--ink)">Measurement record · 3 of 5 engine inputs ISO-sourced</summary><div class="prov" style="padding-bottom:2px"><div class="prow"><span>Mass / area</span><b>ISO 3801 · n=5</b></div><div class="prow"><span>Thickness</span><b>ISO 5084 (1 kPa) · n=5</b></div><div class="prow w"><span>Low-load tensile</span><b>ISO 13934-1 · n=5 per direction · read as a stretch proxy, not an extensibility test</b></div><div class="prow w"><span>Bending</span><b>Cantilever at 41.5° · non-standard · n=3 strips per direction · 2026-07-14</b></div><div class="prow"><span>Shear</span><b>Not measured · engine default retained</b></div><div class="prow w"><span>Conditioning</span><b>ISO 139 not performed — declared departure</b></div>${f.id==='P27'?'<div class="prow w"><span>Fibre identification</span><b>SEM scale pattern + burn test · 100% wool confirmed</b></div>':''}<div class="prow w"><span>Test house</span><b>Frankie, Jinan · commissioned 2026-06-24 · report date not recorded</b></div><div class="prow"><span>Calibration</span><b>Route A · CLO3D 2026.0.374</b></div></div><div class="note" style="margin:0 0 6px"><b>What the engine actually receives.</b> Mass and thickness go into CLO3D in their measured units — the fabric panel has a real g/m² field and a millimetre thickness field, filled 1:1. Bending, stretch and shear have no physical-unit entry at all: they exist only as a 0–99 index, so the measured values above had to be translated into index positions. That translation step is where a measured fabric stops being measured.</div><div class="note" style="margin:0 0 8px">Declared by the contributor and shown as declared — this deployment does not verify it. A blank field is a blank field, not a pass.</div></details>
   <div class="note" style="margin-top:6px">Baseline = generic preset as shipped; measured side = calibrated copy — the two sides are not symmetric measurements. Baselines were chosen manually from the CLO library as comparison references; they are not claimed to be equivalent physical fabrics.</div>
   <div class="note" style="margin-top:5px">These deltas are a snapshot, not a live reading: they were computed once, on CLO3D 2026.0.374. CLO ships two to three major versions a year, and a new engine or an updated preset library moves the generic side without touching this record — so a delta ages, and nothing here refreshes it for you.</div>
-  <button type="button" class="load" onclick="dlZfab('${f.id}',this)">Download measured .zfab &rarr;</button><button type="button" class="load" style="margin-top:8px;background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)" onclick="exportCSV(this)">Export the 7 seed delta records &middot; CSV &rarr;</button><div class="note" style="margin-top:6px">Every row carries its own material record (version, calibration route and date) and measurement record (method, sample size, test house, declared departures) — a row lifted into another system still says what it is and how it was produced. Contributed uploads are not in this file: they have no baseline comparison yet, so they have no delta to export.</div></div>`;}
+  <button type="button" class="load" onclick="dlZfab('${f.id}',this)">Download measured .zfab &rarr;</button><button type="button" class="load" style="margin-top:8px;background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)" onclick="exportXLSX(this)">Export the 7 seed delta records &middot; Excel &rarr;</button><div class="note" style="margin-top:5px;text-align:center"><a href="#" onclick="event.preventDefault();exportCSV(this)" style="color:var(--ink2);text-decoration:underline;text-underline-offset:2px">or download the same table as CSV</a></div><div class="note" style="margin-top:6px">Both files carry the same 42 columns: every row has its own material record (version, calibration route and date) and measurement record (method, sample size, test house, declared departures), so a row lifted into another system still says what it is and how it was produced. Contributed uploads are not included — without a baseline comparison they have no delta to export.</div></div>`;}
 let ISOPREV=null;
 function isoBack(){if(ISOPREV){MODE=ISOPREV;ISOPREV=null;vp();}pbody();}
 function isoAlert(id){const a=ABL[id];ISOPREV=MODE;MODE='heat';vp();
