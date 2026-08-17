@@ -212,7 +212,7 @@
     "Export the 7 seed delta records · CSV →": "导出 7 条种子差值记录 · CSV →",
     "Every row carries its own material record (version, calibration route and date) and measurement record (method, sample size, test house, declared departures) — a row lifted into another system still says what it is and how it was produced. Contributed uploads are not in this file: they have no baseline comparison yet, so they have no delta to export.": "每一行都自带它自己的材料档案（版本、标定路线与日期）与测量档案（方法、样本量、检测方、已声明的偏离）—— 单拿一行放进别的系统，它仍能说清楚自己是什么、怎么来的。贡献上传的文件不在这份里：它们还没有基线对比，也就没有差值可导。",
     "per-vertex SD": "逐顶点 SD",
-    "repeat runs, one session": "次重复跑 · 同一会话",
+    "repeat runs, one session.": "次重复跑 · 同一会话。",
     "Re-running this comparison": "重跑这个对比",
     "Everything needed is on this page: the measured .zfab (download it from the fabric card), the named generic preset, both garment scenarios, the engine build, the particle distance and the fitting mode.": "需要的东西本页都有：实测 .zfab（在面料卡上下载）、具名的通用预设、两个服装场景、引擎 build、粒子间距与 fitting 模式。",
     "Method: build your own garment, apply the generic preset and simulate, export the mesh; apply the measured .zfab to the same garment and simulate again, export; compare the two meshes vertex by vertex.": "方法：搭你自己的服装，先用通用预设仿真并导出网格；再把实测 .zfab 应用到同一件服装上重跑并导出；两个网格逐顶点对比。",
