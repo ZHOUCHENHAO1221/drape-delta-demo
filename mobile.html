@@ -27,9 +27,9 @@ body.dark .toggle .sw{background:#2ee06a}body.dark .toggle .sw::after{transform:
 h1{font-size:24px;font-weight:700;letter-spacing:-.02em;margin:6px 0 4px}
 .lead{font-size:12.5px;color:var(--ink2);line-height:1.5;margin-bottom:14px}
 .disc{flex:0 0 auto;padding:7px 14px;border-top:1px solid var(--line);font-family:var(--mono);font-size:8px;color:var(--ink2);line-height:1.45;text-align:center;background:var(--card)}
-.hdr{display:flex;align-items:center;gap:10px;margin:4px 0 12px}
+.hdr{display:flex;align-items:center;gap:10px;margin:4px 0 12px;padding-right:163px}
 .hdr .bk{width:32px;height:32px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px -8px rgba(0,0,0,.4);color:var(--ink)}
-.hdr h1{margin:0}
+.hdr h1{margin:0;min-width:0}
 .seg{display:flex;background:var(--track);border-radius:11px;padding:4px;margin-bottom:15px}
 .seg button{flex:1;border:0;background:transparent;font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--ink2);padding:9px;border-radius:8px;cursor:pointer;transition:.2s}
 .seg button.on{background:var(--card);color:var(--ink);box-shadow:0 2px 8px -3px rgba(0,0,0,.3)}
@@ -280,7 +280,7 @@ function isoView(id){glStop();glFormStop();V='isolation';IS=id;HFAB=id;
 function drawIso(){const a=ABL[IS];const mx=Math.max(a.sum,...a.parts.map(p=>p[1]),a.full);
  const bar=(l,v,hot,c)=>`<div class="pgr"><span class="l">${l}</span><span class="t"><span class="f ${hot?'':'dim'}" ${c?'style="background:'+c+'"':''} data-w="${v/mx*100}"></span></span><span class="p">${d1(v)} mm</span></div>`;
  const bigpart=Math.max(...a.parts.map(x=>x[1]));const hf=F.find(x=>x.id===IS);
- document.getElementById('isob').innerHTML=`<div class="heat3d" style="aspect-ratio:4/3"><canvas id="hcanvas" class="hcanvas"></canvas></div><div class="hint" style="margin-bottom:14px">drag to rotate &middot; where ${IS} actually moves &middot; generic → measured</div><div class="pg">${a.parts.map(p=>bar(p[0],p[1],p[1]===bigpart)).join('')}
+ document.getElementById('isob').innerHTML=`<div class="heat3d"><canvas id="hcanvas" class="hcanvas"></canvas></div><div class="hint" style="margin-bottom:14px">drag to rotate &middot; where ${IS} actually moves &middot; generic → measured</div><div class="pg">${a.parts.map(p=>bar(p[0],p[1],p[1]===bigpart)).join('')}
   ${bar('All measured properties',a.full,true,'var(--ink)')}${bar('Sum of single runs',a.sum,false)}</div>
   <div class="ins">${a.note}</div><div class="mod"><div class="t">Finding</div><div class="li">Measure the whole fabric — don't assume its properties add up.</div></div>`;
  requestAnimationFrame(()=>document.querySelectorAll('#isob .f').forEach(el=>el.style.width=el.dataset.w+'%'));}
