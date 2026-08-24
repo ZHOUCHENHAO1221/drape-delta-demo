@@ -112,8 +112,8 @@
     // ---- brand / cover / entry ----
     "Measured, not assumed": "实测,而非假定",
     "MEASURED, NOT ASSUMED": "实测,而非假定",
-    "A measured digital-material workspace for CLO3D — see exactly how far a generic fabric preset sits from the measured fabric.": "面向 CLO3D 的实测数字面料工作台——直观看到通用面料预设与实测面料之间差多少。",
-    "A measured digital-material workspace — see exactly how far a generic fabric preset sits from the measured fabric.": "实测数字面料工作台——直观看到通用面料预设与实测面料之间差多少。",
+    "A measured digital-material workspace for CLO3D — see how far a generic fabric preset sits from the measured fabric.": "面向 CLO3D 的实测数字面料工作台——直观看到通用面料预设与实测面料之间差多少。",
+    "A measured digital-material workspace — see how far a generic fabric preset sits from the measured fabric.": "实测数字面料工作台——直观看到通用面料预设与实测面料之间差多少。",
     "Enter workspace →": "进入工作台 →",
     "Panel concept · single-engine pilot · Chenhao Zhou · LCF · UAL 2026": "面板概念 · 单一引擎试点 · Chenhao Zhou · LCF · UAL 2026",
     "Chenhao Zhou (He/Him) · London College of Fashion · UAL · 2026": "Chenhao Zhou(He/Him)· 伦敦时装学院 · UAL · 2026",
