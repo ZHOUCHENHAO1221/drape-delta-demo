@@ -518,7 +518,7 @@
     s.textContent = [
       // Mobile mounts the identity chip on the Materials screen; injectQualCss only runs
       // on the contribution screen, so these rules have to live with the chip's own CSS.
-      '.midid{display:flex;justify-content:flex-end;margin:-6px 0 2px;min-height:34px}' +
+      '.midid{position:relative;display:flex;justify-content:flex-end;margin:-6px 0 2px;min-height:34px}' +
       '.midid .idchip{position:static}' +
       '.midid .idmenu{right:0;left:auto}' +
       // The gate lives on the desktop's dark launch overlay AND on mobile's #intro, which
@@ -592,7 +592,14 @@
     var menu = chip.querySelector('.idmenu'), tog = chip.querySelector('[data-idtoggle]');
     if (tog && menu) tog.onclick = function (e) { e.stopPropagation(); menu.classList.toggle('open'); };
     var so = chip.querySelector('[data-signout]');
-    if (so) so.onclick = function () { setGuest(false); if (window.DRAPE_AUTH) DRAPE_AUTH.signOut().then(function () { location.reload(); }); else location.reload(); };
+    if (so) so.onclick = function (e) {
+      // Without the catch, a failed network call left the promise rejected and the page
+      // never reloaded - the button looked dead. Reload either way: the local session is
+      // already cleared, so the user is signed out of this device regardless.
+      e.stopPropagation(); setGuest(false);
+      if (window.DRAPE_AUTH) DRAPE_AUTH.signOut().catch(function () {}).then(function () { location.reload(); });
+      else location.reload();
+    };
     var sn = chip.querySelector('[data-setname]');
     if (sn) sn.onclick = function () { var v = window.prompt('Display name:', (authUser() && authUser().name) || ''); if (v && v.trim()) DRAPE_AUTH.setName(v.trim()).then(renderIdentity); };
     var si = chip.querySelector('[data-signin]');
