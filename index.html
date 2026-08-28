@@ -171,48 +171,8 @@ function csvCell(v){v=(v===null||v===undefined)?'':String(v);return /[",\n]/.tes
    in a single builder is the only way the CSV and the spreadsheet cannot disagree — and the
    note under the button promises a specific column count. */
 function deltaTable(){
- var COLS=['Mass / area','Thickness','Bending \u00b7 warp','Bending \u00b7 weft','Stretch \u00b7 warp','Stretch \u00b7 weft'];
- var SLUG={'Mass / area':'mass_g_m2','Thickness':'thickness_mm','Bending \u00b7 warp':'bending_warp_idx','Bending \u00b7 weft':'bending_weft_idx','Stretch \u00b7 warp':'stretch_warp_idx','Stretch \u00b7 weft':'stretch_weft_idx'};
- var head=['fabric_id','name','category','baseline_preset','baseline_role','G1_drape_delta_mm','G2_fitted_delta_mm','G2_over_G1','property_isolation_run','dominant_property','material_version','material_status','supersedes','engine','particle_distance','calibrated_at','calibration_route','delta_computed_at','baseline_currency','mass_method','thickness_method','tensile_method','bending_method','shear_method','fibre_identification','conditioning','test_house','test_commissioned','test_report_date','provenance_status'];
- COLS.forEach(function(c){head.push(SLUG[c]+'_generic',SLUG[c]+'_measured');});
- var rows=F.map(function(f){
-  var r=[f.id,f.name,f.cat,f.preset,f.brole,d1(f.g1),d1(f.g2),(f.g2/f.g1).toFixed(2),f.abl?'yes':'no',f.abl?(f.driver||''):'',
-   '1.0','current','','CLO3D 2026.0.374','10','2026-07-23/24','A','2026-07-27',
-   'snapshot on CLO3D 2026.0.374 \u2014 does not auto-refresh when CLO updates',
-   'ISO 3801 \u00b7 n=5','ISO 5084 (1 kPa) \u00b7 n=5',
-   'ISO 13934-1 \u00b7 n=5 per direction \u00b7 read as a stretch proxy, not an extensibility test',
-   'cantilever 41.5 deg \u00b7 non-standard \u00b7 n=3 strips per direction \u00b7 2026-07-14',
-   'not measured \u00b7 engine default retained',
-   (f.id==='P27'?'SEM scale pattern + burn test \u00b7 100% wool confirmed':''),
-   'ISO 139 not performed \u2014 declared departure',
-   'Frankie, Jinan','2026-06-24','not recorded',
-   'declared by contributor \u2014 not verified by this deployment'];
-  COLS.forEach(function(c){var m=null;f.rows.forEach(function(x){if(x[0]===c)m=x;});r.push(m?m[1]:'',m?m[2]:'');});
-  return r;
- });
- var d=new Date().toISOString().slice(0,10);
- var meta=[
-  ['# DRAPE \u25b3','generic-vs-measured delta records'],
-  ['# Exported',d],
-  ['# Source','https://drape-delta.netlify.app/'],
-  ['# Table schema','v2 \u00b7 '+head.length+' columns \u00b7 read by header NAME; column order is not stable across schema versions'],
-  ['# Material record','version 1.0 (current) \u00b7 no superseded versions in this export'],
-  ['# Engine','CLO3D 2026.0.374 \u00b7 Fitting (Accurate Fabric) \u00b7 Particle Distance 10'],
-  ['# Garment G1','FV2 Gathered A-Line Maxi Dress (drape-dominant)'],
-  ['# Garment G2','FV2 Spaghetti-Strap H-Line Dress (fitted)'],
-  ['# Delta','mean per-vertex absolute displacement between the generic-preset run and the measured-input run, within the same CLO3D garment scenario'],
-  ['# Not an error','a difference between two simulations \u2014 there is no physical ground-truth validation behind these numbers'],
-  ['# Dataset','7 specimens / 6 specifications (P31 and P32 are the same spec, dyed apart)'],
-  ['# Measurement','mass ISO 3801 \u00b7 thickness ISO 5084 \u00b7 tensile ISO 13934-1 \u00b7 n=5'],
-  ['# Bending','non-standard cantilever'],
-  ['# Stretch','low-load proxy, not an extensibility measurement'],
-  ['# Shear','not measured \u2014 left at the engine baseline'],
-  ['# Generic thickness','a constant 0.50 mm placeholder across all presets'],
-  ['# Property isolation','run on P15 and P28 only; other dominant-property labels are inferred from input difference, not isolated'],
-  ['# Index units','bending and stretch are CLO 0-99 index values with no natural zero \u2014 generic/measured pairs are comparable only within a column'],
-  ['# Contributed uploads','not in this file \u2014 without a baseline comparison they have no delta to export']
- ];
- return {head:head,rows:rows,meta:meta,date:d};
+ /* the table itself lives in delta_table.js — one definition, both pages */
+ return window.DRAPE_DELTA_TABLE();
 }
 function csvCell2(v){v=(v===null||v===undefined)?'':String(v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;}
 function saveBlob(blob,name){var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1500);}
@@ -222,7 +182,7 @@ function exportCSV(btn){
   var hdr=t.meta.map(function(m){return (m[0]||m[1])?(csvCell2(m[0])+','+csvCell2(m[1])):'';}).join('\n')+'\n\n';
   var body=[t.head.join(',')].concat(t.rows.map(function(r){return r.map(csvCell2).join(',');})).join('\n');
   saveBlob(new Blob([new Uint8Array([0xEF,0xBB,0xBF]),hdr+body+'\n'],{type:'text/csv;charset=utf-8'}),'drape_delta_records_'+t.date+'.csv');
-  if(btn){btn.classList.add('done');btn.textContent='\u2713 '+F.length+' records exported';}
+  if(btn){btn.classList.add('done');btn.textContent='\u2713 '+t.rows.length+' records exported';}
  }catch(e){if(btn)btn.textContent='export failed';}
 }
 function loadXLSXlib(cb){if(window.DRAPE_XLSX)return cb(true);var s=document.createElement('script');s.src='xlsx.js';s.onload=function(){cb(!!window.DRAPE_XLSX);};s.onerror=function(){cb(false);};document.head.appendChild(s);}
@@ -255,7 +215,7 @@ function exportXLSX(btn){
     {name:'Delta records',rows:data,widths:dataWidths,freeze:3},
     {name:'About this export',rows:about,widths:[26,104]}
    ]),'drape_delta_records_'+t.date+'.xlsx');
-   if(btn){btn.classList.add('done');btn.textContent='\u2713 '+F.length+' records exported';}
+   if(btn){btn.classList.add('done');btn.textContent='\u2713 '+t.rows.length+' records exported';}
   }catch(e){if(btn)btn.textContent='export failed';}
  });
 }
@@ -458,4 +418,4 @@ function enterWS(){const l=document.getElementById('launch');if(!l)return;var bd
  vp(); pbody();})();
 /* a11y: keyboard operability for non-native onclick controls */
 (function(){function pr(r){if(!r)return;r.querySelectorAll('[onclick]:not(button):not(a):not(input):not([role])').forEach(function(el){el.setAttribute('role','button');if(!el.hasAttribute('tabindex'))el.setAttribute('tabindex','0');});}var mo=new MutationObserver(function(){pr(document.getElementById('pb'));pr(document.getElementById('vp'));});mo.observe(document.body,{childList:true,subtree:true});pr(document.getElementById('pb'));pr(document.getElementById('vp'));document.addEventListener('keydown',function(e){var t=e.target;if((e.key==='Enter'||e.key===' ')&&t&&t.getAttribute&&t.getAttribute('role')==='button'&&t.hasAttribute('onclick')){e.preventDefault();t.click();}});})();
-</script><script src="supabase-config.js"></script><script src="monitor.js"></script><script src="auth.js"></script><script src="live.js"></script><script src="i18n.js?v=1"></script></body></html>
+</script><script src="delta_table.js"></script><script src="supabase-config.js"></script><script src="monitor.js"></script><script src="auth.js"></script><script src="live.js"></script><script src="i18n.js?v=1"></script></body></html>
