@@ -230,7 +230,7 @@ function exportCSV(btn){
   var hdr=t.meta.map(function(m){return (m[0]||m[1])?(csvCell2(m[0])+','+csvCell2(m[1])):'';}).join('\n')+'\n\n';
   var body=[t.head.join(',')].concat(t.rows.map(function(r){return r.map(csvCell2).join(',');})).join('\n');
   saveBlob(new Blob([new Uint8Array([0xEF,0xBB,0xBF]),hdr+body+'\n'],{type:'text/csv;charset=utf-8'}),'drape_delta_records_'+t.date+'.csv');
-  if(btn){btn.classList.add('done');btn.textContent='\u2713 '+t.rows.length+' records exported';}
+  if(btn){btn.classList.add('done');btn.textContent=ZHNOW()?('\u2713 已导出 '+t.rows.length+' 条记录'):('\u2713 '+t.rows.length+' records exported');}
  }catch(e){if(btn)btn.textContent='export failed';}
 }
 function loadXLSXlib(cb){if(window.DRAPE_XLSX)return cb(true);var s=document.createElement('script');s.src='xlsx.js';s.onload=function(){cb(!!window.DRAPE_XLSX);};s.onerror=function(){cb(false);};document.head.appendChild(s);}
@@ -263,12 +263,16 @@ function exportXLSX(btn){
     {name:'Delta records',rows:data,widths:dataWidths,freeze:3},
     {name:'About this export',rows:about,widths:[26,104]}
    ]),'drape_delta_records_'+t.date+'.xlsx');
-   if(btn){btn.classList.add('done');btn.textContent='\u2713 '+t.rows.length+' records exported';}
+   if(btn){btn.classList.add('done');btn.textContent=ZHNOW()?('\u2713 已导出 '+t.rows.length+' 条记录'):('\u2713 '+t.rows.length+' records exported');}
   }catch(e){if(btn)btn.textContent='export failed';}
  });
 }
+/* The dictionary keys on whole English strings, so a message assembled at
+   runtime (it carries a fabric id or a count) can never match one. Those pick
+   their own language here instead. */
+function ZHNOW(){try{return((new URLSearchParams(location.search).get('lang'))||(window.localStorage&&localStorage.getItem('drape_lang')))==='zh';}catch(e){return false;}}
 function loadZFAB(cb){if(window.ZFAB)return cb(true);var s3=document.createElement('script');s3.src='zfab_data.js';s3.onload=function(){cb(!!window.ZFAB);};s3.onerror=function(){cb(false);};document.head.appendChild(s3);}
-function dlZfab(id,btn){if(btn){btn.textContent='preparing…';}loadZFAB(function(ok){if(!ok||!window.ZFAB||!window.ZFAB[id]){if(btn)btn.textContent='download unavailable';return;}try{const bin=atob(window.ZFAB[id]);const arr=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);const blob=new Blob([arr],{type:'application/octet-stream'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=id+'_measured.zfab';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);if(btn){btn.classList.add('done');btn.textContent='✓ '+id+'_measured.zfab downloaded';}}catch(e){if(btn)btn.textContent='download failed';}});}
+function dlZfab(id,btn){if(btn){btn.textContent='preparing…';}loadZFAB(function(ok){if(!ok||!window.ZFAB||!window.ZFAB[id]){if(btn)btn.textContent='download unavailable';return;}try{const bin=atob(window.ZFAB[id]);const arr=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);const blob=new Blob([arr],{type:'application/octet-stream'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=id+'_measured.zfab';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);if(btn){btn.classList.add('done');btn.textContent=ZHNOW()?('✓ 已下载 '+id+'_measured.zfab'):('✓ '+id+'_measured.zfab downloaded');}}catch(e){if(btn)btn.textContent='download failed';}});}
 function asset(id){glStop();glFormStop();V='asset';const f=F.find(x=>x.id===id);const abl=(f.id==='P15'||f.id==='P28');HFAB=id;
  scr.innerHTML=`<div class="pad"><div class="hdr"><div class="bk" aria-label="Back" onclick="go('materials')">&#8592;</div><h1>${f.id}</h1><button type="button" class="lnk" title="Copy a link to this view" aria-label="Copy a link to this view" onclick="copyMobileLink(this)">&#128279;</button></div>
   <div class="seg heroseg"><button id="hs-ba" class="on" onclick="setHV('ba')">Before/After</button><button id="hs-heat" onclick="setHV('heat')">&#916; map</button><button id="hs-form" onclick="setHV('form')">Drape form</button></div>
