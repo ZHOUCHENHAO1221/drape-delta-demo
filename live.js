@@ -458,7 +458,7 @@
     // Relabel the intake copy so it reads as a live candidate-intake, not "registers an asset".
     if (badge && badge.classList.contains('futbadge')) badge.textContent = 'Live file-intake demo · candidates pending review';
     var sub = uz.querySelector('.uz-s');
-    if (sub) sub.innerHTML = 'Accepted: .zfab · .csv · .pdf · .txt · .json · .xlsx. The .zfab is the fabric; the rest are stored alongside it as declared evidence — they are filed, not parsed into properties. This live demo really uploads the file and stores it as a <b>candidate</b>. It is not registered as a measured asset and produces no delta &mdash; provenance review, a named baseline and a garment comparison are still required.';
+    if (sub) sub.innerHTML = 'Accepted: .zfab · .csv · .pdf · .txt · .json · .xlsx. The .zfab is the fabric; the rest are stored alongside it as declared evidence — they are filed, not parsed into properties. This live demo really uploads the file and stores it as a candidate. It is not registered as a measured asset and produces no delta &mdash; provenance review, a named baseline and a garment comparison are still required.';
     var pill = uz.querySelector('.uz-c'); if (pill) pill.textContent = 'choose a file · live';
 
     if (window.DRAPE_AUTH) {

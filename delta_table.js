@@ -47,3 +47,43 @@ window.DRAPE_DELTA_TABLE=function(){
  ];
  return {head:head,rows:rows,meta:meta,date:d};
 };
+
+/* Garment-level effect on G1, from before_after_log.xlsx (指标结果, 2026-07-24).
+   hem  = change in widest hem, measured run vs generic run
+   fold = folds counted off the rendered silhouette, generic -> measured
+   note = only where a length change large enough to matter was recorded */
+window.DRAPE_GARMENT={
+ P06:{hem:'+6.5%',fold:'4 \u2192 5'},
+ P15:{hem:'+8.3%',fold:'2 \u2192 2',note:'about 10 cm higher than the generic run'},
+ P24:{hem:'\u221210.7%',fold:'3 \u2192 2'},
+ P27:{hem:'+1.5%',fold:'5 \u2192 3'},
+ P28:{hem:'+6.2%',fold:'4 \u2192 5'},
+ P31:{hem:'\u22120.3%',fold:'6 \u2192 3'},
+ P32:{hem:'\u22122.2%',fold:'5 \u2192 4'}
+};
+
+/* Property names as they appear in the comparison verdict, which is built at
+   runtime and so cannot go through the whole-string dictionary. */
+window.DRAPE_DRIVER_ZH={
+ 'stretch':'拉伸',
+ 'bending':'弯曲',
+ 'bending + stretch':'弯曲 + 拉伸',
+ 'bending + weight':'弯曲 + 克重',
+ 'bending / anisotropy':'弯曲 / 各向异性'
+};
+window.DRV=function(d){return (window.DRAPE_DRIVER_ZH||{})[d]||d;};
+
+/* The six property rows, from either page's fabric record. The desktop stores them
+   ready-made as f.rows; the phone stores the parts (mass, th, bend[2], stretch[2], gen).
+   Verified 2026-08-29: deriving from the phone's parts reproduces the desktop rows
+   exactly for all seven fabrics. Row shape: [label, generic, measured, unit, decimals]. */
+window.DRAPE_ROWS=function(f){
+ if(f && f.rows) return f.rows;
+ if(!f || !f.gen) return [];
+ return [['Mass / area',f.gen.mass,f.mass,'g/m\u00b2',0],
+         ['Thickness',f.gen.th,f.th,'mm',3],
+         ['Bending \u00b7 warp',f.gen.bend[0],f.bend[0],'idx',0],
+         ['Bending \u00b7 weft',f.gen.bend[1],f.bend[1],'idx',0],
+         ['Stretch \u00b7 warp',f.gen.stretch[0],f.stretch[0],'idx',0],
+         ['Stretch \u00b7 weft',f.gen.stretch[1],f.stretch[1],'idx',0]];
+};
