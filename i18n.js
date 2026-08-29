@@ -194,6 +194,7 @@
     "1.9 MB · first load only": "1.9 MB · 仅首次加载",
     "still loading · large mesh over a slow connection": "仍在加载 · 网络较慢且网格较大",
     "mesh unavailable": "网格不可用",
+    "required once you start a record: without the CLO version and the baseline preset, the record cannot be re-checked when CLO revises its generic library. Optional. A file without a record is still accepted and is listed as an unqualified candidate. A record states what was measured and by whom — it is not a claim that the fabric is accurate.": "开始填写记录后为必填：没有 CLO 版本与基线预设，将来 CLO 修改其通用库时这条记录就无法重新核对。选填。没有记录的文件仍会被接收，列为未限定候选。记录说明的是测了什么、谁测的 —— 它不是在声称这块面料准确。",
     "Accepted: .zfab · .csv · .pdf · .txt · .json · .xlsx. The .zfab is the fabric; the rest are stored alongside it as declared evidence — they are filed, not parsed into properties. This live demo really uploads the file and stores it as a candidate. It is not registered as a measured asset and produces no delta — provenance review, a named baseline and a garment comparison are still required.": "接受的格式：.zfab · .csv · .pdf · .txt · .json · .xlsx。.zfab 是面料本体，其余作为声明证据一并存放 —— 只归档，不解析成属性。本实时演示会真的上传文件并存为候选。它不会登记为实测资产，也不产生差值 —— 仍需溯源审核、具名基线与服装对比。",
     "ISO 13934-1 tensile · low-load response · 5% secant stiffness → CLO stretch index · a proxy, not a standard stretch test": "ISO 13934-1 拉伸 · 低载响应 · 5% 割线刚度 → CLO 拉伸指数 · 代理，非标准拉伸测试",
     "Finding": "发现",
