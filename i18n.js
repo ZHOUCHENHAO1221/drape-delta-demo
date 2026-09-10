@@ -9,6 +9,28 @@
    ⚠️ 中文待用户校对后再上线。 */
 (function () {
   var ZH = {
+  // ---- garment comparison entry, stage A (2026-09-09) ----
+  "Sample garment — your file has not been loaded": "示例服装 — 尚未读取你的文件",
+  "This 3D view shows the library demo dress. Your own garment is simulated in the local comparison, not on this page.": "这个 3D 视图展示的是库内演示裙。你自己的衣服在本机比较中模拟，不在此页。",
+  "My garment": "我的衣服",
+  "Compare my garment": "比较我的衣服",
+  "How does a fabric change your garment?": "换一种面料，衣服会变多少？",
+  "Choose a CLO project and two fabrics. Simulate on your computer, compare the hem, and download a report.": "选择一个 CLO 项目和两种面料，在你的电脑上模拟，查看下摆变化并下载报告。",
+  "Choose files → Confirm the garment and hem → Compare and download": "选衣服和面料 → 确认一件衣服与下摆 → 看变化、下载报告",
+  "Open local comparison →": "打开本机比较 →",
+  "Requires CLO and the DRAPE local helper on this Windows computer. Opening the page does not mean the helper or CLO is already running.": "需要在这台 Windows 电脑上安装 CLO，并启动 DRAPE 本机工具。页面能打开不代表本机工具或 CLO 已在运行。",
+  "First time? See setup steps": "第一次使用？查看启动方法",
+  "1 · Open and sign in to CLO, save your current garment, and create an empty scene.": "1 · 打开并登录 CLO，保存正在做的衣服，另建空白场景。",
+  "2 · In your DRAPE local helper folder, double-click 打开CLO试验.cmd.": "2 · 在你的 DRAPE 本机工具文件夹中，双击 打开CLO试验.cmd。",
+  "3 · Come back here and click Open local comparison.": "3 · 回到 Delta，点击「打开本机比较」。",
+  "4 · Pick your .zprj garment, then fabrics A and B as .zfab files.": "4 · 选择 .zprj 衣服，以及 A、B 两份 .zfab 面料。",
+  "If the page does not open, start the helper first, then use this address:": "如果页面打不开，先启动本机工具，再访问这个地址：",
+  "Different from Compare with another fabric (the in-library record comparison) — nothing has been simulated for your garment until you run it locally.": "这与「与另一块面料对比」（库内记录对比）不同 —— 在你本机运行之前，你的衣服还没有被模拟过。",
+  "Local preview on this Windows computer · no public installer yet · local comparison currently available in Chinese.": "本机预览 · 目前只在这台 Windows 电脑可用，尚无公开安装包 · 本机比较页为中文界面。",
+  "Open Delta on the computer that runs CLO": "请在运行 CLO 的电脑上打开 Delta",
+  "This feature simulates your garment locally with CLO on a Windows computer. A phone cannot connect to that computer, so there is no start button here.": "此功能在装有 CLO 的 Windows 电脑上本机模拟你的衣服。手机无法连接那台电脑，这里不提供启动按钮。",
+  "On that computer": "在那台电脑上",
+  "3 · Open Delta there and click Open local comparison.": "3 · 在那台电脑上打开 Delta，点击「打开本机比较」。",
   // ---- contribution surface / qualification record (2026-08-15) ----
   "Upload a calibrated .zfab — or the report behind it": "上传已标定的 .zfab — 或它背后的报告",
   "Drop a calibrated .zfab — or the report behind it": "拖入已标定的 .zfab — 或它背后的报告",

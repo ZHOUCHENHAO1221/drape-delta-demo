@@ -193,10 +193,10 @@ function formState(st){FSTATE=st;if(GLF)glFormLoad(HFAB,st);var a=document.getEl
 window.addEventListener('pointermove',e=>{if(!drag3)return;yaw+=(e.clientX-gpx)*0.008;pitch=Math.max(-1.3,Math.min(1.3,pitch+(e.clientY-gpy)*0.008));gpx=e.clientX;gpy=e.clientY;});
 window.addEventListener('pointerup',()=>drag3=false);
 function mount3d(cid){const cv=document.getElementById(cid);if(!cv)return;glStop();yaw=0.6;pitch=0.12;DMAX=135;var host=cv.parentElement,ld=null,ldt=0;if(host){ld=document.createElement('div');ld.className='d3load';ld.setAttribute('aria-live','polite');ld.innerHTML='<span class="sp"></span><span class="d3t">loading displacement map</span>';host.appendChild(ld);ldt=setTimeout(function(){var e=ld.querySelector('.d3t');if(e&&ld.parentElement)e.textContent='still loading \u00b7 large mesh over a slow connection';},6000);}loadPC(function(ok){clearTimeout(ldt);if(ld&&ld.parentElement)ld.remove();if(!cv.isConnected)return;if(ok&&glInit(cv)){glLoad(HFAB);glStart(cv);}else if(cv.parentElement){cv.parentElement.innerHTML='<img alt="Per-vertex displacement map for the selected fabric." src="'+F.find(x=>x.id===HFAB).heat+'" style="width:100%;display:block">';}});}
-const NAVOF={materials:'materials',asset:'materials',compare:'materials',isolation:'materials',request:'materials',methods:'methods',about:'about'};
+const NAVOF={materials:'materials',asset:'materials',compare:'materials',isolation:'materials',request:'materials',garment:'materials',methods:'methods',about:'about'};
 function go(v){glStop();glFormStop();V=v;[...tabbar.children].forEach(b=>b.classList.toggle('on',b.dataset.v===NAVOF[v]));
  scr.scrollTop=0;
- if(v==='materials')materials();else if(v==='asset')return;else if(v==='compare')compare();else if(v==='methods')methods();else if(v==='about')about();else if(v==='request')request();}
+ if(v==='materials')materials();else if(v==='asset')return;else if(v==='compare')compare();else if(v==='methods')methods();else if(v==='about')about();else if(v==='request')request();else if(v==='garment')garment();}
 function baWire(){const ba=document.getElementById('ba');if(!ba)return;ba.style.setProperty('--pos','50%');
  function sp(e){const r=ba.getBoundingClientRect();let x=((e.touches?e.touches[0].clientX:e.clientX)-r.left)/r.width*100;x=Math.max(2,Math.min(98,x));ba.style.setProperty('--pos',x+'%');}
  let d=false;ba.addEventListener('pointerdown',e=>{d=true;sp(e)});window.addEventListener('pointermove',e=>{if(d)sp(e)});window.addEventListener('pointerup',()=>d=false);
@@ -219,6 +219,7 @@ function materials(){const p=F.find(x=>x.id==='P28');HFAB='P28';
   <div class="rank" id="rk">${F.map(f=>`<div class="row" id="rw-${f.id}" onclick="asset('${f.id}')"><span class="dot" style="background:${f.col}"></span><span class="nm">${f.name}<span class="u">${f.id}</span></span><span class="bw"><span class="bar" id="br-${f.id}"></span><span class="bv" id="bvv-${f.id}"></span></span></div>`).join('')}</div>
   <div class="ins" id="ins"></div>
   <div class="mrow ghost" onclick="go('request')"><span>&#43;&nbsp; My fabric isn't here</span><span class="ar">&rarr;</span></div>
+  <div class="mrow" onclick="go('garment')"><span>Compare my garment</span><span class="ar">&rarr;</span></div>
   </div>`; baWire(); sortRows(); ins();}
 function sortRows(){const M=(G==='id')?'g1':G;const a=(G==='id')?[...F].sort((x,y)=>x.id<y.id?-1:1):[...F].sort((x,y)=>y[M]-x[M]);const rk=document.getElementById('rk');
  a.forEach(f=>rk.appendChild(document.getElementById('rw-'+f.id)));
@@ -353,6 +354,13 @@ function drawIso(){const a=ABL[IS];const mx=Math.max(a.sum,...a.parts.map(p=>p[1
   ${bar('All measured properties',a.full,true,'var(--ink)')}${bar('Sum of single runs',a.sum,false)}</div>
   <div class="ins">${a.note}</div><div class="mod"><div class="t">Finding</div><div class="li">Measure the whole fabric — don't assume its properties add up.</div></div>`;
  requestAnimationFrame(()=>document.querySelectorAll('#isob .f').forEach(el=>el.style.width=el.dataset.w+'%'));}
+function garment(){scr.innerHTML=`<div class="pad">
+  <div class="sect">Compare my garment</div>
+  <div class="mod"><div class="t">Open Delta on the computer that runs CLO</div><div class="li">This feature simulates your garment locally with CLO on a Windows computer. A phone cannot connect to that computer, so there is no start button here.</div></div>
+  <div class="mod"><div class="t">How does a fabric change your garment?</div><div class="li">Choose a CLO project and two fabrics. Simulate on your computer, compare the hem, and download a report.</div><div class="li" style="margin-top:6px">Choose files &rarr; Confirm the garment and hem &rarr; Compare and download</div></div>
+  <div class="mod"><div class="t">On that computer</div><div class="li">1 &middot; Open and sign in to CLO, save your current garment, and create an empty scene.</div><div class="li">2 &middot; In your DRAPE local helper folder, double-click 打开CLO试验.cmd.</div><div class="li">3 &middot; Open Delta there and click Open local comparison.</div><div class="li">4 &middot; Pick your .zprj garment, then fabrics A and B as .zfab files.</div></div>
+  <div class="hint" style="text-align:left;margin-top:10px">Local preview on this Windows computer &middot; no public installer yet &middot; local comparison currently available in Chinese.</div>
+</div>`;}
 function methods(){const s=[["1","Physical fabric","7 specimens · 6 specs (P31/P32 same spec, separately dyed)"],["2","Measure to ISO procedures","mass ISO 3801 · thickness ISO 5084 · tensile ISO 13934-1 · n=5 · conditioning departure declared"],["3","Calibrate into CLO3D","bending calibrated to a 41.5° cantilever chord; stretch from 5% secant"],["4","Measured .zfab","7 calibrated files, loadable in CLO3D"]];
  scr.innerHTML=`<div class="pad"><h1>Methods</h1><div class="lead">Measurement to model — how each fabric was made.</div>
   <div class="pipe">${s.map(x=>`<div class="pstep"><div class="n">${x[0]}</div><div><div class="tt">${x[1]}</div><div class="dd">${x[2]}</div></div></div>`).join('')}</div>

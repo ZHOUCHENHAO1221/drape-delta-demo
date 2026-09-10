@@ -47,6 +47,15 @@ Two self-contained builds ship here: **`index.html`** (the CLO3D side-panel conc
 - **Moderation** — you can delete your own uploads; a configured admin can remove any upload.
 - **Evidence, not assertion** — WebGL per-vertex displacement cloud, draggable before/after, property-difference bars, and named provenance for every fabric.
 
+## Compare my garment (local preview)
+
+Both builds now carry a **"Compare my garment" / 比较我的衣服** entry (desktop: a fourth panel tab; mobile: an explanation view). It is different from the in-library *Compare with another fabric*: instead of comparing two library records, it opens a **local comparison tool** (`DRAPE DELTA · 衣服比较`) that simulates *your own* CLO garment with two fabrics on the same Windows computer that runs CLO, then reports the hem change and a downloadable PDF.
+
+- The entry is a plain user-clicked link to `http://127.0.0.1:8734/` in a new tab — the site never fetches, health-checks or claims a connection to the local tool.
+- The phone view is explanation-only: a phone's `127.0.0.1` is not your computer, so there is deliberately no start button there.
+- **Local preview only** — the helper runs on one Windows machine with CLO installed; there is no public installer and no cloud simulation. The local tool's UI is currently Chinese.
+- Nothing simulated locally (ZPRJ/ZFAB/OBJ/reports) enters the online contribution library.
+
 ## What this is — and is not
 
 This is an **exploratory, single-engine pilot**, not a product or a validated measurement tool. It is the practice output of an MA research project, so the caveats are load-bearing:
