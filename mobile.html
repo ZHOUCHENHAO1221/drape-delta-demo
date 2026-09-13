@@ -356,11 +356,19 @@ function drawIso(){const a=ABL[IS];const mx=Math.max(a.sum,...a.parts.map(p=>p[1
  requestAnimationFrame(()=>document.querySelectorAll('#isob .f').forEach(el=>el.style.width=el.dataset.w+'%'));}
 function garment(){scr.innerHTML=`<div class="pad">
   <div class="sect">Compare my garment</div>
-  <div class="mod"><div class="t">Open Delta on the computer that runs CLO</div><div class="li">This feature simulates your garment locally with CLO on a Windows computer. A phone cannot connect to that computer, so there is no start button here.</div></div>
+  <div id="cloudjobs"></div>
+  <div class="localonly"><div class="mod"><div class="t">Open Delta on the computer that runs CLO</div><div class="li">This feature simulates your garment locally with CLO on a Windows computer. A phone cannot connect to that computer, so there is no start button here.</div></div></div>
   <div class="mod"><div class="t">How does a fabric change your garment?</div><div class="li">Choose a CLO project and two fabrics. Simulate on your computer, compare the hem, and download a report.</div><div class="li" style="margin-top:6px">Choose files &rarr; Confirm the garment and hem &rarr; Compare and download</div></div>
-  <div class="mod"><div class="t">On that computer</div><div class="li">1 &middot; Open and sign in to CLO, save your current garment, and create an empty scene.</div><div class="li">2 &middot; In your DRAPE local helper folder, double-click 打开CLO试验.cmd.</div><div class="li">3 &middot; Open Delta there and click Open local comparison.</div><div class="li">4 &middot; Pick your .zprj garment, then fabrics A and B as .zfab files.</div></div>
-  <div class="hint" style="text-align:left;margin-top:10px">Local preview on this Windows computer &middot; no public installer yet &middot; local comparison currently available in Chinese.</div>
-</div>`;}
+  <div class="localonly"><div class="mod"><div class="t">On that computer</div><div class="li">1 &middot; Open and sign in to CLO, save your current garment, and create an empty scene.</div><div class="li">2 &middot; In your DRAPE local helper folder, double-click 打开CLO试验.cmd.</div><div class="li">3 &middot; Open Delta there and click Open local comparison.</div><div class="li">4 &middot; Pick your .zprj garment, then fabrics A and B as .zfab files.</div></div>
+  <div class="hint" style="text-align:left;margin-top:10px">Local preview on this Windows computer &middot; no public installer yet &middot; local comparison currently available in Chinese.</div></div>
+</div>`;
+  if(window.DrapeCloudJobs)DrapeCloudJobs.mount(document.getElementById('cloudjobs'),{onAvailability:function(outcome){
+    // Only a live cloud workspace earns hiding the local-only guidance, and a later
+    // sign-out (or the API going away) brings it back — the two flows must never
+    // show at the same time. 503/offline keeps the page exactly as it is today.
+    var display=outcome==='live'?'none':'';
+    Array.prototype.forEach.call(scr.querySelectorAll('.localonly'),function(n){n.style.display=display});
+  }});}
 function methods(){const s=[["1","Physical fabric","7 specimens · 6 specs (P31/P32 same spec, separately dyed)"],["2","Measure to ISO procedures","mass ISO 3801 · thickness ISO 5084 · tensile ISO 13934-1 · n=5 · conditioning departure declared"],["3","Calibrate into CLO3D","bending calibrated to a 41.5° cantilever chord; stretch from 5% secant"],["4","Measured .zfab","7 calibrated files, loadable in CLO3D"]];
  scr.innerHTML=`<div class="pad"><h1>Methods</h1><div class="lead">Measurement to model — how each fabric was made.</div>
   <div class="pipe">${s.map(x=>`<div class="pstep"><div class="n">${x[0]}</div><div><div class="tt">${x[1]}</div><div class="dd">${x[2]}</div></div></div>`).join('')}</div>
@@ -445,4 +453,4 @@ function copyMobileLink(btn){
  else{introShow(splashHTML());}})();
 /* a11y: keyboard operability for non-native onclick controls + focus containment */
 (function(){function pr(r){if(!r)return;r.querySelectorAll('[onclick]:not(button):not(a):not(input):not([role])').forEach(function(el){el.setAttribute('role','button');if(!el.hasAttribute('tabindex'))el.setAttribute('tabindex','0');});}var mo=new MutationObserver(function(){pr(document.getElementById('scr'));pr(document.getElementById('intro'));});mo.observe(document.body,{childList:true,subtree:true});pr(document.getElementById('scr'));pr(document.getElementById('intro'));document.addEventListener('keydown',function(e){var t=e.target;if((e.key==='Enter'||e.key===' ')&&t&&t.getAttribute&&t.getAttribute('role')==='button'&&t.hasAttribute('onclick')){e.preventDefault();t.click();}});})();
-</script><script src="supabase-config.js"></script><script src="monitor.js"></script><script src="auth.js"></script><script src="live.js?v=2"></script><script src="i18n.js?v=1"></script></body></html>
+</script><script src="supabase-config.js"></script><script src="monitor.js"></script><script src="auth.js"></script><script src="live.js?v=2"></script><script src="cloud_jobs.js"></script><script src="i18n.js?v=1"></script></body></html>

@@ -9,6 +9,62 @@
    ⚠️ 中文待用户校对后再上线。 */
 (function () {
   var ZH = {
+  // ---- resume upload, D1.2.2a (2026-09-12) ----
+  "Finish uploading your files": "把文件传完",
+  "Choose the same files again to resume this upload where it stopped. A different file starts that upload over.": "重新选择同样的文件，就能从上次中断的位置继续上传；换一个文件则该项重新上传。",
+  "Resume upload": "继续上传",
+  // ---- cloud comparison workspace, D1.2.1 (2026-09-10) ----
+  "Not simulated in CLO yet": "尚未经 CLO 模拟",
+  "Needs you": "需要你操作",
+  "Open this comparison": "打开这次比较",
+  "Start a new comparison": "新建一次比较",
+  "Your files are simulated on the DRAPE comparison machine. You do not need CLO on this device.": "你的文件在 DRAPE 的比较机器上模拟。这台设备不需要安装 CLO。",
+  "1 · Your CLO project (.zprj)": "1 · 你的 CLO 项目（.zprj）",
+  "2 · Fabric A (.zfab)": "2 · 面料 A（.zfab）",
+  "3 · Fabric B (.zfab)": "3 · 面料 B（.zfab）",
+  "Upload and start": "上传并开始",
+  "Which garment is this comparison about?": "这次比较的是哪一件衣服？",
+  "One group at a time. Grouping follows sewing, not garment recognition, so please check it is one complete garment.": "一次只比较一组。分组依据是缝合关系，不是自动识别衣服，请你核对它确实是一件完整的衣服。",
+  "I checked: this group is one complete garment.": "我核对过：这组是一件完整衣服。",
+  "Compare this one": "只比较这件",
+  "pattern pieces": "块版片",
+  "Is this the hem you want measured?": "这是你要测量的下摆吗？",
+  "points on one closed boundary": "个点，构成一圈闭合边界",
+  "Yes, compare this hem": "是，比较这个下摆",
+  "No, stop this comparison": "不是，停止这次比较",
+  "Result": "结果",
+  "runs recorded": "次运行已记录",
+  "Cancel this comparison": "取消这次比较",
+  "Back to my comparisons": "返回我的比较",
+  "Choose all three files first.": "请先选好三个文件。",
+  "Checking your files…": "正在检查你的文件…",
+  "Creating the comparison…": "正在创建比较…",
+  "Uploading your CLO project…": "正在上传你的 CLO 项目…",
+  "Uploading fabric A…": "正在上传面料 A…",
+  "Uploading fabric B…": "正在上传面料 B…",
+  "Checking the uploaded files…": "正在检查已上传的文件…",
+  "Please confirm this is one complete garment.": "请先确认这是一件完整的衣服。",
+  "Waiting for your files": "等待你的文件",
+  "Checking your files": "正在检查你的文件",
+  "Working": "处理中",
+  "Comparison": "比较",
+  // ---- cloud comparison workspace, D1.3 (2026-09-10) ----
+  "My cloud comparisons": "我的云端比较",
+  "No cloud comparisons yet.": "还没有云端比较。",
+  "Sign in to use cloud comparison.": "登录后可使用云端比较。",
+  "Test run · not simulated in CLO": "测试任务 · 未经 CLO 模拟",
+  "Open this comparison to continue": "打开这次比较，继续操作",
+  "Comparison": "比较",
+  "Uploading your files": "正在上传你的文件",
+  "Waiting for the comparison machine": "正在排队等待比较机器",
+  "Reading your project": "正在读取你的项目",
+  "Choose which garment to compare": "请选择要比较的那一件衣服",
+  "Finding the hem": "正在寻找下摆",
+  "Confirm the measurement boundary": "请确认测量边界",
+  "Simulating six times": "正在模拟六次",
+  "Comparison finished": "比较已完成",
+  "This comparison stopped": "这次比较已停止",
+  "Cancelled": "已取消",
   // ---- garment comparison entry, stage A (2026-09-09) ----
   "Sample garment — your file has not been loaded": "示例服装 — 尚未读取你的文件",
   "This 3D view shows the library demo dress. Your own garment is simulated in the local comparison, not on this page.": "这个 3D 视图展示的是库内演示裙。你自己的衣服在本机比较中模拟，不在此页。",
@@ -642,7 +698,17 @@
         location.hash = '#app';
       }
     } catch (e) {}
-    location.reload();
+    // A deep link may already contain ?lang=zh.  localStorage alone cannot
+    // override that URL because lang() intentionally gives the URL priority.
+    // Write the new language into the URL before navigating so one click always
+    // changes the rendered language and preserves the current page/hash.
+    try {
+      var target = new URL(location.href);
+      target.searchParams.set('lang', next);
+      location.assign(target.href);
+    } catch (e) {
+      location.reload();
+    }
   }
   function makeBtn() {
     var b = document.createElement('button');
