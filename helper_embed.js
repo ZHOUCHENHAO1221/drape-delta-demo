@@ -18,7 +18,7 @@
   function protocolUrl(){return 'drapehelper://open?lang='+siteLang();}
   function mount(root){
     if(!root)return;
-    root.innerHTML='<div class="helper-card"><div class="helper-state">Windows connector</div><div class="helper-actions"><a class="load helper-open" href="'+localUrl()+'" target="_blank" rel="noopener noreferrer" style="text-decoration:none">Open garment comparison &rarr;</a><a class="helper-start" href="'+protocolUrl()+'">Not opening? Start Helper</a><a class="helper-download" href="downloads/DRAPE-Helper-Windows.zip" download>Download installer</a></div><div class="note" style="margin-top:8px">Install once. The main button opens the browser comparison page. If it cannot be reached, use Start Helper.</div></div>';
+    root.innerHTML='<div class="helper-card"><div class="helper-state">Windows connector</div><div class="helper-actions"><a class="load helper-open" href="'+localUrl()+'" target="_blank" rel="noopener noreferrer" style="text-decoration:none">Open garment comparison &rarr;</a><a class="helper-start" href="'+protocolUrl()+'">Not opening? Start Helper</a><a class="helper-download" href="downloads/DRAPE-Helper-Windows.zip" download>Download Helper (ZIP)</a></div><div class="helper-install-note">After downloading: extract the ZIP, then double-click “START HERE - Install DRAPE Helper.cmd”.</div><div class="note" style="margin-top:8px">Install once. The main button opens the browser comparison page. If it cannot be reached, use Start Helper.</div></div>';
     var open=root.querySelector('.helper-open');
     if(open)open.addEventListener('click',function(){open.href=localUrl();});
     var start=root.querySelector('.helper-start');
