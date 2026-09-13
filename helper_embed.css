@@ -1,0 +1,6 @@
+.helper-connect{margin-top:12px}
+.helper-card{background:var(--card);border-radius:13px;padding:15px;box-shadow:0 5px 16px -14px rgba(0,0,0,.5)}
+.helper-state{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.helper-actions{display:flex;gap:8px;flex-wrap:wrap}
+.helper-actions .load{border:0;cursor:pointer;margin:0;flex:1 1 180px;text-align:center}
+.helper-download,.helper-start{display:flex;align-items:center;justify-content:center;min-height:42px;padding:0 14px;border:1px solid var(--line);border-radius:9px;color:var(--ink);text-decoration:none;font-weight:700;font-size:12px;background:#fff}
