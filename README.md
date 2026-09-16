@@ -2,7 +2,7 @@
 
 [![Live demo](https://img.shields.io/badge/live-drape--delta.netlify.app-16a34a?style=flat-square)](https://drape-delta.netlify.app) [![License: MIT](https://img.shields.io/badge/license-MIT-3b82f6?style=flat-square)](./LICENSE) ![Built with Netlify + Supabase](https://img.shields.io/badge/built%20with-Netlify%20%2B%20Supabase-111827?style=flat-square) ![Status: exploratory pilot](https://img.shields.io/badge/status-exploratory%20pilot-f59e0b?style=flat-square)
 
-**A measured digital-material library for CLO3D** — see exactly how far a generic fabric preset sits from the *real, physically-measured* fabric, as a generic-vs-measured before/after on the garment.
+**A measured digital-material library for CLO3D** — see exactly how far a library fabric preset sits from the *real, physically-measured* fabric, as a preset-vs-measured before/after on the garment.
 
 🔗 **Live demo → [drape-delta.netlify.app](https://drape-delta.netlify.app)**
 
@@ -24,7 +24,7 @@ Set these on the deployment (Netlify → Site configuration → Environment vari
 
 ## What it is
 
-Digital fabric in 3D garment software usually starts from a *generic preset* — an assumption about how the cloth behaves. DRAPE △ takes seven fabrics that were **physically measured** (mass, thickness and tensile to ISO; bending by a non-standard cantilever and stretch by a low-load proxy, both disclosed), calibrated into CLO3D, and shows the gap between the generic preset and the measured fabric on the same garment — as a draggable before/after, a per-vertex displacement map, and property-by-property deltas.
+Digital fabric in 3D garment software usually starts from a *library preset* — an assumption about how the cloth behaves. DRAPE △ takes seven fabrics that were **physically measured** (mass, thickness and tensile to ISO; bending by a non-standard cantilever and stretch by a low-load proxy, both disclosed), calibrated into CLO3D, and shows the gap between the library preset and the measured fabric on the same garment — as a draggable before/after, a per-vertex displacement map, and property-by-property deltas.
 
 It is built as a **contributor-populated library**: the seven measured fabrics are the seed, and anyone can browse them or contribute their own already-measured fabric. The platform *organises, versions and hands fabric back to CLO3D, and shows each entry's provenance* — it does **not** measure, validate or certify the data.
 
@@ -35,7 +35,7 @@ Two self-contained builds ship here: **`index.html`** (the CLO3D side-panel conc
 |  |  |
 |---|---|
 | ![Guest-first sign-in](screenshots/sign-in.png) | ![Before / after](screenshots/before-after.png) |
-| **Guest-first sign-in** — browse with no account | **Before / after** — drag to compare generic vs measured |
+| **Guest-first sign-in** — browse with no account | **Before / after** — drag to compare preset vs measured |
 | ![Per-vertex displacement](screenshots/displacement.png) | ![Contribution channels](screenshots/contribution.png) |
 | **Per-vertex displacement** — real mesh, 0–135 mm | **Contribution channels** — how the library grows |
 
@@ -60,9 +60,9 @@ Both builds now carry a **"Compare my garment" / 比较我的衣服** entry (des
 
 This is an **exploratory, single-engine pilot**, not a product or a validated measurement tool. It is the practice output of an MA research project, so the caveats are load-bearing:
 
-- Every value is a **generic-vs-measured difference computed *within* CLO3D — not an error against physical reality.**
+- Every value is a **preset-vs-measured difference computed *within* CLO3D — not an error against physical reality.**
 - One solver (CLO3D 2026.0.374, PD 10), **7 measured specimens**, no physical ground-truth validation; cantilever bending is **non-standard** and stretch is a **proxy index**.
-- Generic preset thickness is a constant **0.50 mm placeholder** across presets, so part of every thickness delta reflects that default, not a class-specific value.
+- Library preset thickness is a constant **0.50 mm placeholder** across presets, so part of every thickness delta reflects that default, not a class-specific value.
 - The library **hosts and organises** contributed files and shows their provenance — it does **not** measure fabric, derive properties from a photo, or certify a contributor's data. An upload is a *candidate*; a named baseline + a garment comparison are still required (offline, in CLO3D) before any delta.
 
 **Headline numbers** (verified against the project's before/after log): G1 drape mean delta **24.5 mm** — median **12.0 mm** (robust; the mean is inflated by one high-stretch outlier, P15 jersey, whose own mean is 95 mm and largest single vertex 134 mm); G2 fitted mean **10.1 mm**.

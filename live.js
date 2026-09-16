@@ -38,7 +38,7 @@
   // simulation at all, so it is a checklist, not a free-text claim.
   var QINPUTS = ['weight', 'thickness', 'bending', 'stretch', 'shear'];
   // Mirrors REQUIRED_FIELDS in netlify/functions/_qual.mjs. Without these two a record
-  // cannot be re-checked after CLO revises its generic library, so the server refuses it
+  // cannot be re-checked after CLO revises its preset library, so the server refuses it
   // — say so on the form rather than letting someone lose a filled-in record to a 422.
   var QREQ = ['cloVersion', 'basePreset'];
   // The contributor's own current uploads, for the 'replaces' picker. Filled by /list.
@@ -373,7 +373,7 @@
       '<div class="qlab">Engine inputs physically measured &mdash; leave unticked whatever stayed at the engine default</div>' +
       '<div class="qboxes">' + qboxes + '</div>' +
       '<div class="qnote"><b style="color:var(--green)">*</b> required once you start a record: without the CLO version and the baseline preset, '
-      + 'the record cannot be re-checked when CLO revises its generic library. ' +
+      + 'the record cannot be re-checked when CLO revises its preset library. ' +
       'Optional. A file without a record is still accepted and is listed as an unqualified candidate. ' +
       'A record states what was measured and by whom &mdash; it is not a claim that the fabric is accurate.</div>' +
       '</div>';

@@ -7,7 +7,7 @@ window.DRAPE_DELTA_TABLE=function(){
  var COLS=['Mass / area','Thickness','Bending \u00b7 warp','Bending \u00b7 weft','Stretch \u00b7 warp','Stretch \u00b7 weft'];
  var SLUG={'Mass / area':'mass_g_m2','Thickness':'thickness_mm','Bending \u00b7 warp':'bending_warp_idx','Bending \u00b7 weft':'bending_weft_idx','Stretch \u00b7 warp':'stretch_warp_idx','Stretch \u00b7 weft':'stretch_weft_idx'};
  var head=['fabric_id','name','category','baseline_preset','baseline_role','G1_drape_delta_mm','G2_fitted_delta_mm','G2_over_G1','property_isolation_run','dominant_property','material_version','material_status','supersedes','engine','particle_distance','calibrated_at','calibration_route','delta_computed_at','baseline_currency','mass_method','thickness_method','tensile_method','bending_method','shear_method','fibre_identification','conditioning','test_house','test_commissioned','test_report_date','provenance_status'];
- COLS.forEach(function(c){head.push(SLUG[c]+'_generic',SLUG[c]+'_measured');});
+ COLS.forEach(function(c){head.push(SLUG[c]+'_preset',SLUG[c]+'_measured');});
  var rows=DT_F.map(function(f){
   var r=[f.id,f.name,f.cat,f.preset,f.brole,d1(f.g1),d1(f.g2),(f.g2/f.g1).toFixed(2),f.abl?'yes':'no',f.abl?(f.driver||''):'',
    '1.0','current','','CLO3D 2026.0.374','10','2026-07-23/24','A','2026-07-27',
@@ -25,7 +25,7 @@ window.DRAPE_DELTA_TABLE=function(){
  });
  var d=new Date().toISOString().slice(0,10);
  var meta=[
-  ['# DRAPE \u25b3','generic-vs-measured delta records'],
+  ['# DRAPE \u25b3','preset-vs-measured delta records'],
   ['# Exported',d],
   ['# Source','https://drape-delta.netlify.app/'],
   ['# Table schema','v2 \u00b7 '+head.length+' columns \u00b7 read by header NAME; column order is not stable across schema versions'],
@@ -33,28 +33,28 @@ window.DRAPE_DELTA_TABLE=function(){
   ['# Engine','CLO3D 2026.0.374 \u00b7 Fitting (Accurate Fabric) \u00b7 Particle Distance 10'],
   ['# Garment G1','FV2 Gathered A-Line Maxi Dress (drape-dominant)'],
   ['# Garment G2','FV2 Spaghetti-Strap H-Line Dress (fitted)'],
-  ['# Delta','mean per-vertex absolute displacement between the generic-preset run and the measured-input run, within the same CLO3D garment scenario'],
+  ['# Delta','mean per-vertex absolute displacement between the library-preset run and the measured-input run, within the same CLO3D garment scenario'],
   ['# Not an error','a difference between two simulations \u2014 there is no physical ground-truth validation behind these numbers'],
   ['# Dataset','7 specimens / 6 specifications (P31 and P32 are the same spec, dyed apart)'],
   ['# Measurement','mass ISO 3801 \u00b7 thickness ISO 5084 \u00b7 tensile ISO 13934-1 \u00b7 n=5 \u00b7 conditioning departure declared'],
   ['# Bending','non-standard cantilever'],
   ['# Stretch','low-load proxy, not an extensibility measurement'],
   ['# Shear','not measured \u2014 left at the engine baseline'],
-  ['# Generic thickness','a constant 0.50 mm placeholder across all presets'],
+  ['# Preset thickness','a constant 0.50 mm placeholder across all presets'],
   ['# Property isolation','run on P15 and P28 only; other dominant-property labels are inferred from input difference, not isolated'],
-  ['# Index units','bending and stretch are CLO 0-99 index values with no natural zero \u2014 generic/measured pairs are comparable only within a column'],
+  ['# Index units','bending and stretch are CLO 0-99 index values with no natural zero \u2014 preset/measured pairs are comparable only within a column'],
   ['# Contributed uploads','not in this file \u2014 without a baseline comparison they have no delta to export']
  ];
  return {head:head,rows:rows,meta:meta,date:d};
 };
 
 /* Garment-level effect on G1, from before_after_log.xlsx (指标结果, 2026-07-24).
-   hem  = change in widest hem, measured run vs generic run
-   fold = folds counted off the rendered silhouette, generic -> measured
+   hem  = change in widest hem, measured run vs preset run
+   fold = folds counted off the rendered silhouette, preset -> measured
    note = only where a length change large enough to matter was recorded */
 window.DRAPE_GARMENT={
  P06:{hem:'+6.5%',fold:'4 \u2192 5'},
- P15:{hem:'+8.3%',fold:'2 \u2192 2',note:'about 10 cm higher than the generic run'},
+ P15:{hem:'+8.3%',fold:'2 \u2192 2',note:'about 10 cm higher than the preset run'},
  P24:{hem:'\u221210.7%',fold:'3 \u2192 2'},
  P27:{hem:'+1.5%',fold:'5 \u2192 3'},
  P28:{hem:'+6.2%',fold:'4 \u2192 5'},
@@ -76,7 +76,7 @@ window.DRV=function(d){return (window.DRAPE_DRIVER_ZH||{})[d]||d;};
 /* The six property rows, from either page's fabric record. The desktop stores them
    ready-made as f.rows; the phone stores the parts (mass, th, bend[2], stretch[2], gen).
    Verified 2026-08-29: deriving from the phone's parts reproduces the desktop rows
-   exactly for all seven fabrics. Row shape: [label, generic, measured, unit, decimals]. */
+   exactly for all seven fabrics. Row shape: [label, preset, measured, unit, decimals]. */
 window.DRAPE_ROWS=function(f){
  if(f && f.rows) return f.rows;
  if(!f || !f.gen) return [];
