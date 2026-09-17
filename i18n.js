@@ -491,6 +491,7 @@
     "Single solver (CLO3D 2026.0.374, PD 10), two garment scenarios (G1 drape, G2 fitted), no physical ground-truth validation.": "单一求解器(CLO3D 2026.0.374,PD 10),两个服装场景(G1 悬垂,G2 合体),无物理真值验证。",
     "Spearman 0.98 / 1.00 = internal consistency only, not physical-truth validation": "Spearman 0.98 / 1.00 = 仅内部一致性,非物理真值验证",
     "Specimen level: each fabric's G1 / G2 Δ is that mean over the garment mesh (e.g. P15 G1 = 95 mm). Dataset level: 24.5 / 10.1 mm are the means of the seven specimen-level values (G1 median 12.0 mm).": "试样层:每块面料的 G1 / G2 Δ 是其在服装网格上的均值(如 P15 G1 = 95 mm)。数据集层:24.5 / 10.1 mm 是七个试样层数值的均值(G1 中位数 12.0 mm)。",
+    "Read a delta as a match statement — the library fabric is not a match to the fabric you are hoping to use.": "差值读的是“匹不匹配”——库里那块面料，和你打算用的那块并不是一回事。",
     "Every value is a within-CLO3D delta between a named library preset and the measured input — not an error against physical reality.": "每个数值都是 CLO3D 内、具名库预设与实测输入之间的差值——并非相对物理真实的误差。",
     "Preset baselines are manually chosen CLO library references, not equivalent physical fabrics — a delta is not an error against a naturally correct baseline.": "预设基线是人工从 CLO 库选的参照,并非等同的实体面料——差值不是相对某个天然正确基线的误差。",
     "Preset thickness is a constant 0.50 mm CLO placeholder across all presets — part of the thickness delta reflects this default, not a class-specific value.": "所有预设的厚度都是恒定的 0.50 mm CLO 占位值——厚度差值有一部分反映的是这个默认值,而非某类别的真实值。",
