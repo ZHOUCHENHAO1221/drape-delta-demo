@@ -6,10 +6,19 @@
 //     a week idle, and a paused project means sign-in fails for everyone with no error
 //     that points at the cause. Note that hitting /list alone does NOT do this: getUser
 //     returns null without a token and never calls Supabase, so the project must be
-//     pinged directly.
+//     pinged directly. /auth/v1/health does not count either (Supabase still sent a
+//     pause warning on 21 Sep 2026 with it running hourly): the ping has to be a real
+//     database query, so it calls public.keepalive(), a one-line SQL function created
+//     in the SQL Editor on 21 Sep 2026 (select 1, executable by anon).
 //
 // It only writes to the function log. Wiring an alert destination (email/webhook) is a
 // deliberate follow-up: it needs a provider choice that is the owner's to make.
+
+// Same public values as supabase-config.js, so the keep-alive runs even where the
+// environment variables were never set.
+const PUBLIC_URL = 'https://pbzjzdlobbfoprelnaff.supabase.co';
+const PUBLIC_KEY = 'sb_publishable_OzFarh6hRPmU7CmGG2onxQ_h_AcKA2U';
+
 export default async () => {
   const site = process.env.URL || 'https://drape-delta.netlify.app';
   const out = { at: new Date().toISOString(), checks: {} };
@@ -33,6 +42,11 @@ export default async () => {
   } else {
     out.checks.supabase = { ok: null, note: 'not configured' };
   }
+  await check('supabase_db', (su || PUBLIC_URL) + '/rest/v1/rpc/keepalive', {
+    method: 'POST',
+    headers: { apikey: ak || PUBLIC_KEY, 'content-type': 'application/json' },
+    body: '{}',
+  });
 
   const failed = Object.entries(out.checks).filter(([, v]) => v && v.ok === false);
   // `ok: null` means the check could not run at all. Treating that as healthy is exactly the
