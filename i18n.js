@@ -9,7 +9,7 @@
    ⚠️ 中文待用户校对后再上线。 */
 (function () {
   var ZH = {
-  "Download Helper (ZIP)": "下载 Helper（ZIP）",
+  "Download Helper 1.0.12 (ZIP)": "下载 Helper 1.0.12（ZIP）",
   "After downloading: extract the ZIP, then double-click “START HERE - Install DRAPE Helper.cmd”.": "下载后：解压 ZIP，然后双击名称以“START HERE”开头的安装文件。",
   // ---- resume upload, D1.2.2a (2026-09-12) ----
   "Finish uploading your files": "把文件传完",
@@ -82,7 +82,7 @@
   "Open garment comparison →": "打开衣服比较 →",
   "Not opening? Start Helper": "打不开？启动 Helper",
   "Download installer": "下载安装包",
-  "Install once. The main button opens the browser comparison page. If it cannot be reached, use Start Helper.": "第一次先下载安装。主按钮会打开浏览器比较页；如果显示无法访问，再点「启动 Helper」。",
+  "Install once. Tested with CLO 2026.1. CLO 2025.2 is not supported for automatic comparison and stops safely before changing the project.": "只需安装一次。已在 CLO 2026.1 验证；CLO 2025.2 不支持自动比较，并会在更改项目之前安全停止。",
   "First use": "第一次使用",
   "1 · Install DRAPE Helper once on this Windows computer.": "1 · 在这台 Windows 电脑上安装一次 DRAPE Helper。",
   "2 · Open and sign in to CLO, save your work, then create an empty scene.": "2 · 打开并登录 CLO，保存当前工作，再新建空白场景。",
