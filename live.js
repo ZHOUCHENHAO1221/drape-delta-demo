@@ -809,7 +809,7 @@
     try { zh = ((new URLSearchParams(location.search).get('lang')) || (window.localStorage && localStorage.getItem('drape_lang'))) === 'zh'; } catch (e) {}
     var T = zh
       ? { name: '你的名字(可选)', google: '用 Google 继续', guest: '以访客浏览 →', email: '或用邮箱登录', em: '你的邮箱', link: '发送', terms: '真实账号 —— Google,或在本设备打开邮箱链接。访客可浏览;上传面料需登录。', sending: '发送中…', sent: '已发送 ✓', retry: '重试', sentMsg: function (v) { return '登录链接已发送至 ' + v + ',请在本设备打开完成登录。'; }, gerr: 'Google 登录暂不可用。' }
-      : { name: 'Your name (optional)', google: 'Continue with Google', guest: 'Explore as guest &rarr;', email: 'or sign in with email', em: 'you@email.com', link: 'Link', terms: 'Real accounts — Google, or an email link opened on this device. Guests can browse; uploading a fabric needs sign-in.', sending: 'sending…', sent: 'link sent ✓', retry: 'retry', sentMsg: function (v) { return 'Sign-in link sent to ' + v + '. Open it on THIS device to finish.'; }, gerr: 'Google sign-in is unavailable.' };
+      : { name: 'Your name (optional)', google: 'Continue with Google', guest: 'Explore as guest &rarr;', email: 'or sign in with email', em: 'you@email.com', link: 'Link', terms: 'Real accounts — Google, or an email link opened on this device.', sending: 'sending…', sent: 'link sent ✓', retry: 'retry', sentMsg: function (v) { return 'Sign-in link sent to ' + v + '. Open it on THIS device to finish.'; }, gerr: 'Google sign-in is unavailable.' };
     var terms = signin.querySelector('.sterms');
     [].forEach.call(signin.querySelectorAll('.sbtn,.sdiv'), function (x) { x.remove(); });
     var g = document.createElement('div'); g.className = 'agate';
