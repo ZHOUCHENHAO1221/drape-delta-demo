@@ -18,7 +18,7 @@ window.DRAPE_DELTA_TABLE=function(){
    'not measured \u00b7 engine default retained',
    (f.id==='P27'?'SEM scale pattern + burn test \u00b7 100% wool confirmed':''),
    'ISO 139 not performed \u2014 declared departure',
-   'Frankie, Jinan','2026-06-24','not recorded',
+   'third-party textile laboratory, Jinan','2026-06-24','not recorded',
    'declared by contributor \u2014 not verified by this deployment'];
   f.p.forEach(function(m){r.push(m[0],m[1]);});
   return r;

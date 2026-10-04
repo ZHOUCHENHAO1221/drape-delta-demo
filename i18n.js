@@ -421,7 +421,7 @@
     "Not measured · engine default retained": "未测 · 保留引擎默认值",
     "ISO 139 not performed — declared departure": "未做 ISO 139 调湿 —— 已声明偏离",
     "SEM scale pattern + burn test · 100% wool confirmed": "SEM 鳞片形态 + 燃烧测试 · 确认 100% 羊毛",
-    "Frankie, Jinan · commissioned 2026-06-24 · report date not recorded": "Frankie（济南）· 2026-06-24 委测 · 报告日期未记录",
+    "third-party textile laboratory, Jinan · commissioned 2026-06-24 · report date not recorded": "第三方纺织检测实验室（济南）· 2026-06-24 委测 · 报告日期未记录",
     "Route A · CLO3D 2026.0.374": "Route A · CLO3D 2026.0.374",
     "Declared by the contributor and shown as declared — this deployment does not verify it. A blank field is a blank field, not a pass.": "由贡献者声明并照实展示 —— 本部署不作核验。空白就是空白，不等于合格。",
     "Measured side": "实测一侧",
