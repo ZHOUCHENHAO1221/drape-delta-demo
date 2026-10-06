@@ -208,6 +208,7 @@
     "Enter workspace →": "进入工作台 →",
     "Panel concept · single-engine pilot · Chenhao Zhou · LCF · UAL 2026": "面板概念 · 单一引擎试点 · Chenhao Zhou · LCF · UAL 2026",
     "Chenhao Zhou (He/Him) · London College of Fashion · UAL · 2026": "Chenhao Zhou(He/Him)· 伦敦时装学院 · UAL · 2026",
+    "Open the project page →": "打开完整项目说明页 →",
     "tap to begin": "轻触开始",
     "tap to continue": "轻触继续",
     "Welcome": "欢迎",
