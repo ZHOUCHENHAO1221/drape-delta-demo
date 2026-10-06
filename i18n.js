@@ -9,8 +9,8 @@
    ⚠️ 中文待用户校对后再上线。 */
 (function () {
   var ZH = {
-  "Download Helper 1.0.12 (ZIP)": "下载 Helper 1.0.12（ZIP）",
-  "After downloading: extract the ZIP, then double-click “START HERE - Install DRAPE Helper.cmd”.": "下载后：解压 ZIP，然后双击名称以“START HERE”开头的安装文件。",
+  "Get DRAPE Helper from the Microsoft Store →": "在 Microsoft Store 获取 DRAPE Helper →",
+  "Installs from the Microsoft Store and updates itself. Windows 10 and 11.": "由 Microsoft Store 安装并自动更新。支持 Windows 10 / 11。",
   // ---- resume upload, D1.2.2a (2026-09-12) ----
   "Finish uploading your files": "把文件传完",
   "Choose the same files again to resume this upload where it stopped. A different file starts that upload over.": "重新选择同样的文件，就能从上次中断的位置继续上传；换一个文件则该项重新上传。",
