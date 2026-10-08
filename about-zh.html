@@ -1,13 +1,16 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>About DRAPE DELTA</title>
-<meta name="description" content="DRAPE DELTA is a measured digital-material workspace for CLO3D. It organises physically measured fabric and shows how far a named CLO3D library preset sits from that measured input. Seven specimens, two garment scenarios, one engine.">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>关于 DRAPE DELTA</title>
+<meta name="description" content="DRAPE DELTA 是一个面向 CLO3D 的实测数字面料工作台。它把经过物理实测的面料组织起来，并显示具名的 CLO3D 库预设与那份实测输入之间差了多远。七块试样，两个服装场景，一个引擎。">
 <meta name="theme-color" content="#0b0d0f">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 90'%3E%3Crect width='100' height='90' fill='%230b0d0f'/%3E%3Cpath d='M50 14 L88 78 L12 78 Z' fill='none' stroke='%2316a34a' stroke-width='11' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="canonical" href="https://drape-delta.netlify.app/about.html">
+<link rel="canonical" href="https://drape-delta.netlify.app/about-zh.html">
+  <link rel="alternate" hreflang="zh-Hans" href="https://drape-delta.netlify.app/about-zh.html">
+  <link rel="alternate" hreflang="en" href="https://drape-delta.netlify.app/about.html">
+  <link rel="alternate" hreflang="x-default" href="https://drape-delta.netlify.app/about.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="About DRAPE DELTA">
-<meta property="og:description" content="A measured digital-material workspace for CLO3D. How far does a library fabric preset sit from the measured fabric?">
-<meta property="og:url" content="https://drape-delta.netlify.app/about.html">
+<meta property="og:title" content="关于 DRAPE DELTA">
+<meta property="og:description" content="一个面向 CLO3D 的实测数字面料工作台。库里的面料预设，与实测的那块布差了多远？">
+<meta property="og:url" content="https://drape-delta.netlify.app/about-zh.html">
 <meta property="og:image" content="https://drape-delta.netlify.app/og-image.jpg">
 <script type="application/ld+json">{
 "@context":"https://schema.org","@type":"AboutPage",
@@ -231,215 +234,146 @@ tbody tr td{transition:background .18s ease}
 <body>
 
 <header class="mast"><div class="grid"></div><div class="wrap">
-  <nav class="crumb"><a href="/">Workspace</a><span>/</span><span>About</span><a href="/about-zh.html" hreflang="zh-Hans" lang="zh-Hans" style="margin-left:14px">中文</a></nav>
-  <div class="kick">Measured, not assumed</div>
+  <nav class="crumb"><a href="/?lang=zh">工作台</a><span>/</span><span>关于</span></nav>
+  <div class="kick">实测，而非假定</div>
   <div class="wm"><span class="w">DRAPE</span><span class="d">DELTA</span>
     <svg viewBox="0 0 100 90" aria-hidden="true"><path d="M50 7 L94 83 L6 83 Z"/></svg></div>
-  <p class="lede"><b>DRAPE DELTA is a measured digital-material workspace for CLO3D.</b> It organises
-  physically measured fabric and shows how far a named CLO3D library preset sits from that measured
-  input &mdash; as a millimetre difference on a simulated garment, not as an opinion.</p>
+  <p class="lede"><b>DRAPE DELTA 是一个面向 CLO3D 的实测数字面料工作台。</b> 它把经过物理实测的面料组织起来，并显示一个具名的 CLO3D 库预设与那份实测输入之间差了多远—— 以仿真服装上的毫米差异呈现，而不是一句主观判断。</p>
   <div class="chips">
-    <span class="chip on">7 specimens measured to ISO procedures</span>
-    <span class="chip">2 garment scenarios</span>
+    <span class="chip on">7 块试样按 ISO 程序实测</span>
+    <span class="chip">2 个服装场景</span>
     <span class="chip">CLO3D 2026.0.374 &middot; PD 10</span>
-    <span class="chip">DRAPE Helper for Windows</span>
+    <span class="chip">DRAPE Helper · Windows 版</span>
   </div>
 </div></header>
 
 <main>
 
 <section id="what"><div class="wrap">
-  <div class="num">01<span>What it is</span></div>
+  <div class="num">01<span>它是什么</span></div>
   <div>
-    <h2>A fabric library that carries its own measurement record</h2>
-    <p class="claim">Laboratory measurement of cloth is mature. Entering those measurements into a
-    garment simulator is not &mdash; and the gap is where simulated garments quietly stop describing
-    the fabric a designer actually holds.</p>
-    <p>For each CLO3D fabric input, this workspace records whether the value could be entered
-    directly from a physical measurement, through a proxy, through calibration against a physical
-    reference, or not at all &mdash; and what that difference does to a simulated garment. The record
-    travels with every fabric in the library, and it is exported with every row of data.</p>
-    <p>The pipeline is four steps. Physical fabric, measured to ISO procedures (mass ISO 3801,
-    thickness ISO 5084, tensile ISO 13934-1, n&nbsp;=&nbsp;5). Calibration into CLO3D &mdash; bending
-    to a 41.5&deg; cantilever chord, stretch from a 5% secant. A measured <code>.zfab</code> that
-    loads in CLO3D. Then the same garment simulated twice, once on a named library preset and once
-    on the measured file, and compared vertex by vertex.</p>
-    <p class="q">The dataset is seven specimens measured and digitised inside one MA project. The
-    workspace is presented as the private material library of a fictional brand
-    product-development team; v1 demonstrates one intake channel end to end, and the remaining
-    channels are designed concepts, labelled as such on the page.</p>
+    <h2>一个自带测量记录的面料库</h2>
+    <p class="claim">实验室测面料这件事已经很成熟，把那些测量值喂进服装仿真器却不是 —— 而仿真服装正是在这个缺口里，悄悄不再描述设计师手上真正拿着的那块布。</p>
+    <p>对 CLO3D 的每一项面料输入，这个工作台都记录下该值是可以由物理测量直接填入、经由代理量、经由对物理参照的校准，还是根本填不进去 —— 以及这个差别对仿真服装意味着什么。这份记录跟着库里每一块面料走，也随每一行数据一起导出。</p>
+    <p>流程分四步。实物面料，按 ISO 程序实测（克重 ISO 3801、厚度 ISO 5084、拉伸 ISO 13934-1，n = 5）。校准进 CLO3D —— 弯曲对到 41.5° 悬臂弦长，拉伸取 5% 割线。得到一个可在 CLO3D 中加载的实测 <code>.zfab</code> 文件。然后把同一件服装仿真两次，一次用具名库预设、一次用实测文件，再逐顶点比对。</p>
+    <p class="q">数据集是在一个硕士项目内完成实测与数字化的七块试样。这个工作台以一个虚构品牌产品开发团队的私有材料库形式呈现；v1 完整演示了一条进料通道，其余通道是设计概念，并在页面上如实标注。</p>
   </div>
 </div></section>
 
 <section id="gap"><div class="wrap">
-  <div class="num">02<span>The gap</span></div>
+  <div class="num">02<span>缺口</span></div>
   <div>
-    <h2>Three of five engine inputs have an ISO source</h2>
-    <p class="claim">A standards-compliant test report cannot simply be typed into a garment
-    simulator. Some inputs have a standard behind them; some are reached through a non-standard
-    procedure; one is left wherever the engine put it.</p>
+    <h2>五项引擎输入中，三项有 ISO 来源</h2>
+    <p class="claim">一份符合标准的检测报告，并不能直接敲进服装仿真器。有些输入背后有标准，有些要靠非标准程序得到，还有一项就停在引擎给的默认值上。</p>
     <div class="stats">
-      <div class="stat"><div class="v">3<em>/ 5</em></div><div class="k">Engine inputs<br>from an ISO source</div></div>
-      <div class="stat"><div class="v">1</div><div class="k">Reached by a<br>non-standard cantilever</div></div>
-      <div class="stat"><div class="v">1</div><div class="k">Left at the<br>engine default</div></div>
+      <div class="stat"><div class="v">3<em>/ 5</em></div><div class="k">引擎输入<br>来自 ISO 来源</div></div>
+      <div class="stat"><div class="v">1</div><div class="k">经由<br>非标准悬臂法得到</div></div>
+      <div class="stat"><div class="v">1</div><div class="k">保留在<br>引擎默认值</div></div>
     </div>
     <ul>
-      <li><b>Mass per unit area</b> &mdash; ISO 3801, enters CLO3D directly.</li>
-      <li><b>Thickness</b> &mdash; ISO 5084, enters directly in millimetres.</li>
-      <li><b>Low-load stretch</b> &mdash; derived from the ISO 13934-1 tensile curve at a 5% secant,
-      then mapped onto CLO3D's dimensionless stretch index. A proxy, not a standard stretch test.</li>
-      <li><b>Bending</b> &mdash; calibrated against a 41.5&deg; cantilever chord. Non-standard: this
-      is a procedure built for the purpose, not an ISO bending test.</li>
-      <li><b>Shear</b> &mdash; left at the CLO3D default. No measurement enters.</li>
+      <li><b>单位面积克重</b> —— ISO 3801，直接填入 CLO3D。</li>
+      <li><b>厚度</b> —— ISO 5084，以毫米直接填入。</li>
+      <li><b>低载拉伸</b> —— 由 ISO 13934-1 拉伸曲线在 5% 割线处导出，再映射到 CLO3D 的无量纲拉伸指数。这是代理量，不是标准拉伸测试。</li>
+      <li><b>弯曲</b> —— 对 41.5° 悬臂弦长校准。非标准：这是为此目的自建的程序，不是 ISO 弯曲测试。</li>
+      <li><b>剪切</b> —— 保留 CLO3D 默认值。没有任何测量值进入。</li>
     </ul>
-    <div class="note"><div class="h">Why this is a finding, not a caveat</div>
-      <p>CLO3D's own fabric inputs are dimensionless 0&ndash;99 indices for everything except
-      thickness. A translation step between a test report and the simulator is therefore
-      unavoidable, and the shape of that translation is itself part of what this project
-      documents.</p></div>
+    <div class="note"><div class="h">为什么这是一项发现，而不是一句免责</div>
+      <p>除厚度之外，CLO3D 自己的面料输入全是无量纲的 0–99 指数。因此在检测报告与仿真器之间，一道转译步骤无可回避 —— 而这道转译长什么样，本身就是本项目要记录的内容之一。</p></div>
   </div>
 </div></section>
 
 <section id="measures"><div class="wrap">
-  <div class="num">03<span>What it measures</span></div>
+  <div class="num">03<span>它测什么</span></div>
   <div>
-    <h2>One knit moves the dataset on its own</h2>
-    <p class="claim">Across seven fabrics the average preset-to-measured difference is 24.5&nbsp;mm on
-    a drape-dominant garment &mdash; but the median is 12.0&nbsp;mm, because a single cotton jersey
-    sits at 95&nbsp;mm and the other six fall between 9.9 and 21.8.</p>
+    <h2>一块针织布，凭一己之力拉动整个数据集</h2>
+    <p class="claim">在七块面料上，库预设与实测之间的平均差异在悬垂主导的服装上是 24.5 mm —— 但中位数是 12.0 mm，因为单独一块棉针织落在 95 mm，其余六块在 9.9 到 21.8 之间。</p>
     <div class="stats">
-      <div class="stat"><div class="v">24.5<em>mm</em></div><div class="k">Mean &Delta;<br>G1 drape</div></div>
-      <div class="stat"><div class="v">12.0<em>mm</em></div><div class="k">Median &Delta;<br>G1 drape</div></div>
-      <div class="stat"><div class="v">10.1<em>mm</em></div><div class="k">Mean &Delta;<br>G2 fitted</div></div>
-      <div class="stat"><div class="v">14</div><div class="k">Specimen &times;<br>scenario records</div></div>
+      <div class="stat"><div class="v">24.5<em>mm</em></div><div class="k">平均差值<br>G1 悬垂</div></div>
+      <div class="stat"><div class="v">12.0<em>mm</em></div><div class="k">中位差值<br>G1 悬垂</div></div>
+      <div class="stat"><div class="v">10.1<em>mm</em></div><div class="k">平均差值<br>G2 合体</div></div>
+      <div class="stat"><div class="v">14</div><div class="k">试样 ×<br>场景记录</div></div>
     </div>
     <div class="tscroll"><table>
-      <caption>Mean per-vertex absolute displacement between the library-preset run and the
-      measured-input run, within the same CLO3D garment scenario. G1 is a drape-dominant garment;
-      G2 is a fitted H-line. A delta belongs to the garment it was measured on.</caption>
-      <thead><tr><th>ID</th><th>Fabric</th><th class="n">G1 drape</th><th class="n">G2 fitted</th>
-        <th>Dominant driver</th></tr></thead>
+      <caption>在同一个 CLO3D 服装场景内，库预设那一次与实测输入那一次之间的逐顶点绝对位移均值。G1 是悬垂主导的服装，G2 是合体 H 型。差值属于它被测量时所在的那件服装。</caption>
+      <thead><tr><th>编号</th><th>面料</th><th class="n">G1 悬垂</th><th class="n">G2 合体</th>
+        <th>主导驱动属性</th></tr></thead>
       <tbody>
-        <tr><td>P06</td><td class="name">Cotton Poplin <span class="cat">woven</span></td><td class="n">9.9</td><td class="n">2.4</td><td>bending / anisotropy</td></tr>
-        <tr><td>P15</td><td class="name">Cotton Jersey <span class="cat">knit</span></td><td class="n">95.0</td><td class="n">48.8</td><td>stretch</td></tr>
-        <tr><td>P24</td><td class="name">Polyester Chiffon <span class="cat">woven</span></td><td class="n">10.9</td><td class="n">6.0</td><td>bending + weight</td></tr>
-        <tr><td>P27</td><td class="name">Worsted Wool <span class="cat">woven</span></td><td class="n">12.1</td><td class="n">4.3</td><td>bending</td></tr>
-        <tr><td>P28</td><td class="name">Felted Wool Knit <span class="cat">knit</span></td><td class="n">21.8</td><td class="n">3.5</td><td>bending + stretch</td></tr>
-        <tr><td>P31</td><td class="name">3-proof PET Twill &middot; brown <span class="cat">woven</span></td><td class="n">12.0</td><td class="n">2.2</td><td>bending</td></tr>
-        <tr><td>P32</td><td class="name">3-proof PET Twill &middot; cream <span class="cat">woven</span></td><td class="n">10.0</td><td class="n">3.5</td><td>bending</td></tr>
+        <tr><td>P06</td><td class="name">棉府绸 <span class="cat">梭织</span></td><td class="n">9.9</td><td class="n">2.4</td><td>弯曲 / 各向异性</td></tr>
+        <tr><td>P15</td><td class="name">棉针织 <span class="cat">针织</span></td><td class="n">95.0</td><td class="n">48.8</td><td>拉伸</td></tr>
+        <tr><td>P24</td><td class="name">聚酯雪纺 <span class="cat">梭织</span></td><td class="n">10.9</td><td class="n">6.0</td><td>弯曲 + 克重</td></tr>
+        <tr><td>P27</td><td class="name">精纺羊毛 <span class="cat">梭织</span></td><td class="n">12.1</td><td class="n">4.3</td><td>bending</td></tr>
+        <tr><td>P28</td><td class="name">毡化羊毛针织 <span class="cat">针织</span></td><td class="n">21.8</td><td class="n">3.5</td><td>弯曲 + 拉伸</td></tr>
+        <tr><td>P31</td><td class="name">三防涤斜纹 · 棕 <span class="cat">梭织</span></td><td class="n">12.0</td><td class="n">2.2</td><td>bending</td></tr>
+        <tr><td>P32</td><td class="name">三防涤斜纹 · 米 <span class="cat">梭织</span></td><td class="n">10.0</td><td class="n">3.5</td><td>bending</td></tr>
       </tbody></table></div>
-    <p><b>The design rule that falls out of it:</b> measure bending when the garment is
-    drape-dominant; measure stretch for any knit or elastic fabric, whatever the silhouette.
-    Stretch differences survive fitting &mdash; the jersey still differs by 48.8&nbsp;mm on the
-    fitted H-line, 51% of its drape figure. Bending differences largely do not: five
-    bending-driven fabrics fall to 16&ndash;36%, and their fitted deltas of 2.2&ndash;4.3&nbsp;mm sit
-    inside the roughly 10&nbsp;mm per-vertex solver repeatability band, so those ratios are
-    indicative only. The chiffon ignores the pattern entirely and retains 55%, the highest in the
-    set &mdash; above the knit.</p>
+    <p><b>由此得出的设计规则：</b> 服装偏悬垂主导时，去测弯曲；只要是针织或弹性面料，不论廓形，都去测拉伸。拉伸差异挺得过合体化 —— 那块针织在合体 H 型上仍差 48.8 mm，是它悬垂数字的 51%。弯曲差异大体挺不过去：五块由弯曲驱动的面料掉到 16–36%，而它们合体后 2.2–4.3 mm 的差值落在约 10 mm 的逐顶点解算器重复性带之内，所以这些比例只能作参考。那块雪纺完全无视版型，保留了 55%，是这组里最高的 —— 高过针织。</p>
   </div>
 </div></section>
 
 <section id="cloth"><div class="wrap">
-  <div class="num">04<span>Held against cloth</span></div>
+  <div class="num">04<span>拿去对实物</span></div>
   <div>
-    <h2>Measured input ranks with the cloth; the presets do not</h2>
-    <p class="claim">Seven fabrics were draped on a self-built Cusick-style rig, three specimens
-    &times; two faces each, and their drape coefficients compared against the same seven simulated
-    from measured input and from library presets.</p>
+    <h2>实测输入与实物同序，库预设不同序</h2>
+    <p class="claim">七块面料在一台自建的 Cusick 式装置上做了悬垂，每块三个试样 × 两面，再把它们的悬垂系数与同样这七块分别由实测输入和由库预设仿真出来的结果作比较。</p>
     <div class="stats">
-      <div class="stat"><div class="v">0.964<em>&rho;</em></div><div class="k">Measured input<br>vs real cloth</div></div>
-      <div class="stat"><div class="v">0.286<em>&rho;</em></div><div class="k">Library presets<br>vs real cloth</div></div>
-      <div class="stat"><div class="v">0.202</div><div class="k">Physical gap between<br>two colourways</div></div>
-      <div class="stat"><div class="v">0.0001</div><div class="k">Preset gap between<br>the same two</div></div>
+      <div class="stat"><div class="v">0.964<em>&rho;</em></div><div class="k">实测输入<br>对实物面料</div></div>
+      <div class="stat"><div class="v">0.286<em>&rho;</em></div><div class="k">库预设<br>对实物面料</div></div>
+      <div class="stat"><div class="v">0.202</div><div class="k">实物上两种染色<br>之间的差距</div></div>
+      <div class="stat"><div class="v">0.0001</div><div class="k">库预设给这两者<br>的差距</div></div>
     </div>
     <ul>
-      <li><b>Order holds, amount does not.</b> Measured input reproduces the physical ranking at
-      Spearman 0.964; the presets manage 0.286. On absolute error the two arms are nearly level
-      &mdash; 0.106 against 0.116 &mdash; so measuring buys the ranking, not the value.</li>
-      <li><b>Fabric by fabric:</b> measured is closer on three, level on two and further on two,
-      counting as level any fabric where the two arms differ by less than that fabric's own spread
-      across its six readings (P06, 0.002 against a spread of 0.041; P15, 0.015 against 0.022).
-      Both arms remain far from the cloth.</li>
-      <li><b>The clearest case is a dyeing difference.</b> P31 and P32 are one cloth in two
-      colourways. Physically they differ by 0.202. The library preset gives them the same
-      coefficient, 0.0001 apart &mdash; it cannot see them as different fabrics at all. Measured
-      input separates them by 0.007, which is to say it does not recover the difference either.</li>
+      <li><b>序保住了，量没有。</b> 实测输入以 Spearman 0.964 复现了实物的排序，库预设只有 0.286。在绝对偏差上两条臂几乎持平 —— 0.106 对 0.116 —— 所以测量买到的是排序，不是数值。</li>
+      <li><b>逐块来看：</b> 实测在三块上更近、两块持平、两块更远；凡是两条臂之差小于该面料自身六次读数离散度的，都算持平（P06，0.002 对离散度 0.041；P15，0.015 对 0.022）。两条臂都离实物很远。</li>
+      <li><b>最清楚的一例是染色差异。</b> P31 与 P32 是同一块布的两种染色。实物上它们相差 0.202。库预设给了它们相同的系数，只差 0.0001 —— 它根本看不出这是两块不同的面料。实测输入把它们分开了 0.007，也就是说它同样没有还原出这个差异。</li>
     </ul>
-    <div class="note"><div class="h">What this does and does not establish</div>
-      <p>The rig is not a certified Cusick instrument. One rig, seven fabrics, one engine: this
-      bounds the deltas in the library, it does not convert them into errors against physical
-      reality. They remain preset-vs-measured differences computed inside CLO3D.</p></div>
+    <div class="note"><div class="h">这确立了什么，又没有确立什么</div>
+      <p>这台装置不是经过认证的 Cusick 仪器。一台装置、七块面料、一个引擎：这给库里的差值划了边界，并不能把它们变成相对物理真实的误差。它们仍然是在 CLO3D 内部算出的「库预设对实测」差异。</p></div>
   </div>
 </div></section>
 
 <section id="helper"><div class="wrap">
   <div class="num">05<span>DRAPE Helper</span></div>
   <div>
-    <h2>Run the comparison on your own garment</h2>
-    <p class="claim">DRAPE Helper is a Windows companion app that drives the same comparison on a
-    garment file you supply, and writes the result as a PDF report.</p>
-    <p>Give it a CLO3D garment (<code>.zprj</code>) plus two fabrics (<code>.zfab</code>) &mdash; a
-    baseline and a candidate &mdash; and it simulates both on your garment, measures the per-vertex
-    difference, and reports it. Fast mode runs each arm once; full mode repeats three times so the
-    run-to-run spread is visible next to the difference you are reading.</p>
-    <a class="cta" href="https://apps.microsoft.com/detail/9N2HBT45NH8J" target="_blank" rel="noopener noreferrer">Get DRAPE Helper from the Microsoft Store &rarr;</a>
-    <p class="q">Installs and updates from the Microsoft Store. Windows 10 and 11. A local CLO3D
-    installation is required &mdash; the app drives your copy of CLO3D, it does not replace it.</p>
+    <h2>在你自己的服装上跑这套比较</h2>
+    <p class="claim">DRAPE Helper 是一个 Windows 配套应用，它在你提供的服装文件上驱动同一套比较，并把结果写成 PDF 报告。</p>
+    <p>给它一件 CLO3D 服装（<code>.zprj</code>）再加两块面料（<code>.zfab</code>）—— 一个基线、一个候选 —— 它就会在你的服装上把两者都仿真一遍，量出逐顶点差异并给出报告。快速模式每条臂跑一次；完整模式重复三次，这样运行间的离散度会和你正在读的那个差异并排显示。</p>
+    <a class="cta" href="https://apps.microsoft.com/detail/9N2HBT45NH8J" target="_blank" rel="noopener noreferrer">在 Microsoft Store 获取 DRAPE Helper →</a>
+    <p class="q">通过 Microsoft Store 安装与更新。Windows 10 与 11。需要本机已安装 CLO3D —— 这个应用驱动你自己那份 CLO3D，并不取代它。</p>
   </div>
 </div></section>
 
 <section id="reading"><div class="wrap">
-  <div class="num">06<span>Reading a delta</span></div>
+  <div class="num">06<span>怎么读一个差值</span></div>
   <div>
-    <h2>A delta is a match statement, not a score</h2>
-    <p class="claim">Read a delta as: the library fabric is not a match to the fabric you are hoping
-    to use. It is not a measure of how wrong CLO3D is, and a smaller number is not automatically
-    the better garment.</p>
+    <h2>差值是一句匹配度陈述，不是评分</h2>
+    <p class="claim">这样读一个差值：库里的面料与你打算用的那块布不匹配。它不是在衡量 CLO3D 错得有多离谱，数字更小也不自动等于服装更好。</p>
     <ul>
-      <li>Every value is a <b>within-CLO3D difference</b> between a named library preset and the
-      measured input &mdash; not an error against physical reality.</li>
-      <li>Preset baselines are <b>manually chosen</b> CLO library references, not equivalent
-      physical fabrics. There is no naturally correct baseline for the delta to be measured from.</li>
-      <li>A measured value is <b>a known reference point, not a target.</b> Designers lower
-      stiffness on purpose to exaggerate drape. Closer to measured is not automatically the
-      better-looking garment &mdash; it is the position you can account for.</li>
-      <li>A delta <b>belongs to the garment it was measured on.</b> What transfers between projects
-      is the method, not the millimetres.</li>
-      <li>A different CLO3D build is <b>a different engine.</b> Results from another version have to
-      be reported separately, never merged into this record.</li>
+      <li>每一个数值，都是 <b>CLO3D 内部的差异</b> —— 在具名库预设与实测输入之间，而不是相对物理真实的误差。</li>
+      <li>预设基线是 <b>人工挑选的</b> CLO 库参照，并不是等效的实物面料。并不存在一个天然正确的基线供差值从中起算。</li>
+      <li>实测值是 <b>一个已知的参照点，不是目标。</b> 设计师会故意调低挺度来夸张悬垂。越接近实测，并不自动等于服装更好看 —— 它只是那个你说得清来由的位置。</li>
+      <li>一个差值 <b>属于它被测量时所在的那件服装。</b> 能在项目之间迁移的是方法，不是毫米数。</li>
+      <li>换一个 CLO3D 构建版本，就是 <b>换了一个引擎。</b> 来自另一个版本的结果必须单独报告，绝不能并进这份记录。</li>
     </ul>
-    <p>Where it is useful: before cutting a toile. If the digital fabric standing in for your cloth
-    is 95&nbsp;mm away from it on the garment you are about to sample, the fitting you approved on
-    screen is not the fitting that arrives on the stand &mdash; and the cost of finding out is a
-    cut length of cloth and a pattern revision.</p>
+    <p>它在哪里有用：下剪裁坯样之前。如果替你那块布站位的数字面料，在你即将打样的这件衣服上与它相差 95 mm，那么你在屏幕上通过的那个版，并不是最终上人台的那个版 —— 而发现这件事的代价，是一段裁掉的布和一次改版。</p>
   </div>
 </div></section>
 
 <section id="limits"><div class="wrap">
-  <div class="num">07<span>Limits</span></div>
+  <div class="num">07<span>边界</span></div>
   <div>
-    <h2>Stated in full, on every page</h2>
-    <p class="claim">This is an exploratory single-engine pilot by one MA student. The limits below
-    are not disclaimers added at the end &mdash; they define what the numbers are allowed to mean.</p>
+    <h2>每一页都完整写明</h2>
+    <p class="claim">这是一名硕士生做的探索性单一引擎试点。下面这些边界不是写在末尾的免责声明 —— 它们界定了这些数字被允许表示什么。</p>
     <ul class="tight">
-      <li>Single solver: CLO3D 2026.0.374, particle distance 10. No cross-engine comparison.</li>
-      <li>Seven specimens, six specifications &mdash; P31 and P32 are the same specification dyed
-      apart. n&nbsp;=&nbsp;5 per reported test, warp and weft where the property is directional.</li>
-      <li>ISO 139 atmospheric conditioning was not carried out. Declared as a departure, not
-      omitted.</li>
-      <li>Bending uses a non-standard cantilever procedure; shear is left at the engine default.</li>
-      <li>Property-isolation evidence exists for P15 and P28 only. The other five fabrics have no
-      repeat-run data, and say so where their numbers appear.</li>
-      <li>Internal consistency checks (Spearman 0.98 / 1.00) are internal consistency only. They are
-      not physical-truth validation.</li>
-      <li>The physical rig is self-built and uncertified. v1 demonstrates one fabric intake channel
-      end to end; the others are designed concepts.</li>
-      <li>Provenance is exported exactly as it was declared. This deployment does not verify it.</li>
+      <li>单一解算器：CLO3D 2026.0.374，粒子间距 10。没有跨引擎比较。</li>
+      <li>七块试样、六种规格 —— P31 与 P32 是同一规格分开染色。每项报告的测试 n = 5，属性有方向性的则分经纬。</li>
+      <li>未执行 ISO 139 标准大气调湿。作为偏离如实声明，而非略去不提。</li>
+      <li>弯曲采用非标准悬臂程序；剪切保留引擎默认值。</li>
+      <li>属性隔离证据只有 P15 与 P28 有。其余五块面料没有重复运行数据，并在它们的数字出现处写明这一点。</li>
+      <li>内部一致性检验（Spearman 0.98 / 1.00）只是内部一致性，不是物理真值验证。</li>
+      <li>物理装置是自建且未经认证的。v1 完整演示了一条面料进料通道，其余是设计概念。</li>
+      <li>溯源信息按声明时的原样导出。本部署不对其进行核实。</li>
     </ul>
-    <p class="q">The measured <code>.zfab</code> files are downloadable from each fabric card in the
-    workspace, alongside the named library preset, both garment scenarios, the engine build and the
-    fitting mode. The garment engineering files are not distributed, so the exact millimetre figures
-    here cannot be reproduced &mdash; the method can.</p>
+    <p class="q">实测的 <code>.zfab</code> 文件可从工作台里每一张面料卡下载，同时附具名库预设、两个服装场景、引擎构建版本与仿真模式。服装工程文件不随之分发，因此这里的具体毫米数无法复现 —— 方法可以。</p>
   </div>
 </div></section>
 
@@ -447,14 +381,12 @@ tbody tr td{transition:background .18s ease}
 
 <footer><div class="wrap">
   <div class="fb"><b>DRAPE &#9651; &middot; DRAPE DELTA</b>
-    A measured digital-material workspace for CLO3D, built as an MA Innovative Fashion Production
-    masters project. Panel concept &middot; single-engine pilot.<br>
-    Chenhao Zhou (He/Him) &middot; London College of Fashion &middot; University of the Arts London
-    &middot; 2026<br>
-    <a href="/">Open the workspace</a> &nbsp;&middot;&nbsp;
-    <a href="https://apps.microsoft.com/detail/9N2HBT45NH8J" target="_blank" rel="noopener noreferrer">DRAPE Helper on the Microsoft Store</a>
+    一个面向 CLO3D 的实测数字面料工作台，作为 MA Innovative Fashion Production 硕士毕业项目构建。面板概念 · 单一引擎试点。<br>
+    Chenhao Zhou (He/Him) · London College of Fashion · University of the Arts London · 2026<br>
+    <a href="/?lang=zh">打开工作台</a> &nbsp;&middot;&nbsp;
+    <a href="https://apps.microsoft.com/detail/9N2HBT45NH8J" target="_blank" rel="noopener noreferrer">Microsoft Store 上的 DRAPE Helper</a>
   </div>
-  <a class="back" href="/">Enter workspace &rarr;</a>
+  <a class="back" href="/?lang=zh">进入工作台 →</a>
 </div></footer>
 
 <script>

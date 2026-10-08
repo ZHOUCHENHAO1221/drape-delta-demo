@@ -206,7 +206,8 @@
     "A measured digital-material workspace for CLO3D — see how far a library fabric preset sits from the measured fabric.": "面向 CLO3D 的实测数字面料工作台——直观看到库预设与实测面料之间差多少。",
     "A measured digital-material workspace — see how far a library fabric preset sits from the measured fabric.": "实测数字面料工作台——直观看到库预设与实测面料之间差多少。",
     "Enter workspace →": "进入工作台 →",
-    "Panel concept · single-engine pilot · Chenhao Zhou · LCF · UAL 2026": "面板概念 · 单一引擎试点 · Chenhao Zhou · LCF · UAL 2026",
+    "About this project →": "关于这个项目 →",
+  "Panel concept · single-engine pilot · Chenhao Zhou · LCF · UAL 2026": "面板概念 · 单一引擎试点 · Chenhao Zhou · LCF · UAL 2026",
     "Chenhao Zhou (He/Him) · London College of Fashion · UAL · 2026": "Chenhao Zhou(He/Him)· 伦敦时装学院 · UAL · 2026",
     "Open the project page →": "打开完整项目说明页 →",
     "tap to begin": "轻触开始",
@@ -891,4 +892,25 @@
   setTimeout(function () { applyZH(); ensureToggle(); }, 400);
   setTimeout(function () { applyZH(); ensureToggle(); }, 1200);
   window.__drapeEnsureToggle = ensureToggle;
+  /* drape_about_zh: i18n 只换文本不换 href。切中文时把 About 链接指向中文页，
+     否则中文读者点进去仍是英文 about.html。 */
+  function aboutZh() {
+    try {
+      var ls = document.querySelectorAll('a[href$="about.html"], a[href$="/about"]');
+      for (var i = 0; i < ls.length; i++) {
+        var h = ls[i].getAttribute('href') || '';
+        if (h.indexOf('about-zh') < 0) {
+          ls[i].setAttribute('href', h.replace(/about(\.html)?$/, 'about-zh.html'));
+          ls[i].setAttribute('hreflang', 'zh-Hans');
+        }
+      }
+    } catch (e) {}
+  }
+
+  if (zh()) {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', aboutZh);
+    else aboutZh();
+    setTimeout(aboutZh, 1200);
+  }
+
 })();
