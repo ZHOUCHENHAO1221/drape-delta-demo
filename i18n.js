@@ -512,6 +512,10 @@
     "What this does not do": "本工具不做什么",
     // ---- physical drape comparison on Methods (2026-10-04) ----
   "Held against cloth": "拿去对实物",
+  // ---- controlled baseline (2026-10-18) ----
+  "Controlled baseline": "受控对照",
+  "CLOFAB with this fabric’s measured weight and thickness, against the measured run, drape G1, one session:": "CLOFAB 填入这块布的实测克重与厚度，对实测那一次模拟，悬垂 G1，同一次会话：",
+  "With weight and thickness held to the measured values, the G1 gap barely moves: median 11.8 mm, against 10.9 mm for the preset in the same session (12.0 mm in the July record). What remains cannot come from weight or thickness. P15 is the exception: CLOFAB brings it to 9.9 mm, so most of its 95 mm sat in the preset’s stretch.": "把克重和厚度固定为实测值后，G1 的差距几乎不变：中位数 11.8 mm，同一次会话里库预设为 10.9 mm（7 月记录为 12.0 mm）。剩下的差距不可能来自克重或厚度。例外是 P15：CLOFAB 把它降到 9.9 mm，说明它那 95 mm 主要出在库预设的拉伸上。",
   // ---- CLOFAB form footer (2026-10-18) ----
   "CLOFAB ↔ measured · drape G1 Δ 10.0 mm · same session": "CLOFAB ↔ 实测 · 悬垂 G1 Δ 10.0 mm · 同一次会话",
   "CLOFAB ↔ measured · drape G1 Δ 9.9 mm · same session": "CLOFAB ↔ 实测 · 悬垂 G1 Δ 9.9 mm · 同一次会话",
