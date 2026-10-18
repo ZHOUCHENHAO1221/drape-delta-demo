@@ -512,6 +512,21 @@
     "What this does not do": "本工具不做什么",
     // ---- physical drape comparison on Methods (2026-10-04) ----
   "Held against cloth": "拿去对实物",
+  // ---- CLOFAB form footer (2026-10-18) ----
+  "CLOFAB ↔ measured · drape G1 Δ 10.0 mm · same session": "CLOFAB ↔ 实测 · 悬垂 G1 Δ 10.0 mm · 同一次会话",
+  "CLOFAB ↔ measured · drape G1 Δ 9.9 mm · same session": "CLOFAB ↔ 实测 · 悬垂 G1 Δ 9.9 mm · 同一次会话",
+  "CLOFAB ↔ measured · drape G1 Δ 13.2 mm · same session": "CLOFAB ↔ 实测 · 悬垂 G1 Δ 13.2 mm · 同一次会话",
+  "CLOFAB ↔ measured · drape G1 Δ 9.1 mm · same session": "CLOFAB ↔ 实测 · 悬垂 G1 Δ 9.1 mm · 同一次会话",
+  "CLOFAB ↔ measured · drape G1 Δ 24.5 mm · same session": "CLOFAB ↔ 实测 · 悬垂 G1 Δ 24.5 mm · 同一次会话",
+  "CLOFAB ↔ measured · drape G1 Δ 12.7 mm · same session": "CLOFAB ↔ 实测 · 悬垂 G1 Δ 12.7 mm · 同一次会话",
+  "CLOFAB ↔ measured · drape G1 Δ 11.8 mm · same session": "CLOFAB ↔ 实测 · 悬垂 G1 Δ 11.8 mm · 同一次会话",
+  // ---- CLOFAB third baseline (2026-10-18) ----
+  "A third baseline: CLOFAB": "第三种基线：CLOFAB",
+  "CLO’s own CLOFAB estimates a full set of physical properties from fabric type, composition, weight and thickness. The same seven fabrics were entered with their measured weight and thickness and put on the same virtual rig, rerun in one session (CLO 2026.1.310) with the measured and preset arms, which reproduced their published figures.": "CLO 自带的 CLOFAB 按面料类型、成分、克重和厚度推算一整套物理属性。同样七块面料填入实测克重与厚度，放上同一个虚拟装置，与实测、库预设两组在同一次会话（CLO 2026.1.310）里重跑；后两组复现了已发布的数字。",
+  "Order: CLOFAB ranks with the cloth at 0.36 — near the presets (0.29), far from measured input (0.96). Amount: mean absolute error 0.147, the largest of the three. Its largest miss is the cotton jersey, P15: 0.477 against 0.256 on the rig; its weft-stretch estimate is about fourteen times stiffer than the measured input, its warp about two and a half times.": "排序：CLOFAB 与实物的一致性为 0.36，接近库预设（0.29），远低于实测输入（0.96）。数值：平均绝对差 0.147，三组中最大。最大的偏差在棉针织 P15：装置上 0.477 对实物 0.256；它推算的纬向拉伸比实测输入硬约十四倍，经向约两倍半。",
+  "CLOFAB returns identical properties for P31 and P32, so it does not separate the two colourways either (0.005 apart).": "CLOFAB 给 P31 与 P32 的物理属性完全相同，因此同样没有把两个染色分开（只差 0.005）。",
+  "On the G1 maxi dress, rerun in the same session, CLOFAB lands closer to the measured run than the preset does on the jersey (P15: 9.9 mm against 93.5 mm) and the worsted wool (9.1 against 17.9), and about as far or slightly further on the other five. These are distances between two simulations, not against cloth.": "在同一次会话重跑的 G1 长裙上，CLOFAB 在棉针织（P15：9.9 mm 对库预设的 93.5 mm）和精纺羊毛（9.1 对 17.9）上比库预设更接近实测那一次模拟，其余五块差不多或略远。这些是两次模拟之间的距离，不是与实物的距离。",
+  "So the four values on a fabric card help where a preset is badly wrong for that fabric, as with the jersey’s stretch on the dress, but on these seven they did not recover the drape ranking against cloth; measured bending and stretch did.": "所以，面料卡上的四项数值能纠正库预设对某块布错得离谱的地方，比如长裙上针织的拉伸；但在这七块上，它们没有恢复出与实物一致的悬垂排序，实测的弯曲和拉伸做到了。",
   "Seven fabrics were draped on a self-built Cusick-style rig — 3 specimens × 2 faces each — and the drape coefficient compared against the same seven simulated from measured input and from library presets. The rig is not a certified Cusick instrument.": "七块面料在自建的 Cusick 式装置上做悬垂——每块 3 个试样 × 2 个面——所得悬垂系数与同样七块的实测输入仿真、库预设仿真对照。该装置不是经认证的 Cusick 仪器。",
   "Order: measured input ranks with the cloth (Spearman 0.964); the presets do not (0.286). Amount: mean absolute error 0.106 against 0.116. Measured is closer on 3, level on 2 and further on 2, counting as level any fabric where the two arms differ by less than that fabric’s own spread across its six readings (P06, 0.002 against a spread of 0.041; P15, 0.015 against 0.022) — both arms are still far from the cloth.": "排序：实测输入与实物同序（Spearman 0.964），库预设不同序（0.286）。数值：平均绝对偏差 0.106 对 0.116。实测更近 3 块、打平 2 块、更远 2 块；两条臂的偏差之差小于该布自己六次读数的离散度时计作打平（P06，0.002 对离散度 0.041；P15，0.015 对 0.022）——两者离实物都还远。",
   "P31 and P32 are one cloth in two colourways. Physically they differ by 0.202. The library preset gives them the same coefficient, 0.0001 apart. Measured input separates them by 0.007 — it does not recover the difference either.": "P31 与 P32 是同一卷布的两个染色。实物相差 0.202。库预设给出的系数相同，只差 0.0001。实测输入只拉开 0.007——它同样没有把这个差恢复出来。",
